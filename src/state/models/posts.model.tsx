@@ -111,15 +111,15 @@ export const PostsModel: Posts = {
 
     request: action((state, payload: any) => {
         if (payload.isTag) {
-            return (state.loadingTags = payload.loading);
-        } else return (state.loadingPosts = payload.loading);
+            return (state.loadingTags = payload.loader);
+        } else return (state.loadingPosts = payload.loader);
     }),
 
     success: action((state, payload: any) => {
         if (payload.isTag) {
-            return (state.tags = payload.tag);
-        } else return (state.posts = payload.posts);
-        // return (state.loadingPosts = payload);
+            return (state.tags = payload.data);
+        } else return (state.posts = payload.data);
+        // return (state.loaderPosts = payload);
     }),
     failure: action((state, payload: any) => {
         if (payload !== null) {
@@ -138,7 +138,7 @@ export const PostsModel: Posts = {
                 // // message.success('Profile photo updated');
                 actions.request({ isTag: false, loader: false } as any);
                 // // actions.getProfilePhoto((await response).data.filename)
-                actions.success({ isTag: false, posts: response.data } as any);
+                actions.success({ isTag: false, data: response.data } as any);
             }
         } catch (error: any) {
             actions.request({ isTag: false, loader: false } as any);
@@ -183,36 +183,36 @@ export const PostsModel: Posts = {
         }
     }),
     registerTag: thunk(async (actions, payload: any) => {
-        actions.request({ isTag: true, loading: false } as any);
+        actions.request({ isTag: true, loader: false } as any);
         actions.request({ isTag: true, loader: true } as any);
         try {
             const response = await client().post(`/tag`, payload);
             if (response.data) {
                 message.success("Tag created");
                 actions.getTags();
-                actions.request({ isTag: true, loading: false } as any);
+                actions.request({ isTag: true, loader: false } as any);
             }
         } catch (error: any) {
-            actions.request({ isTag: true, loading: false } as any);
+            actions.request({ isTag: true, loader: false } as any);
             actions.failure(error.response ? error.response.data : null);
 
             console.log(error.response.data);
         }
     }),
     getTags: thunk(async (actions) => {
-        actions.request({ isTag: true, loading: false } as any);
+        actions.request({ isTag: true, loader: false } as any);
         actions.request({ isTag: true, loader: true } as any);
         try {
             const response = await client().get(`/tag`);
             if (response.data) {
                 // console.log(response, "k");
                 // // message.success('Profile photo updated');
-                actions.request({ isTag: true, loading: false } as any);
+                actions.request({ isTag: true, loader: false } as any);
                 // // actions.getProfilePhoto((await response).data.filename)
-                actions.success({ isTag: true, tag: response.data } as any);
+                actions.success({ isTag: true, data: response.data } as any);
             }
         } catch (error: any) {
-            actions.request({ isTag: true, loading: false } as any);
+            actions.request({ isTag: true, loader: false } as any);
             // actions.success({ data: null, image: true } as any)
             // actions.failure(error.response ? error.response.data : null);
 

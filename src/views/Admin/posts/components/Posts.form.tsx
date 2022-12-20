@@ -309,7 +309,7 @@ export const PostsForm = (props: Props) => {
                                     >
                                         <Button
                                             type="primary"
-                                            // loading={loading}
+                                            loading={loadingTags}
                                             size="small"
                                             style={{ fontSize: "10px" }}
                                             onClick={addTag}
