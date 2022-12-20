@@ -74,13 +74,13 @@ export const UsersView = (props: Props) => {
                 <>
                     {communities.length > 0
                         ? communities.map((com) => {
-                              let color = com.length > 5 ? "geekblue" : "green";
-                              if (com === "loser") {
-                                  color = "volcano";
-                              }
+                              let color: string;
+                              if (com.role === "user") {
+                                  color = "green";
+                              } else color = "orange";
                               return (
                                   <Tag color={color} key={com}>
-                                      {com.toUpperCase()}
+                                      {com.name.toUpperCase()}
                                   </Tag>
                               );
                           })
