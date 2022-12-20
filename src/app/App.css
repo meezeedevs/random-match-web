@@ -29,9 +29,6 @@ body {
   content: "*";
 }
 
-.ant-table-wrapper .ant-table.ant-table-small {
-  font-size: 12px;
-}
 
 .sub-actions {
   color: grey;

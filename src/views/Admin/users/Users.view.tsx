@@ -114,7 +114,6 @@ export const UsersView = (props: Props) => {
             <Table
                 columns={columns}
                 dataSource={appUsers}
-                size="small"
                 loading={loadingUsers}
             />
         </div>
@@ -158,7 +157,6 @@ export const RenderContent = ({ el }: RoleProps) => {
                                 message="Please input the role!"
                                 placeholder="Enter the role"
                                 select
-                                size="small"
                                 options={[
                                     {
                                         value: "user",
@@ -178,7 +176,6 @@ export const RenderContent = ({ el }: RoleProps) => {
                                         type="primary"
                                         htmlType="submit"
                                         loading={loading}
-                                        size="small"
                                     >
                                         Assign
                                     </Button>
@@ -186,7 +183,6 @@ export const RenderContent = ({ el }: RoleProps) => {
                                 <Form.Item>
                                     <Button
                                         type="default"
-                                        size="small"
                                         onClick={() => setIsRole(false)}
                                         style={{ marginLeft: "5px" }}
                                     >
