@@ -44,7 +44,6 @@ export const CommunitiesSelect = ({ name }: Props) => {
             select
             loading={loading}
             options={appcommunities}
-            size="small"
         />
     );
 };

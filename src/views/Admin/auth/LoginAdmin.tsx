@@ -48,7 +48,6 @@ export const LoginAdmin = (props: Props) => {
                         message="Please input your email!"
                         placeholder="Enter your email"
                         type="email"
-                        size="small"
                     />
 
                     <InputField
@@ -58,7 +57,6 @@ export const LoginAdmin = (props: Props) => {
                         placeholder="Enter your password"
                         type="password"
                         isPassword={true}
-                        size="small"
                     />
 
                     <Form.Item>

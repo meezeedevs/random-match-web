@@ -104,7 +104,6 @@ export const PostsList = (props: Props) => {
         <Table
             columns={columns}
             dataSource={appPosts}
-            size="small"
             loading={loadingPosts}
             expandable={{
                 expandedRowRender: (record) => (

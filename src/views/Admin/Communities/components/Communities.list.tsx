@@ -76,7 +76,6 @@ export const CommunitiesList = (props: Props) => {
         <Table
             columns={columns}
             dataSource={appCommunities}
-            size="small"
             loading={loading}
         />
     );
@@ -119,7 +118,6 @@ export const RenderContent = ({ el }: any) => {
                                 message="Please input the role!"
                                 placeholder="Select a role"
                                 select
-                                size="small"
                                 options={[
                                     {
                                         value: "user",
@@ -139,7 +137,6 @@ export const RenderContent = ({ el }: any) => {
                                         type="primary"
                                         htmlType="submit"
                                         loading={loading}
-                                        size="small"
                                     >
                                         Assign
                                     </Button>
@@ -147,7 +144,6 @@ export const RenderContent = ({ el }: any) => {
                                 <Form.Item>
                                     <Button
                                         type="default"
-                                        size="small"
                                         onClick={() => setIsRole(false)}
                                         style={{ marginLeft: "5px" }}
                                     >

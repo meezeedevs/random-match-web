@@ -78,12 +78,5 @@ export const EventsList = (props: Props) => {
             ),
         },
     ];
-    return (
-        <Table
-            columns={columns}
-            dataSource={appEvents}
-            size="small"
-            loading={loading}
-        />
-    );
+    return <Table columns={columns} dataSource={appEvents} loading={loading} />;
 };

@@ -40,7 +40,6 @@ export const RoleSelect = ({ name }: Props) => {
             select
             loading={loadingRoles}
             options={appRoles}
-            size="small"
         />
     );
 };
