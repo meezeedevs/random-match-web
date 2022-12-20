@@ -46,14 +46,19 @@ export const EventsList = (props: Props) => {
             render: (text) => <span style={{ color: "gray" }}>{text}</span>,
         },
         {
-            title: "place",
-            key: "place",
-            dataIndex: "place",
+            title: "location",
+            key: "location",
+            dataIndex: "location",
         },
         {
             title: "organiser",
             key: "organiser",
             dataIndex: "organiser",
+            render: (text, record) => (
+                <span className="text-primary">
+                    {record.organiser?.firstName} {record.organiser?.lastName}
+                </span>
+            ),
         },
         {
             title: "Date",

@@ -6,6 +6,10 @@ body {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+.text-primary {
+  color: #3baa6f
+}
+
 .ant-btn-primary {
   background-color: #3baa6f !important;
 }
