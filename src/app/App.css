@@ -1,0 +1,47 @@
+@import url('antd/dist/reset.css');
+
+*,
+body {
+  /* font-size: 5px !important; */
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.ant-btn-primary {
+  background-color: #3baa6f !important;
+}
+
+.ant-btn-primary:not(:disabled):hover {
+  background-color: #2c8450 !important;
+}
+
+.delete:hover {
+  color: orangered;
+  cursor: pointer;
+}
+
+.required::before {
+  display: inline-block;
+  margin-inline-end: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  content: "*";
+}
+
+.ant-table-wrapper .ant-table.ant-table-small {
+  font-size: 12px;
+}
+
+.sub-actions {
+  color: grey;
+  cursor: pointer
+}
+
+.sub-actions:hover {
+  color: black
+}
+
+.table-inputs .ant-form-item {
+  margin-bottom: 0 !important;
+}
