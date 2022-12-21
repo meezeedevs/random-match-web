@@ -9,5 +9,6 @@ export const routes = {
     posts: "/admin/posts",
     events: "/admin/events",
     communities: "/admin/communities",
+    communityDetail: "/admin/communities/:id",
     poems: "/admin/poems",
 };

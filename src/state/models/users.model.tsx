@@ -9,23 +9,23 @@ import { message, notification } from "antd";
 // };
 
 const error = (error: any) => {
-    if (error.email) {
-        switch (error.email) {
-            case "EMAIL_TYPE":
-                message.error("Email invalid");
+    if (error?.user) {
+        switch (error?.user) {
+            case "ALREADY_HAVE_ACCESS":
+                message.error("User is already in the community");
                 break;
             case "USER_EXIST_NOT":
-                message.error("Email does not exist");
+                message.error("user does not exist");
                 break;
-            case "EMAIL_EMPTY":
-                message.error("You're trying to login with an empty email");
+            case "user_EMPTY":
+                message.error("You're trying to login with an empty user");
                 break;
             default:
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.password) {
-        switch (error.password) {
+    } else if (error?.password) {
+        switch (error?.password) {
             case "PASSWORD_WRONG":
                 message.error("Wrong password");
                 break;
@@ -35,15 +35,15 @@ const error = (error: any) => {
             case "PASSWORD_EMPTY":
                 message.error("You're trying to login with an empty password");
                 break;
-            case "EMAIL_OR_PASSWORD_WRONG":
-                message.error("Email or password wrong!");
+            case "user_OR_PASSWORD_WRONG":
+                message.error("user or password wrong!");
                 break;
             default:
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.oldPassword) {
-        switch (error.oldPassword) {
+    } else if (error?.oldPassword) {
+        switch (error?.oldPassword) {
             case "OLDPASSWORD_WRONG":
                 message.error("Wrong old password");
                 break;
@@ -54,8 +54,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.newPassword) {
-        switch (error.newPassword) {
+    } else if (error?.newPassword) {
+        switch (error?.newPassword) {
             case "NEWPASSWORD_MIN6_MAX30":
                 message.error(
                     "Your new password must have characters between 6 and 30"
@@ -73,8 +73,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.newPassword2) {
-        switch (error.newPassword) {
+    } else if (error?.newPassword2) {
+        switch (error?.newPassword) {
             case "NEWPASSWORD2_EMPTY":
                 message.error("Confirm password is empty");
                 break;
@@ -82,8 +82,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.message) {
-        switch (error.message) {
+    } else if (error?.message) {
+        switch (error?.message) {
             case "NOT_OWNER":
                 message.error(
                     "It seems you're trying to recover the account wrongly, please follow the guidelines!!!"
@@ -143,9 +143,9 @@ export const UsersModel: Users = {
         } catch (error: any) {
             actions.request({ isRole: false, loading: false } as any);
             // actions.success({ data: null, image: true } as any)
-            // actions.failure(error.response ? error.response.data : null);
+            // actions.failure(error?.response ? error?.response.data : null);
 
-            // console.log(error.response.data);
+            // console.log(error?.response.data);
         }
     }),
 
@@ -161,8 +161,8 @@ export const UsersModel: Users = {
             }
         } catch (error: any) {
             actions.request({ isRole: true, loading: false } as any as any);
-            actions.failure(error.response ? error.response.data : null);
-            console.log(error.response);
+            actions.failure(error?.response ? error?.response.data : null);
+            console.log(error?.response);
         }
     }),
     getRoles: thunk(async (actions) => {
@@ -180,9 +180,27 @@ export const UsersModel: Users = {
         } catch (error: any) {
             actions.request({ isRole: true, loading: false } as any as any);
             // actions.success({ data: null, image: true } as any)
-            // actions.failure(error.response ? error.response.data : null);
+            // actions.failure(error?.response ? error?.response.data : null);
 
-            // console.log(error.response.data);
+            // console.log(error?.response.data);
+        }
+    }),
+    updateRole: thunk(async (actions, payload: any) => {
+        actions.request({ isRole: true, loading: true } as any as any);
+
+        try {
+            const response = await client().put(`/role/${payload.roleId}`, {
+                role: payload.role,
+            });
+            if (response.data.success) {
+                message.success("Role updated succesfully");
+                actions.request({ isRole: true, loading: false } as any as any);
+                actions.getUsers();
+            }
+        } catch (error: any) {
+            actions.request({ isRole: true, loading: false } as any as any);
+            actions.failure(error?.response ? error?.response.data : null);
+            console.log(error?.response);
         }
     }),
 };

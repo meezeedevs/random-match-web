@@ -9,8 +9,8 @@ import { message, notification } from "antd";
 // };
 
 const error = (error: any) => {
-    if (error.email) {
-        switch (error.email) {
+    if (error?.email) {
+        switch (error?.email) {
             case "EMAIL_TYPE":
                 message.error("Email invalid");
                 break;
@@ -24,8 +24,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.password) {
-        switch (error.password) {
+    } else if (error?.password) {
+        switch (error?.password) {
             case "PASSWORD_WRONG":
                 message.error("Wrong password");
                 break;
@@ -42,8 +42,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.oldPassword) {
-        switch (error.oldPassword) {
+    } else if (error?.oldPassword) {
+        switch (error?.oldPassword) {
             case "OLDPASSWORD_WRONG":
                 message.error("Wrong old password");
                 break;
@@ -54,8 +54,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.newPassword) {
-        switch (error.newPassword) {
+    } else if (error?.newPassword) {
+        switch (error?.newPassword) {
             case "NEWPASSWORD_MIN6_MAX30":
                 message.error(
                     "Your new password must have characters between 6 and 30"
@@ -73,8 +73,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.newPassword2) {
-        switch (error.newPassword) {
+    } else if (error?.newPassword2) {
+        switch (error?.newPassword) {
             case "NEWPASSWORD2_EMPTY":
                 message.error("Confirm password is empty");
                 break;
@@ -82,8 +82,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.message) {
-        switch (error.message) {
+    } else if (error?.message) {
+        switch (error?.message) {
             case "NOT_OWNER":
                 message.error(
                     "It seems you're trying to recover the account wrongly, please follow the guidelines!!!"
@@ -143,9 +143,9 @@ export const PostsModel: Posts = {
         } catch (error: any) {
             actions.request({ isTag: false, loader: false } as any);
             // actions.success({ data: null, image: true } as any)
-            // actions.failure(error.response ? error.response.data : null);
+            // actions.failure(error?.response ? error?.response.data : null);
 
-            // console.log(error.response.data);
+            // console.log(error?.response.data);
         }
     }),
     registerPost: thunk(async (actions, payload: PostsPayload) => {
@@ -160,9 +160,9 @@ export const PostsModel: Posts = {
             }
         } catch (error: any) {
             actions.request({ isTag: false, loader: false } as any);
-            actions.failure(error.response ? error.response.data : null);
+            actions.failure(error?.response ? error?.response.data : null);
 
-            console.log(error.response.data);
+            console.log(error?.response.data);
         }
     }),
     deletePost: thunk(async (actions, payload: string) => {
@@ -177,9 +177,9 @@ export const PostsModel: Posts = {
             }
         } catch (error: any) {
             actions.request({ isTag: false, loader: false } as any);
-            actions.failure(error.response ? error.response.data : null);
+            actions.failure(error?.response ? error?.response.data : null);
 
-            console.log(error.response.data);
+            console.log(error?.response.data);
         }
     }),
     registerTag: thunk(async (actions, payload: any) => {
@@ -194,9 +194,9 @@ export const PostsModel: Posts = {
             }
         } catch (error: any) {
             actions.request({ isTag: true, loader: false } as any);
-            actions.failure(error.response ? error.response.data : null);
+            actions.failure(error?.response ? error?.response.data : null);
 
-            console.log(error.response.data);
+            console.log(error?.response.data);
         }
     }),
     getTags: thunk(async (actions) => {
@@ -214,9 +214,9 @@ export const PostsModel: Posts = {
         } catch (error: any) {
             actions.request({ isTag: true, loader: false } as any);
             // actions.success({ data: null, image: true } as any)
-            // actions.failure(error.response ? error.response.data : null);
+            // actions.failure(error?.response ? error?.response.data : null);
 
-            // console.log(error.response.data);
+            // console.log(error?.response.data);
         }
     }),
 };

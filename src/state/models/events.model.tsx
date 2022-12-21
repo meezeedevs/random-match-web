@@ -9,8 +9,8 @@ import { message, notification } from "antd";
 // };
 
 const error = (error: any) => {
-    if (error.name) {
-        switch (error.name) {
+    if (error?.name) {
+        switch (error?.name) {
             case "EMAIL_TYPE":
                 message.error("Email invalid");
                 break;
@@ -24,8 +24,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.message) {
-        switch (error.message) {
+    } else if (error?.message) {
+        switch (error?.message) {
             case "NOT_OWNER":
                 message.error(
                     "It seems you're trying to recover the account wrongly, please follow the guidelines!!!"
@@ -76,9 +76,9 @@ export const EventsModel: Events = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
+            actions.failure(error?.response ? error?.response.data : null);
 
-            console.log(error.response.data);
+            console.log(error?.response.data);
         }
     }),
     getEvents: thunk(async (actions) => {
@@ -92,9 +92,9 @@ export const EventsModel: Events = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
+            actions.failure(error?.response ? error?.response.data : null);
 
-            console.log(error.response.data);
+            console.log(error?.response.data);
         }
     }),
     deleteEvent: thunk(async (actions, payload: string) => {
@@ -109,9 +109,9 @@ export const EventsModel: Events = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
+            actions.failure(error?.response ? error?.response.data : null);
 
-            console.log(error.response.data);
+            console.log(error?.response.data);
         }
     }),
 };

@@ -21,4 +21,5 @@ export interface Users {
 
     addRole: Thunk<Users, any>;
     getRoles: Thunk<Users>;
+    updateRole: Thunk<Users, any>;
 }

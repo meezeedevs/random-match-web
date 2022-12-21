@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Route } from "react-router-dom";
 import {
     CommunitiesView,
+    CommunityDetailView,
     DashboardView,
     EventsView,
     LoginAdmin,
@@ -47,6 +48,14 @@ export const getRoutes = () => (
             element={
                 <PrivateRoutes>
                     <CommunitiesView />
+                </PrivateRoutes>
+            }
+        />
+        <Route
+            path={routes.communityDetail}
+            element={
+                <PrivateRoutes>
+                    <CommunityDetailView />
                 </PrivateRoutes>
             }
         />

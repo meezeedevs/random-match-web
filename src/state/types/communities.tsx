@@ -7,6 +7,8 @@ export interface CommunitiesPayload {
 export interface Communities {
     loading: boolean;
     communities: Array<any>;
+    loadingMembers: boolean;
+    communityMembers: Array<any>;
     errors: any;
 
     request: Action<Communities>;
@@ -15,4 +17,8 @@ export interface Communities {
     registerCommunity: Thunk<Communities, CommunitiesPayload>;
     getCommunities: Thunk<Communities>;
     deleteCommunity: Thunk<Communities, string>;
+
+    // registerCommunityMember: Thunk<Communities, CommunitiesPayload>;
+    getCommunityMembers: Thunk<Communities, string>;
+    deleteCommunityMember: Thunk<Communities, any>;
 }

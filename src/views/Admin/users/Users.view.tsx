@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Row, Space, Table, Tag } from "antd";
+import { Space, Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import { useStoreActions, useStoreState } from "hooks";
-import { CommunitiesSelect, InputField } from "components";
 
 type Props = {};
-
-type RoleProps = {
-    el: any;
-    loading: boolean;
-};
 
 interface DataType {
     _id?: string;
@@ -24,8 +18,6 @@ interface DataType {
 }
 
 export const UsersView = (props: Props) => {
-    const { loading } = useStoreState((state) => state.auth);
-
     const [appUsers, setAppUsers] = useState([] as DataType[]);
 
     const { loadingUsers, users } = useStoreState((state) => state.users);
@@ -88,13 +80,6 @@ export const UsersView = (props: Props) => {
                 </>
             ),
         },
-        {
-            title: "Assign role in community",
-            key: "role",
-            render: (text, record) => (
-                <RenderContent el={record} loading={loading} />
-            ),
-        },
 
         {
             title: "Action",
@@ -116,101 +101,6 @@ export const UsersView = (props: Props) => {
                 dataSource={appUsers}
                 loading={loadingUsers}
             />
-        </div>
-    );
-};
-
-export const RenderContent = ({ el }: RoleProps) => {
-    const [isRole, setIsRole] = useState(false);
-
-    const { loading } = useStoreState((state) => state.auth);
-
-    const { addRole } = useStoreActions((actions) => actions.users);
-
-    const onFinish = (val: any) => {
-        const data = {
-            user: el._id,
-            role: val.role,
-            community: val.community,
-        };
-        console.log(data);
-        addRole(data);
-    };
-    const RoleComponent = () => {
-        return (
-            <div className="table-inputs" key={el._id}>
-                <Form
-                    name="normal_login"
-                    className="login-form"
-                    onFinish={onFinish}
-                    layout="vertical"
-                    noValidate
-                >
-                    <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                        <Col className="gutter-row" span={8}>
-                            <CommunitiesSelect name="community" />
-                        </Col>
-                        <Col className="gutter-row" span={8}>
-                            <InputField
-                                name="role"
-                                required={true}
-                                message="Please input the role!"
-                                placeholder="Enter the role"
-                                select
-                                options={[
-                                    {
-                                        value: "user",
-                                        label: "User",
-                                    },
-                                    {
-                                        value: "admin",
-                                        label: "Admin",
-                                    },
-                                ]}
-                            />
-                        </Col>
-                        <Col className="gutter-row" span={8}>
-                            <div style={{ display: "flex" }}>
-                                <Form.Item>
-                                    <Button
-                                        type="primary"
-                                        htmlType="submit"
-                                        loading={loading}
-                                    >
-                                        Assign
-                                    </Button>
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button
-                                        type="default"
-                                        onClick={() => setIsRole(false)}
-                                        style={{ marginLeft: "5px" }}
-                                    >
-                                        Cancel
-                                    </Button>
-                                </Form.Item>
-                            </div>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
-        );
-    };
-
-    return (
-        <div key={el._id}>
-            {isRole ? (
-                <RoleComponent key={el._id} />
-            ) : (
-                <span
-                    className="sub-actions"
-                    onClick={() => {
-                        setIsRole(true);
-                    }}
-                >
-                    <PlusOutlined /> assign role
-                </span>
-            )}
         </div>
     );
 };

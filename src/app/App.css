@@ -46,3 +46,12 @@ body {
 .table-inputs .ant-form-item {
   margin-bottom: 0 !important;
 }
+
+.tag-actions {
+  margin-left: 10px;
+  display: flex;
+}
+
+.tag-actions svg {
+  cursor: pointer;
+}
