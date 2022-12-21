@@ -1,5 +1,5 @@
 import { Divider } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { CommunityDetailForm, CommunityDetailList } from "./components";
 // import { CommunitiesList, CommunityForm } from "./components";
@@ -7,10 +7,11 @@ import { CommunityDetailForm, CommunityDetailList } from "./components";
 type Props = {};
 
 export const CommunityDetailView = (props: Props) => {
+    const [title, setTitle] = useState("");
     const param = useParams();
     return (
         <div>
-            <h1 style={{ fontSize: "25px" }}>Commuty detail</h1>
+            <h1 style={{ fontSize: "25px" }}>{title} Community detail</h1>
             <Divider />
             <h3>Ajout de user dans la communaute</h3>
             <div>
@@ -20,7 +21,10 @@ export const CommunityDetailView = (props: Props) => {
             <h3>Liste des communautes</h3>
 
             <div>
-                <CommunityDetailList com_id={param?.id as string} />
+                <CommunityDetailList
+                    setTitle={(val: string) => setTitle(val)}
+                    com_id={param?.id as string}
+                />
             </div>
         </div>
     );

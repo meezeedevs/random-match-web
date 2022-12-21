@@ -9,6 +9,7 @@ import moment from "moment";
 
 type Props = {
     com_id: string;
+    setTitle: any;
 };
 
 interface DataType {
@@ -16,9 +17,10 @@ interface DataType {
     user: any;
     role: string;
     createdAt: Date | any;
+    community: any;
 }
 
-export const CommunityDetailList = ({ com_id }: Props) => {
+export const CommunityDetailList = ({ com_id, setTitle }: Props) => {
     const [appCommunityMembers, setAppCommunityMembers] = useState(
         [] as DataType[]
     );
@@ -31,6 +33,10 @@ export const CommunityDetailList = ({ com_id }: Props) => {
     const { getCommunityMembers, deleteCommunityMember } = useStoreActions(
         (actions) => actions.communities
     );
+
+    useEffect(() => {
+        setTitle(appCommunityMembers[0]?.community?.name);
+    }, [appCommunityMembers]);
 
     useEffect(() => {
         getCommunityMembers(com_id as string);
