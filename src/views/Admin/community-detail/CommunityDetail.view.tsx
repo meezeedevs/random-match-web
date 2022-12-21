@@ -1,6 +1,7 @@
 import { Divider } from "antd";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { capitalizeFirstLetter } from "utils/CapitalizeFirstLetter";
 import { CommunityDetailForm, CommunityDetailList } from "./components";
 // import { CommunitiesList, CommunityForm } from "./components";
 
@@ -11,7 +12,9 @@ export const CommunityDetailView = (props: Props) => {
     const param = useParams();
     return (
         <div>
-            <h1 style={{ fontSize: "25px" }}>{title} Community detail</h1>
+            <h1 style={{ fontSize: "25px", fontWeight: "700" }}>
+                {title ? capitalizeFirstLetter(title) : "Community details"}{" "}
+            </h1>
             <Divider />
             <h3>Ajout de user dans la communaute</h3>
             <div>
