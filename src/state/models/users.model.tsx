@@ -187,6 +187,26 @@ export const UsersModel: Users = {
         }
     }),
 
+    updateUserPassword: thunk(async (actions, payload: any) => {
+        actions.request({ isRole: false, loading: false } as any);
+        actions.request({ isRole: false, loading: true } as any);
+
+        try {
+            const response = await client().post("/member/password", payload);
+
+            if (response.data.success) {
+                await actions.getUsers();
+                message.success("User password updated successfully");
+                actions.request({ isRole: false, loading: false } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isRole: false, loading: false } as any);
+            actions.failure(
+                error ? (error?.response ? error?.response.data : null) : null
+            );
+        }
+    }),
+
     addRole: thunk(async (actions, payload: any) => {
         actions.request({ isRole: true, loading: true } as any as any);
 

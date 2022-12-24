@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Typography } from "antd";
+import {
+    Button,
+    Col,
+    Form,
+    Modal,
+    Row,
+    Space,
+    Table,
+    Tag,
+    Typography,
+} from "antd";
 import { ColumnsType } from "antd/es/table";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useStoreActions, useStoreState } from "hooks";
+import { InputField } from "components";
 
 const { Paragraph } = Typography;
 
@@ -89,16 +100,8 @@ export const UsersList = (props: Props) => {
             title: "Initial Password",
             dataIndex: "initialPassword",
             key: "initialPassword",
-            render: (text) => (
-                <>
-                    {text ? (
-                        <Tag className="copyable">
-                            <Paragraph copyable>{text}</Paragraph>
-                        </Tag>
-                    ) : (
-                        "-"
-                    )}
-                </>
+            render: (text, record) => (
+                <>{text ? <EditPassword data={record} /> : "-"}</>
             ),
         },
 
@@ -124,6 +127,109 @@ export const UsersList = (props: Props) => {
                 dataSource={appUsers}
                 loading={loadingUsers}
             />
+        </div>
+    );
+};
+
+const EditPassword = (data: any) => {
+    const record = data.data;
+    console.log(data);
+    const [edition, setEdition] = useState(false);
+    const [toEdit, setToEdit] = useState(null as unknown as any);
+
+    const { loadingRoles } = useStoreState((state) => state.users);
+    const { updateUserPassword } = useStoreActions((actions) => actions.users);
+
+    const onFinish = (val: any) => {
+        const data = {
+            user: toEdit,
+            newPassword: val.password,
+            newPassword2: val.password2,
+        };
+        console.log(data);
+        updateUserPassword(data).then(() => setEdition(false));
+    };
+
+    return (
+        <div key={record._id}>
+            <>
+                <div
+                    onDoubleClick={() => {
+                        setEdition(true);
+                        setToEdit(record._id);
+                    }}
+                    style={{ cursor: "pointer" }}
+                >
+                    <Tag className="copyable">
+                        <Paragraph copyable>{record.initialPassword}</Paragraph>
+                    </Tag>
+                </div>
+                <Modal title="Basic Modal" open={edition} footer={null}>
+                    {/* <div>
+                        <p>
+                            Une fois le password mis a jour, il ne s'affichera
+                            plus. Si vous l'oublier par erreur, il faudra le
+                            re-changer
+                        </p>
+                    </div> */}
+                    <Form
+                        onFinish={onFinish}
+                        noValidate
+                        layout="vertical"
+                        style={{ maxWidth: "500px", marginTop: "1rem" }}
+                    >
+                        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                            <Col className="gutter-row" span={24}>
+                                <InputField
+                                    name="password"
+                                    required={true}
+                                    message="Please input your Password!"
+                                    placeholder="Enter your password"
+                                    type="password"
+                                    isPassword={true}
+                                />
+                            </Col>
+                        </Row>
+                        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                            <Col className="gutter-row" span={24}>
+                                <InputField
+                                    name="password2"
+                                    isPassword2
+                                    required={true}
+                                    message="Please confirm Password!"
+                                    placeholder="Confirm password"
+                                    type="password"
+                                    isPassword={true}
+                                />
+                            </Col>
+                        </Row>
+                        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                            <Col className="gutter-row" span={24}>
+                                <div style={{ display: "flex" }}>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                            loading={loadingRoles}
+                                        >
+                                            Update
+                                        </Button>
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Button
+                                            type="default"
+                                            onClick={() => setEdition(false)}
+                                            style={{ marginLeft: "5px" }}
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </Form.Item>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Modal>
+            </>
         </div>
     );
 };

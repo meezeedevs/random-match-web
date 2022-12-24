@@ -20,6 +20,7 @@ export interface Users {
     getUsers: Thunk<Users>;
     registerUser: Thunk<Users, any>;
     deleteUser: Thunk<Users, string>;
+    updateUserPassword: Thunk<Users, any>;
 
     addRole: Thunk<Users, any>;
     getRoles: Thunk<Users>;
