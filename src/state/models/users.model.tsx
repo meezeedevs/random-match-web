@@ -150,7 +150,8 @@ export const UsersModel: Users = {
     }),
 
     registerUser: thunk(async (actions, payload: any) => {
-        actions.request(true as any);
+        actions.request({ isRole: false, loading: false } as any);
+        actions.request({ isRole: false, loading: true } as any);
 
         try {
             const response = await client().post("/createUser", payload);
@@ -158,13 +159,31 @@ export const UsersModel: Users = {
             if (response.data.success) {
                 await actions.getUsers();
                 message.success("User added successfully");
-                actions.request(false as any);
+                actions.request({ isRole: false, loading: false } as any);
             }
         } catch (error: any) {
-            actions.request(false as any);
+            actions.request({ isRole: false, loading: false } as any);
             actions.failure(
                 error ? (error?.response ? error?.response.data : null) : null
             );
+        }
+    }),
+
+    deleteUser: thunk(async (actions, payload: string) => {
+        actions.request({ isRole: false, loading: false } as any);
+        actions.request({ isRole: false, loading: true } as any);
+        try {
+            const response = await client().delete(`/user/${payload}`);
+            if (response.data) {
+                message.success("User deleted");
+                actions.getUsers();
+                actions.request({ isRole: false, loading: false } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isRole: false, loading: false } as any);
+            actions.failure(error?.response ? error?.response.data : null);
+
+            console.log(error?.response.data);
         }
     }),
 

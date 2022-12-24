@@ -24,7 +24,9 @@ export const UsersList = (props: Props) => {
     const [appUsers, setAppUsers] = useState([] as DataType[]);
 
     const { loadingUsers, users } = useStoreState((state) => state.users);
-    const { getUsers } = useStoreActions((actions) => actions.users);
+    const { getUsers, deleteUser } = useStoreActions(
+        (actions) => actions.users
+    );
 
     useEffect(() => {
         getUsers();
@@ -105,7 +107,10 @@ export const UsersList = (props: Props) => {
             key: "action",
             render: (_, record) => (
                 <Space size="middle">
-                    <span className="delete">
+                    <span
+                        className="delete"
+                        onClick={() => deleteUser(record._id as string)}
+                    >
                         <DeleteOutlined />{" "}
                     </span>
                 </Space>

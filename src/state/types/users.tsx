@@ -19,6 +19,7 @@ export interface Users {
     failure: Action<Users>;
     getUsers: Thunk<Users>;
     registerUser: Thunk<Users, any>;
+    deleteUser: Thunk<Users, string>;
 
     addRole: Thunk<Users, any>;
     getRoles: Thunk<Users>;
