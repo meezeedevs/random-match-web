@@ -8,6 +8,7 @@ import {
     Space,
     Table,
     Tag,
+    Tooltip,
     Typography,
 } from "antd";
 import { ColumnsType } from "antd/es/table";
@@ -160,9 +161,13 @@ const EditPassword = (data: any) => {
                     }}
                     style={{ cursor: "pointer" }}
                 >
-                    <Tag className="copyable">
-                        <Paragraph copyable>{record.initialPassword}</Paragraph>
-                    </Tag>
+                    <Tooltip title="Double-clicker sur cet element si vous voulez mettre a jour le mot de passe">
+                        <Tag className="copyable">
+                            <Paragraph copyable>
+                                {record.initialPassword}
+                            </Paragraph>
+                        </Tag>
+                    </Tooltip>
                 </div>
                 <Modal title="Basic Modal" open={edition} footer={null}>
                     {/* <div>
