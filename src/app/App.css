@@ -55,3 +55,7 @@ body {
 .tag-actions svg {
   cursor: pointer;
 }
+
+.copyable .ant-typography {
+  margin-bottom: 0 !important;
+}

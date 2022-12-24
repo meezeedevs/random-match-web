@@ -149,6 +149,25 @@ export const UsersModel: Users = {
         }
     }),
 
+    registerUser: thunk(async (actions, payload: any) => {
+        actions.request(true as any);
+
+        try {
+            const response = await client().post("/createUser", payload);
+
+            if (response.data.success) {
+                await actions.getUsers();
+                message.success("User added successfully");
+                actions.request(false as any);
+            }
+        } catch (error: any) {
+            actions.request(false as any);
+            actions.failure(
+                error ? (error?.response ? error?.response.data : null) : null
+            );
+        }
+    }),
+
     addRole: thunk(async (actions, payload: any) => {
         actions.request({ isRole: true, loading: true } as any as any);
 
