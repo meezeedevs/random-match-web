@@ -161,7 +161,7 @@ const EditPassword = (data: any) => {
                     }}
                     style={{ cursor: "pointer" }}
                 >
-                    <Tooltip title="Double-clicker sur cet element si vous voulez mettre a jour le mot de passe">
+                    <Tooltip title="Double-clicker sur cette case texte si vous voulez mettre a jour le mot de passe">
                         <Tag className="copyable">
                             <Paragraph copyable>
                                 {record.initialPassword}
