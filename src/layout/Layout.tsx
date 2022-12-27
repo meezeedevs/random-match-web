@@ -8,8 +8,11 @@ import { Layout, theme } from "antd";
 import { SiderContent } from "./sider";
 import { useStoreActions } from "hooks";
 import { useLocation } from "react-router-dom";
+import { Container } from "components";
+import { Navbar } from "./navbar";
+import { FooterNav } from "./footer";
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 
 type Props = {
     children: ReactNode;
@@ -25,10 +28,25 @@ export const AppLayout = ({ children }: Props) => {
 
     const location = useLocation();
     const [authPage, setAuthPage] = useState(true);
+    const [adminLayout, setAdminLayout] = useState(true);
 
     useEffect(() => {
-        if (location.pathname === "/auth/login") setAuthPage(true);
-        else setAuthPage(false);
+        if (
+            location.pathname === "/auth/login" ||
+            location.pathname === "/auth/signup" ||
+            location.pathname === "/auth/forgot-password" ||
+            location.pathname === "/auth/reset-password"
+        )
+            setAuthPage(true);
+        else {
+            setAuthPage(false);
+            var regex: any = "admin";
+            var path = location.pathname;
+            if (path.indexOf(regex) > -1) setAdminLayout(true);
+            else {
+                setAdminLayout(false);
+            }
+        }
         return;
     }, [location]);
 
@@ -36,7 +54,7 @@ export const AppLayout = ({ children }: Props) => {
         <>
             {authPage ? (
                 <div> {children}</div>
-            ) : (
+            ) : adminLayout ? (
                 <Layout style={{ height: "100vh" }}>
                     <Sider trigger={null} collapsible collapsed={collapsed}>
                         <SiderContent collapsed={collapsed} />
@@ -87,6 +105,38 @@ export const AppLayout = ({ children }: Props) => {
                             {children}
                         </Content>
                     </Layout>
+                </Layout>
+            ) : (
+                <Layout className="site-layout">
+                    <Header
+                        style={{
+                            background: colorBgContainer,
+                            boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
+                            borderBottom: "2px solid #edf2f7",
+
+                            position: "sticky",
+                            top: 0,
+                            zIndex: 1,
+                            width: "100%",
+                        }}
+                    >
+                        <Container>
+                            <Navbar />
+                        </Container>
+                    </Header>
+                    <Content
+                        style={{
+                            // margin: "24px 16px",
+                            // padding: 24,
+                            // minHeight: 280,
+                            background: colorBgContainer,
+                        }}
+                    >
+                        {children}
+                    </Content>
+                    <Footer className="nav-footer">
+                        <FooterNav />
+                    </Footer>
                 </Layout>
             )}
         </>

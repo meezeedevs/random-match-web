@@ -5,6 +5,7 @@ import {
     CommunityDetailView,
     DashboardView,
     EventsView,
+    HomeView,
     LoginAdmin,
     PostsView,
     UsersView,
@@ -15,6 +16,7 @@ import { routes, PrivateRoutes } from "config";
 export const getRoutes = () => (
     <Fragment>
         <Route path={routes.login} element={<LoginAdmin />} />
+        <Route path={routes.home} element={<HomeView />} />
         {/* <Route path={routes.signup} element={<SignUpView />} /> */}
         {/*<Route path={routes.forgot} element={<ForgotPasswordView />} />
         <Route path={routes.reset} element={<ResetPasswordView />} /> */}
