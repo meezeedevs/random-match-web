@@ -1,14 +1,22 @@
 import { Button, Dropdown, Menu, MenuProps, Space } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { UserOutlined } from "@ant-design/icons";
 
 import logo from "assets/images/liwoul-hamd-logo.png";
+import { routes } from "config";
+import { Link } from "react-router-dom";
+import { isUserAuthenticated, storage } from "utils";
+import { useStoreActions } from "hooks";
 
 type Props = {};
 
 export const Navbar = (props: Props) => {
     const [current, setCurrent] = useState("islam");
+
+    const { logout } = useStoreActions((actions) => actions.auth);
+
+    const [authenticated, setAuthenticated] = useState(false);
 
     const navItems: MenuProps["items"] = [
         {
@@ -40,21 +48,32 @@ export const Navbar = (props: Props) => {
     const items: MenuProps["items"] = [
         {
             label: (
-                <Button className="custom-button border-primary">
-                    s'enregistrer
-                </Button>
+                <Link to={routes.signup}>
+                    <Button
+                        type="default"
+                        className="text-primary border-primary"
+                    >
+                        s'enregistrer
+                    </Button>
+                </Link>
             ),
             key: "0",
         },
         {
             label: (
-                <Button type="primary" size="large">
-                    se connecter
-                </Button>
+                <Link to={routes.login}>
+                    <Button type="primary">se connecter</Button>
+                </Link>
             ),
             key: "1",
         },
     ];
+
+    useEffect(() => {
+        const user = isUserAuthenticated();
+        if (user) setAuthenticated(true);
+        else setAuthenticated(false);
+    }, []);
 
     const onClick: MenuProps["onClick"] = (e) => {
         console.log("click ", e);
@@ -94,13 +113,55 @@ export const Navbar = (props: Props) => {
                 }}
                 className="display-mobile-none"
             >
-                <Button type="default" className="text-primary border-primary">
-                    s'enregistrer
-                </Button>
-                <Button type="primary">se connecter</Button>
+                {authenticated ? (
+                    <Button
+                        type="default"
+                        className="text-primary border-primary"
+                    >
+                        logout
+                    </Button>
+                ) : (
+                    <>
+                        <Link to={routes.signup}>
+                            <Button
+                                type="default"
+                                className="text-primary border-primary"
+                            >
+                                s'enregistrer
+                            </Button>
+                        </Link>
+                        <Link to={routes.login}>
+                            <Button type="primary">se connecter</Button>
+                        </Link>
+                    </>
+                )}
             </div>
             <div className="display-desktop-none">
-                <Dropdown menu={{ items }} trigger={["click"]}>
+                <Dropdown
+                    menu={
+                        authenticated
+                            ? {
+                                  items: [
+                                      {
+                                          label: (
+                                              <>
+                                                  <Button
+                                                      type="default"
+                                                      className="text-primary border-primary"
+                                                      onClick={() => logout()}
+                                                  >
+                                                      logout
+                                                  </Button>
+                                              </>
+                                          ),
+                                          key: "0",
+                                      },
+                                  ],
+                              }
+                            : { items }
+                    }
+                    trigger={["click"]}
+                >
                     <Space>
                         <UserOutlined style={{ cursor: "pointer" }} />
                     </Space>
