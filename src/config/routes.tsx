@@ -11,4 +11,7 @@ export const routes = {
     communities: "/admin/communities",
     communityDetail: "/admin/communities/:id",
     poems: "/admin/poems",
+
+    publications: "/publications",
+    publication: "/publication",
 };

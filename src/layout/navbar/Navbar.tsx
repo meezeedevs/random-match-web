@@ -6,7 +6,7 @@ import { UserOutlined } from "@ant-design/icons";
 import logo from "assets/images/liwoul-hamd-logo.png";
 import { routes } from "config";
 import { Link } from "react-router-dom";
-import { isUserAuthenticated, storage } from "utils";
+import { isUserAuthenticated } from "utils";
 import { useStoreActions } from "hooks";
 
 type Props = {};
@@ -32,7 +32,7 @@ export const Navbar = (props: Props) => {
             key: "liwaoulham",
         },
         {
-            label: "Publications",
+            label: <Link to={routes.publications}>Publications</Link>,
             key: "publications",
         },
         {
@@ -108,7 +108,9 @@ export const Navbar = (props: Props) => {
                 style={{
                     // display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    justifyContent: `${
+                        authenticated ? "center" : "space-between"
+                    }`,
                     width: "22%",
                 }}
                 className="display-mobile-none"

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Card, Form, Typography } from "antd";
 import { InputField } from "components";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { routes } from "config";
 import { useStoreActions, useStoreState } from "hooks";
 import { redirectTo, storage } from "utils";

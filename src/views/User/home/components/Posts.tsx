@@ -26,20 +26,20 @@ export const Posts = (props: Props) => {
                             lg={{ span: 8 }}
                         >
                             <div className="custom-card">
-                                <div className="css-1x060qm">
+                                <div className="card-img-container">
                                     <img
                                         alt="La naissance de l'islam partout dans le monde"
                                         src={post_img}
                                         loading="lazy"
-                                        className="chakra-image css-1t937k9"
+                                        className="chakra-image card-img"
                                     />
                                 </div>
-                                <div className="chakra-stack css-9fxg76">
-                                    <h4 className="chakra-heading css-11useb">
+                                <div className="chakra-stack card-content">
+                                    <h4 className="chakra-heading card-title">
                                         La naissance de l'islam partout dans le
                                         monde
                                     </h4>
-                                    <p className="chakra-text css-jeh52q">
+                                    <p className="chakra-text card-description">
                                         Lorem ipsum dolor sit amet, consectetur
                                         adipiscing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna
@@ -65,20 +65,20 @@ export const Posts = (props: Props) => {
                             lg={{ span: 8 }}
                         >
                             <div className="custom-card">
-                                <div className="css-1x060qm">
+                                <div className="card-img-container">
                                     <img
                                         alt="Les musulmans du monde entier en pèlerinage "
                                         src={post_img}
                                         loading="lazy"
-                                        className="chakra-image css-1t937k9"
+                                        className="chakra-image card-img"
                                     />
                                 </div>
-                                <div className="chakra-stack css-9fxg76">
-                                    <h4 className="chakra-heading css-11useb">
+                                <div className="chakra-stack card-content">
+                                    <h4 className="chakra-heading card-title">
                                         Les musulmans du monde entier en
                                         pèlerinage{" "}
                                     </h4>
-                                    <p className="chakra-text css-jeh52q">
+                                    <p className="chakra-text card-description">
                                         Lorem ipsum dolor sit amet, consectetur
                                         adipiscing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna
@@ -107,20 +107,20 @@ export const Posts = (props: Props) => {
                             lg={{ span: 8 }}
                         >
                             <div className="custom-card">
-                                <div className="css-1x060qm">
+                                <div className="card-img-container">
                                     <img
                                         alt="Quels sont les quatres piliers de l'islam?"
                                         src={post_img}
                                         loading="lazy"
-                                        className="chakra-image css-1t937k9"
+                                        className="chakra-image card-img"
                                     />
                                 </div>
-                                <div className="chakra-stack css-9fxg76">
-                                    <h4 className="chakra-heading css-11useb">
+                                <div className="chakra-stack card-content">
+                                    <h4 className="chakra-heading card-title">
                                         Quels sont les quatres piliers de
                                         l'islam?
                                     </h4>
-                                    <p className="chakra-text css-jeh52q">
+                                    <p className="chakra-text card-description">
                                         Lorem ipsum dolor sit amet, consectetur
                                         adipiscing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna
