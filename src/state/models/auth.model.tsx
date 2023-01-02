@@ -169,14 +169,35 @@ export const AuthModel: Login = {
                     token: token,
                     new: true,
                 } as any);
-                message.success(`Welcome ${decoded.username}`);
-                redirectTo(routes.dashboard);
+                message.success(`Welcome ${decoded.lastName}`);
+                if (decoded.isAdmin) {
+                    redirectTo(routes.dashboard);
+                } else redirectTo(routes.home);
+
                 // window.location.href = "/admin/dashboard";
                 // if (decoded.isInactive) {
                 //     window.location.href = "/app/settings";
                 // } else window.location.href = "admin/dashboard";
             });
             // redirectTo(routes.board);
+        } catch (error: any) {
+            actions.request(false as any);
+            actions.failure(error.response ? error.response.data : null);
+            // console.log(error.response.data);
+        }
+    }),
+    signup: thunk(async (actions, payload: any) => {
+        actions.request(false as any);
+        actions.request(true as any);
+
+        try {
+            const response = await client().post("/signup", payload);
+            console.log(response);
+            if (response.status === 200) {
+                actions.request(false as any);
+                message.success("Utilisateur cree avec succes");
+                redirectTo(routes.login);
+            }
         } catch (error: any) {
             actions.request(false as any);
             actions.failure(error.response ? error.response.data : null);

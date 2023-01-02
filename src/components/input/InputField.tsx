@@ -60,11 +60,11 @@ export const InputField = (props: InputFieldProps) => {
                                   ) {
                                       return Promise.resolve();
                                   }
-                                  console.log(
-                                      value,
-                                      " HERE",
-                                      getFieldValue("password")
-                                  );
+                                  //   console.log(
+                                  //       value,
+                                  //       " HERE",
+                                  //       getFieldValue("password")
+                                  //   );
                                   return Promise.reject(
                                       "The two passwords that you entered do not match!"
                                   );

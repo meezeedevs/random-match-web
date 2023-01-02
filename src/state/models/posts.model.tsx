@@ -105,6 +105,7 @@ const error = (error: any) => {
 export const PostsModel: Posts = {
     loadingPosts: false,
     loadingTags: false,
+    post: {},
     posts: [],
     errors: {},
     tags: [],
@@ -118,6 +119,9 @@ export const PostsModel: Posts = {
     success: action((state, payload: any) => {
         if (payload.isTag) {
             return (state.tags = payload.data);
+        }
+        if (payload.isSinglePost) {
+            return (state.post = payload.data);
         } else return (state.posts = payload.data);
         // return (state.loaderPosts = payload);
     }),
@@ -147,6 +151,33 @@ export const PostsModel: Posts = {
 
             // console.log(error?.response.data);
         }
+    }),
+    getPostById: thunk(async (actions, payload: string) => {
+        actions.request({ isTag: false, loader: false } as any);
+        actions.request({ isTag: false, loader: true } as any);
+        try {
+            const response = await client().get(`/post/${payload}`);
+            if (response.data) {
+                // console.log(response, "k");
+                // // message.success('Profile photo updated');
+                actions.request({ isTag: false, loader: false } as any);
+                // // actions.getProfilePhoto((await response).data.filename)
+                actions.success({
+                    isSinglePost: false,
+                    data: response.data,
+                } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isTag: false, loader: false } as any);
+            // actions.success({ data: null, image: true } as any)
+            // actions.failure(error?.response ? error?.response.data : null);
+
+            // console.log(error?.response.data);
+        }
+    }),
+    setPost: action((state, payload: any) => {
+        console.log(payload, "lkj");
+        return (state.post = payload);
     }),
     registerPost: thunk(async (actions, payload: PostsPayload) => {
         actions.request({ isTag: false, loader: false } as any);

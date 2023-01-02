@@ -15,6 +15,7 @@ export interface Login {
     success: Action<Login>;
     failure: Action<Login>;
     login: Thunk<Login, LoginPayload>;
+    signup: Thunk<Login, any>;
     logout: Action<Login>;
 
     updateUserData: Thunk<Login, any>;

@@ -10,23 +10,23 @@ import {
     PostsView,
     PublicationsView,
     UsersView,
+    SignupView,
+    PublicationDetailsView,
 } from "views";
 // import { UserEditView } from "views/admin/dashboard";
 import { routes, PrivateRoutes } from "config";
-import { MaintenanceMessage } from "components";
+// import { MaintenanceMessage } from "components";
 
 export const getRoutes = () => (
     <Fragment>
         <Route path={routes.login} element={<LoginAdmin />} />
-        <Route path={routes.home} element={<HomeView />} />
-        <Route path={routes.publications} element={<PublicationsView />} />
-        <Route
-            path={routes.publication}
-            element={<MaintenanceMessage text="In Development" />}
-        />
-        {/* <Route path={routes.signup} element={<SignUpView />} /> */}
+        <Route path={routes.signup} element={<SignupView />} />
         {/*<Route path={routes.forgot} element={<ForgotPasswordView />} />
         <Route path={routes.reset} element={<ResetPasswordView />} /> */}
+
+        <Route path={routes.home} element={<HomeView />} />
+        <Route path={routes.publications} element={<PublicationsView />} />
+        <Route path={routes.publication} element={<PublicationDetailsView />} />
 
         <Route
             path={routes.dashboard}

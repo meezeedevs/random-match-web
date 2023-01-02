@@ -386,3 +386,11 @@ body {
   font-size: 30px;
   cursor: pointer;
 }
+
+.ant-spin .ant-spin-dot-item {
+  background-color: #00ba71;
+}
+
+.ant-spin {
+  color: #00ba71;
+}

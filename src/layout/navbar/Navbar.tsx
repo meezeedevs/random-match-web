@@ -6,7 +6,7 @@ import { UserOutlined } from "@ant-design/icons";
 import logo from "assets/images/liwoul-hamd-logo.png";
 import { routes } from "config";
 import { Link } from "react-router-dom";
-import { isUserAuthenticated } from "utils";
+import { storage } from "utils";
 import { useStoreActions } from "hooks";
 
 type Props = {};
@@ -70,7 +70,7 @@ export const Navbar = (props: Props) => {
     ];
 
     useEffect(() => {
-        const user = isUserAuthenticated();
+        const user = storage.get("jwtToken");
         if (user) setAuthenticated(true);
         else setAuthenticated(false);
     }, []);
@@ -119,6 +119,7 @@ export const Navbar = (props: Props) => {
                     <Button
                         type="default"
                         className="text-primary border-primary"
+                        onClick={() => logout()}
                     >
                         logout
                     </Button>

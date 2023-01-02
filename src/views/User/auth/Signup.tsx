@@ -19,12 +19,12 @@ const StyledAuthPage = styled.div`
     background-color: #f7f7f7;
 `;
 
-export const LoginAdmin = (props: Props) => {
+export const SignupView = (props: Props) => {
     const { loading } = useStoreState((state) => state.auth);
-    const { login } = useStoreActions((actions) => actions.auth);
+    const { signup } = useStoreActions((actions) => actions.auth);
 
     const onFinish = (values: any) => {
-        login(values);
+        signup(values);
     };
 
     useEffect(() => {
@@ -35,7 +35,7 @@ export const LoginAdmin = (props: Props) => {
     return (
         <StyledAuthPage>
             <Card
-                title={<h1 className="heading-4">Se connecter</h1>}
+                title={<h1 className="heading-4">S'enregistrer</h1>}
                 style={{
                     width: 500,
                     boxShadow: "0rem 0.5rem 0.5rem rgba(0,0,0,.1)",
@@ -49,20 +49,69 @@ export const LoginAdmin = (props: Props) => {
                     noValidate
                 >
                     <InputField
+                        name="lastName"
+                        required={true}
+                        message="Veuillez entrer votre nom!"
+                        placeholder="Entrez votre nom"
+                        type="text"
+                        label="Nom"
+                    />
+                    <InputField
+                        name="firstName"
+                        required={true}
+                        message="Veuillez entrer votre prenom!"
+                        placeholder="Entrez votre prenom"
+                        type="text"
+                        label="Prenom"
+                    />
+
+                    <InputField
                         name="email"
                         required={true}
-                        message="Veuillez entrer votre email!"
-                        placeholder="Entrer votre email"
+                        message="Please input your email!"
+                        placeholder="Enter your email"
                         type="email"
+                        label="Email"
+                    />
+
+                    <InputField
+                        name="gender"
+                        required={true}
+                        message="Veuillez selectionnez votre genre"
+                        placeholder="Selectionnez votre genre"
+                        select
+                        label="Genre"
+                        options={[
+                            {
+                                value: "male",
+                                label: "Homme",
+                            },
+                            {
+                                value: "female",
+                                label: "Femme",
+                            },
+                        ]}
                     />
 
                     <InputField
                         name="password"
                         required={true}
-                        message="Veuillez entrer votre Password!"
-                        placeholder="Entrez votre password"
+                        hasFeedback
+                        message="Please input your Password!"
+                        placeholder="Enter your password"
                         type="password"
                         isPassword={true}
+                        label="Mot de passe"
+                    />
+                    <InputField
+                        name="password2"
+                        isPassword2
+                        required={true}
+                        hasFeedback
+                        message="Veuillez confirmer votre mot de passe!"
+                        placeholder="Confirm mot de passe"
+                        type="password"
+                        label="Confirmation mot de passe"
                     />
 
                     <Form.Item>
@@ -71,12 +120,9 @@ export const LoginAdmin = (props: Props) => {
                             htmlType="submit"
                             loading={loading}
                         >
-                            Se connecter
+                            S'enregistrer
                         </Button>
                     </Form.Item>
-                    <div>
-                        {/* <Link to={routes.forgotPassword}>Forgot Password</Link> */}
-                    </div>
                 </Form>
                 <div
                     style={{ display: "flex", justifyContent: "space-between" }}
@@ -90,7 +136,7 @@ export const LoginAdmin = (props: Props) => {
                                 fontWeight: "bold",
                             }}
                         >
-                            <Text style={{}}>Aller a la page d'accueil</Text>
+                            <Text style={{}}>Aller sur la page d'accueil</Text>
                         </Link>
                     </div>
                     <div style={{ textAlign: "right" }}>
@@ -102,14 +148,13 @@ export const LoginAdmin = (props: Props) => {
                                     textDecoration: "underline",
                                     fontWeight: "bold",
                                 }}
-                                
                             >
                                 <Text style={{}}>Mot de passe oublier?</Text>
                             </Link>
                         </div> */}
                         <div>
                             <Link
-                                to={routes.signup}
+                                to={routes.login}
                                 style={{
                                     color: "#00ba71",
                                     textDecoration: "underline",
@@ -117,7 +162,7 @@ export const LoginAdmin = (props: Props) => {
                                 }}
                             >
                                 <Text style={{ padding: ".5vh 0" }}>
-                                    Creer un compte
+                                    Retour au login
                                 </Text>
                             </Link>
                         </div>
