@@ -16,7 +16,7 @@ import {
 } from "views";
 // import { UserEditView } from "views/admin/dashboard";
 import { routes, PrivateRoutes } from "config";
-// import { MaintenanceMessage } from "components";
+import { MaintenanceMessage } from "components";
 
 export const getRoutes = () => (
     <Fragment>
@@ -29,6 +29,22 @@ export const getRoutes = () => (
         <Route path={routes.publications} element={<PublicationsView />} />
         <Route path={routes.publication} element={<PublicationDetailsView />} />
         <Route path={routes.evenements} element={<PublicEventsView />} />
+        <Route
+            path={routes.islam}
+            element={<MaintenanceMessage text="Comming soon" />}
+        />
+        <Route
+            path={routes.baye}
+            element={<MaintenanceMessage text="Comming soon" />}
+        />
+        <Route
+            path={routes.liwaoulham}
+            element={<MaintenanceMessage text="Comming soon" />}
+        />
+        <Route
+            path={routes.ecrits}
+            element={<MaintenanceMessage text="Comming soon" />}
+        />
 
         <Route
             path={routes.dashboard}

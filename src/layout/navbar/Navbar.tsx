@@ -5,7 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 import logo from "assets/images/liwoul-hamd-logo.png";
 import { routes } from "config";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { storage } from "utils";
 import { useStoreActions } from "hooks";
 
@@ -20,15 +20,15 @@ export const Navbar = (props: Props) => {
 
     const navItems: MenuProps["items"] = [
         {
-            label: "ISLAM",
+            label: <Link to={routes.islam}>ISLAM</Link>,
             key: "islam",
         },
         {
-            label: "BAYE NIASS",
-            key: "niass",
+            label: <Link to={routes.baye}>BAYE NIASS</Link>,
+            key: "baye",
         },
         {
-            label: "LIWAOULHAM",
+            label: <Link to={routes.liwaoulham}>LIWAOULHAM</Link>,
             key: "liwaoulham",
         },
         {
@@ -36,7 +36,7 @@ export const Navbar = (props: Props) => {
             key: "publications",
         },
         {
-            label: "Ecrits de Baye",
+            label: <Link to={routes.ecrits}>Ecrits de Baye</Link>,
             key: "ecrits",
         },
         {
@@ -69,11 +69,34 @@ export const Navbar = (props: Props) => {
         },
     ];
 
+    const path = useLocation();
+
     useEffect(() => {
         const user = storage.get("jwtToken");
         if (user) setAuthenticated(true);
         else setAuthenticated(false);
     }, []);
+
+    useEffect(() => {
+        console.log(path);
+        setCurrent(
+            path.pathname === "/islam"
+                ? "islam"
+                : path.pathname === "/baye-niass"
+                ? "baye"
+                : path.pathname === "/liwaoulham"
+                ? "liwaoulham"
+                : path.pathname === "/publications"
+                ? "publications"
+                : path.pathname === "/ecrits-de-baye"
+                ? "ecrits"
+                : path.pathname === "/evenements"
+                ? "evenements"
+                : path.pathname === "/communautes"
+                ? "communautes"
+                : ""
+        );
+    }, [path]);
 
     const onClick: MenuProps["onClick"] = (e) => {
         console.log("click ", e);
