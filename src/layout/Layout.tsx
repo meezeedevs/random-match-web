@@ -3,14 +3,17 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     LogoutOutlined,
+    UserOutlined,
 } from "@ant-design/icons";
-import { Layout, theme } from "antd";
+import { Dropdown, Layout, Space, theme } from "antd";
 import { SiderContent } from "./sider";
 import { useStoreActions } from "hooks";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Container } from "components";
 import { Navbar } from "./navbar";
 import { FooterNav } from "./footer";
+import { routes } from "config";
+import { storage } from "utils";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -50,6 +53,13 @@ export const AppLayout = ({ children }: Props) => {
         return;
     }, [location]);
 
+    const [currentUser, setCurrentUser] = useState({} as unknown as any);
+
+    useEffect(() => {
+        const user = storage.get("currentUser");
+        if (user) setCurrentUser(user);
+    }, []);
+
     return (
         <>
             {authPage ? (
@@ -79,18 +89,78 @@ export const AppLayout = ({ children }: Props) => {
                                     onClick: () => setCollapsed(!collapsed),
                                 }
                             )}
-                            <span
-                                style={{
-                                    marginRight: "20px",
-                                    cursor: "pointer",
+                            <Dropdown
+                                menu={{
+                                    items: [
+                                        {
+                                            label: (
+                                                <Link to={routes.profile}>
+                                                    <UserOutlined />{" "}
+                                                    <span
+                                                        style={{
+                                                            marginLeft: "5px",
+                                                        }}
+                                                    >
+                                                        Profile
+                                                    </span>
+                                                </Link>
+                                            ),
+                                            key: "profile",
+                                        },
+                                        {
+                                            label: (
+                                                <span
+                                                    style={{
+                                                        marginRight: "20px",
+                                                        cursor: "pointer",
+                                                    }}
+                                                    onClick={() => logout()}
+                                                    className="delete"
+                                                >
+                                                    <LogoutOutlined />{" "}
+                                                    <span
+                                                        style={{
+                                                            marginLeft: "5px",
+                                                        }}
+                                                    >
+                                                        Logout
+                                                    </span>
+                                                </span>
+                                            ),
+                                            key: "0",
+                                        },
+                                    ],
                                 }}
-                                onClick={() => logout()}
+                                trigger={["click"]}
                             >
-                                <LogoutOutlined />{" "}
-                                <span style={{ marginLeft: "5px" }}>
-                                    Logout
+                                <span
+                                    style={{
+                                        cursor: "pointer",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        marginRight: "2rem",
+                                    }}
+                                >
+                                    <Space
+                                        style={{
+                                            height: "40px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            width: "40px",
+                                            justifyContent: "center",
+                                            background: "#ebebeb",
+                                            borderRadius: "50%",
+                                        }}
+                                    >
+                                        <UserOutlined style={{}} />
+                                    </Space>
+                                    {currentUser ? (
+                                        <span style={{ marginLeft: "5px" }}>
+                                            {currentUser.lastName}
+                                        </span>
+                                    ) : null}
                                 </span>
-                            </span>
+                            </Dropdown>
                         </Header>
                         <Content
                             style={{
