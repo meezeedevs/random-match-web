@@ -89,10 +89,10 @@ export const PublicationDetailsView = (props: Props) => {
                                 lg={{ span: 14 }}
                             >
                                 <div>
-                                    <h2 className="heading-4">
+                                    <h1 className="heading-4">
                                         {post.title}
                                         {useTitle(`${post.title}`)}
-                                    </h2>
+                                    </h1>
                                     <p className="chakra-text css-4v9y6b">
                                         {parse(post.content)}
                                     </p>

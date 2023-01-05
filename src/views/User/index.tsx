@@ -3,3 +3,4 @@ export * from "./home";
 export * from "./publications";
 export * from "./publication-details";
 export * from "./events";
+export * from "./profile";

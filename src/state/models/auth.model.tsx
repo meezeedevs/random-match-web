@@ -260,7 +260,7 @@ export const AuthModel: Login = {
             if (response.data.success) {
                 message.success("Credentials updated");
                 actions.request(false as any);
-                actions.logout();
+                // actions.logout();
             }
         } catch (error: any) {
             actions.request(false as any);

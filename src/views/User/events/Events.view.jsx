@@ -92,7 +92,6 @@ export const PublicEventsView = (props) => {
     useTitle("Évènements");
 
     const EventComponent = (ev) => {
-        console.log(ev);
         // var dateWithouthSecond = new Date(ev.event.start);
         // // const time = dateWithouthSecond.toLocaleTimeString(navigator.language, {
         // //     hour: "2-digit",
@@ -240,9 +239,9 @@ export const PublicEventsView = (props) => {
                         alignItems: "center",
                     }}
                 >
-                    <h2 style={{ marginBottom: 0 }} className="heading-2">
+                    <h1 style={{ marginBottom: 0 }} className="heading-2">
                         Évènements
-                    </h2>
+                    </h1>
                 </div>
                 <div>
                     <div style={{ marginTop: "2rem", marginBottom: "3rem" }}>

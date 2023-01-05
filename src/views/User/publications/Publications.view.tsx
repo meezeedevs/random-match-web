@@ -46,9 +46,9 @@ export const PublicationsView = (props: Props) => {
                         alignItems: "center",
                     }}
                 >
-                    <h2 style={{ marginBottom: 0 }} className="heading-2">
+                    <h1 style={{ marginBottom: 0 }} className="heading-2">
                         Publications
-                    </h2>
+                    </h1>
                     <div className="action-filters">
                         <div>
                             <SearchOutlined />

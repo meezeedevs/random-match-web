@@ -54,9 +54,9 @@ export const Banner = (props: Props) => {
                         md={{ span: 24 }}
                         lg={{ span: 14 }}
                     >
-                        <h2 className="heading-1">
+                        <h1 className="heading-1">
                             Au Service de Baye pour Sauver la Jeunesse
-                        </h2>
+                        </h1>
                         <p className="chakra-text css-8ikiq8">
                             Commencer par le commencement et prendre le droit
                             chemin avec patience, Baye Niass à la jeunesse

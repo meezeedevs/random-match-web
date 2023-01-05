@@ -95,8 +95,6 @@ export const Navbar = (props: Props) => {
                 ? "ecrits"
                 : path.pathname === "/evenements"
                 ? "evenements"
-                : path.pathname === "/profile"
-                ? "profile"
                 : ""
         );
     }, [path]);

@@ -13,6 +13,7 @@ import {
     SignupView,
     PublicationDetailsView,
     PublicEventsView,
+    ProfileView,
 } from "views";
 // import { UserEditView } from "views/admin/dashboard";
 import { routes, PrivateRoutes } from "config";
@@ -46,10 +47,7 @@ export const getRoutes = () => (
             element={<MaintenanceMessage text="Comming soon" />}
         />
 
-        <Route
-            path={routes.profile}
-            element={<MaintenanceMessage text="Comming soon" />}
-        />
+        <Route path={routes.profile} element={<ProfileView />} />
 
         <Route
             path={routes.dashboard}

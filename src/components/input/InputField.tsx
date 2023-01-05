@@ -161,6 +161,7 @@ export const InputField = (props: InputFieldProps) => {
                     addonBefore={props.addonBefore}
                     max={props.max}
                     disabled={props.disabled}
+                    defaultValue={props.defaultValue}
                 />
             )}
         </Form.Item>
