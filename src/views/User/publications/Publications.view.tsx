@@ -1,5 +1,5 @@
 import { Col, Row, Spin } from "antd";
-import { Container } from "components";
+import { Container, useTitle } from "components";
 import { useStoreActions, useStoreState } from "hooks";
 import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
@@ -11,6 +11,7 @@ import { redirectTo } from "utils";
 type Props = {};
 
 export const PublicationsView = (props: Props) => {
+    useTitle("Publications");
     const [appPosts, setAppPosts] = useState([] as any);
 
     const { posts, loadingPosts } = useStoreState((state) => state.posts);

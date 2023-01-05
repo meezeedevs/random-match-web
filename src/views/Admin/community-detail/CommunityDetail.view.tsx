@@ -1,4 +1,5 @@
 import { Divider } from "antd";
+import { useTitle } from "components";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { capitalizeFirstLetter } from "utils/CapitalizeFirstLetter";
@@ -13,7 +14,16 @@ export const CommunityDetailView = (props: Props) => {
     return (
         <div>
             <h1 style={{ fontSize: "25px", fontWeight: "700" }}>
-                {title ? capitalizeFirstLetter(title) : "Community details"}{" "}
+                <>
+                    {title ? capitalizeFirstLetter(title) : "Community details"}{" "}
+                    {useTitle(
+                        `${
+                            title
+                                ? capitalizeFirstLetter(title)
+                                : "Community details"
+                        }`
+                    )}
+                </>
             </h1>
             <Divider />
             <h3>Ajout de user dans la communaute</h3>

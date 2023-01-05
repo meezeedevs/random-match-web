@@ -40,7 +40,7 @@ export const Navbar = (props: Props) => {
             key: "ecrits",
         },
         {
-            label: "Evenements",
+            label: <Link to={routes.evenements}>Evenements</Link>,
             key: "evenements",
         },
     ];
@@ -88,9 +88,9 @@ export const Navbar = (props: Props) => {
                 justifyContent: "space-between",
             }}
         >
-            <div className="logo">
+            <Link to={routes.home} className="logo">
                 <img src={logo} style={{ maxWidth: "50px" }} alt="" />
-            </div>
+            </Link>
             <Menu
                 onClick={onClick}
                 selectedKeys={[current]}

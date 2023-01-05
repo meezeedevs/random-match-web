@@ -14,4 +14,5 @@ export const routes = {
 
     publications: "/publications",
     publication: "/publication",
+    evenements: "/evenements",
 };

@@ -12,6 +12,7 @@ import {
     UsersView,
     SignupView,
     PublicationDetailsView,
+    PublicEventsView,
 } from "views";
 // import { UserEditView } from "views/admin/dashboard";
 import { routes, PrivateRoutes } from "config";
@@ -27,6 +28,7 @@ export const getRoutes = () => (
         <Route path={routes.home} element={<HomeView />} />
         <Route path={routes.publications} element={<PublicationsView />} />
         <Route path={routes.publication} element={<PublicationDetailsView />} />
+        <Route path={routes.evenements} element={<PublicEventsView />} />
 
         <Route
             path={routes.dashboard}

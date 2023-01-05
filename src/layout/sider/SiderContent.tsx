@@ -38,24 +38,28 @@ export const SiderContent = ({ collapsed }: Props) => {
                     alignItems: "center",
                 }}
             >
-                <h1
-                    style={{
-                        background: "white",
-                        color: "#000",
-                        margin: "10px auto",
-                        display: "flex",
-                        alignItems: "center",
-                        padding: "5px",
-                        borderRadius: "5px",
-                    }}
-                >
-                    <img src={logo} style={{ maxWidth: "25px" }} alt="" />
-                    {collapsed ? (
-                        ""
-                    ) : (
-                        <span style={{ marginLeft: "10px" }}>LiwaoulHamd</span>
-                    )}
-                </h1>
+                <Link to={routes.home}>
+                    <h1
+                        style={{
+                            background: "white",
+                            color: "#000",
+                            margin: "10px auto",
+                            display: "flex",
+                            alignItems: "center",
+                            padding: "5px",
+                            borderRadius: "5px",
+                        }}
+                    >
+                        <img src={logo} style={{ maxWidth: "25px" }} alt="" />
+                        {collapsed ? (
+                            ""
+                        ) : (
+                            <span style={{ marginLeft: "10px" }}>
+                                LiwaoulHamd
+                            </span>
+                        )}
+                    </h1>
+                </Link>
             </div>
 
             <Menu

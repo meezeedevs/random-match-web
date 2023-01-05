@@ -394,3 +394,33 @@ body {
 .ant-spin {
   color: #00ba71;
 }
+
+.rbc-event,
+.rbc-day-slot .rbc-background-event {
+  background-color: #00ba72;
+}
+
+.rbc-show-more {
+  background-color: #ffffff4d;
+  z-index: 4;
+  font-weight: 700;
+  font-size: 85%;
+  height: auto;
+  line-height: normal;
+  color: #00ba72;
+}
+
+.rbc-day-slot .rbc-event,
+.rbc-day-slot .rbc-background-event {
+  border: 1px solid #008049;
+}
+
+.rbc-event.rbc-selected,
+.rbc-day-slot .rbc-selected.rbc-background-event {
+  background-color: #008049;
+}
+
+.rbc-event:focus,
+.rbc-day-slot .rbc-background-event:focus {
+  outline: 5px auto #005c35;
+}

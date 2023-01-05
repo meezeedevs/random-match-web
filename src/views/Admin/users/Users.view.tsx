@@ -1,10 +1,12 @@
 import { Divider } from "antd";
+import { useTitle } from "components";
 import React from "react";
 import { UserForm, UsersList } from "./components";
 
 type Props = {};
 
 export const UsersView = (props: Props) => {
+    useTitle("Utitlisateurs(admin)");
     return (
         <div>
             <h1 style={{ fontSize: "25px" }}>Les Utilisateurs</h1>

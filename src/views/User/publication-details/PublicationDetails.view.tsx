@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 
 import post_img from "assets/images/posts-img.webp";
-import { Container } from "components";
+import { Container, useTitle } from "components";
 import { Col, Row, Spin } from "antd";
 import { routes } from "config";
 import parse from "html-react-parser";
@@ -71,6 +71,7 @@ export const PublicationDetailsView = (props: Props) => {
                                 padding: "3rem 0 3rem 0",
                                 width: "100%",
                                 zIndex: 1,
+                                alignItems: "center",
                             }}
                         >
                             <LeftOutlined />
@@ -88,8 +89,9 @@ export const PublicationDetailsView = (props: Props) => {
                                 lg={{ span: 14 }}
                             >
                                 <div>
-                                    <h2 className="chakra-heading css-10kngcx">
+                                    <h2 className="heading-4">
                                         {post.title}
+                                        {useTitle(`${post.title}`)}
                                     </h2>
                                     <p className="chakra-text css-4v9y6b">
                                         {parse(post.content)}

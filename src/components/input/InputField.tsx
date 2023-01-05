@@ -141,6 +141,7 @@ export const InputField = (props: InputFieldProps) => {
                     loading={props.loading}
                     value={props.defaultValue}
                     onSelect={props.onSelect}
+                    defaultActiveFirstOption
                 />
             ) : (
                 <Input

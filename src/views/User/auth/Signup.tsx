@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Card, Form, Typography } from "antd";
-import { InputField } from "components";
+import { InputField, useTitle } from "components";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { routes } from "config";
@@ -20,6 +20,7 @@ const StyledAuthPage = styled.div`
 `;
 
 export const SignupView = (props: Props) => {
+    useTitle("S'enregistrer");
     const { loading } = useStoreState((state) => state.auth);
     const { signup } = useStoreActions((actions) => actions.auth);
 

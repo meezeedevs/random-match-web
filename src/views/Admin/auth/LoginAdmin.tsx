@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { routes } from "config";
 import { useStoreActions, useStoreState } from "hooks";
 import { redirectTo, storage } from "utils";
+import { useTitle } from "components/document-head";
 
 const { Text } = Typography;
 
@@ -22,6 +23,8 @@ const StyledAuthPage = styled.div`
 export const LoginAdmin = (props: Props) => {
     const { loading } = useStoreState((state) => state.auth);
     const { login } = useStoreActions((actions) => actions.auth);
+
+    useTitle("Login(admin)");
 
     const onFinish = (values: any) => {
         login(values);

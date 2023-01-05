@@ -116,7 +116,7 @@ export const AppLayout = ({ children }: Props) => {
 
                             position: "sticky",
                             top: 0,
-                            zIndex: 1,
+                            zIndex: 5,
                             width: "100%",
                         }}
                     >
