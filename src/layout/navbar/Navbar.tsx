@@ -1,7 +1,7 @@
 import { Button, Dropdown, Menu, MenuProps, Space } from "antd";
 import React, { useEffect, useState } from "react";
 
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 
 import logo from "assets/images/liwoul-hamd-logo.png";
 import { routes } from "config";
@@ -13,6 +13,7 @@ type Props = {};
 
 export const Navbar = (props: Props) => {
     const [current, setCurrent] = useState("islam");
+    const [currentUser, setCurrentUser] = useState({} as unknown as any);
 
     const { logout } = useStoreActions((actions) => actions.auth);
 
@@ -72,9 +73,11 @@ export const Navbar = (props: Props) => {
     const path = useLocation();
 
     useEffect(() => {
-        const user = storage.get("jwtToken");
-        if (user) setAuthenticated(true);
+        const token = storage.get("jwtToken");
+        if (token) setAuthenticated(true);
         else setAuthenticated(false);
+        const user = storage.get("currentUser");
+        if (user) setCurrentUser(user);
     }, []);
 
     useEffect(() => {
@@ -92,8 +95,8 @@ export const Navbar = (props: Props) => {
                 ? "ecrits"
                 : path.pathname === "/evenements"
                 ? "evenements"
-                : path.pathname === "/communautes"
-                ? "communautes"
+                : path.pathname === "/profile"
+                ? "profile"
                 : ""
         );
     }, [path]);
@@ -139,13 +142,81 @@ export const Navbar = (props: Props) => {
                 className="display-mobile-none"
             >
                 {authenticated ? (
-                    <Button
-                        type="default"
-                        className="text-primary border-primary"
-                        onClick={() => logout()}
+                    <Dropdown
+                        menu={
+                            authenticated
+                                ? {
+                                      items: [
+                                          {
+                                              label: (
+                                                  <Link to={routes.profile}>
+                                                      <UserOutlined />{" "}
+                                                      <span
+                                                          style={{
+                                                              marginLeft: "5px",
+                                                          }}
+                                                      >
+                                                          Profile
+                                                      </span>
+                                                  </Link>
+                                              ),
+                                              key: "profile",
+                                          },
+                                          {
+                                              label: (
+                                                  <span
+                                                      style={{
+                                                          marginRight: "20px",
+                                                          cursor: "pointer",
+                                                      }}
+                                                      onClick={() => logout()}
+                                                      className="delete"
+                                                  >
+                                                      <LogoutOutlined />{" "}
+                                                      <span
+                                                          style={{
+                                                              marginLeft: "5px",
+                                                          }}
+                                                      >
+                                                          Logout
+                                                      </span>
+                                                  </span>
+                                              ),
+                                              key: "0",
+                                          },
+                                      ],
+                                  }
+                                : { items }
+                        }
+                        trigger={["click"]}
                     >
-                        logout
-                    </Button>
+                        <span
+                            style={{
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Space
+                                style={{
+                                    height: "40px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    width: "40px",
+                                    justifyContent: "center",
+                                    background: "#ebebeb",
+                                    borderRadius: "50%",
+                                }}
+                            >
+                                <UserOutlined style={{}} />
+                            </Space>
+                            {currentUser ? (
+                                <span style={{ marginLeft: "5px" }}>
+                                    {currentUser.lastName}
+                                </span>
+                            ) : null}
+                        </span>
+                    </Dropdown>
                 ) : (
                     <>
                         <Link to={routes.signup}>

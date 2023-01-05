@@ -47,6 +47,11 @@ export const getRoutes = () => (
         />
 
         <Route
+            path={routes.profile}
+            element={<MaintenanceMessage text="Comming soon" />}
+        />
+
+        <Route
             path={routes.dashboard}
             element={
                 <PrivateRoutes>

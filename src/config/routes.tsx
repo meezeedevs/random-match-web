@@ -19,4 +19,5 @@ export const routes = {
     baye: "/baye-niass",
     liwaoulham: "/liwaoulham",
     ecrits: "/ecrits-de-baye",
+    profile: "/profile",
 };
