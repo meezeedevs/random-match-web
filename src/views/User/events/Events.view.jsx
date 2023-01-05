@@ -7,6 +7,7 @@ import {
     EnvironmentOutlined,
     FileTextOutlined,
     UserOutlined,
+    CalendarOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
 import { useStoreActions, useStoreState } from "hooks";
@@ -40,7 +41,7 @@ export const PublicEventsView = (props) => {
                 resource: {
                     location: ev.location,
                     description: ev.description,
-                    organiser: `${ev.organiser.firstName} - ${ev.organiser.lastName}`,
+                    organiser: `${ev.organiser.firstName} ${ev.organiser.lastName}`,
                 },
             };
             return datas.push(data);
@@ -122,19 +123,50 @@ export const PublicEventsView = (props) => {
         <StyledPopover>
             <StyledPopoverEvent>
                 <div className="timed-event">
-                    <div>
-                        <h3 className="timed-event_event">{ev.title}</h3>
+                    <div
+                        style={{
+                            display: "flex",
+                        }}
+                    >
+                        <div style={{ width: "15%", marginTop: "" }}>
+                            <StyledPopoverEventColor
+                                style={{
+                                    background: "#00ba72",
+                                }}
+                            ></StyledPopoverEventColor>
+                        </div>
+                        <div style={{ width: "85%" }}>
+                            <div style={{ color: "#00ba72" }}>Titre</div>
+                            <h3 className="timed-event_event">{ev.title}</h3>
+                        </div>
                     </div>
-                    <div className="timed-event_time">
-                        <span>
-                            {moment(ev.event.start).format("dddd MMM Do YY")}
-                        </span>
-                        <span className="timed-event_time-separator">.</span>
-                        <span className="timed-event_time-range">
-                            {moment(ev.event.start).format("LT")}
-                            {/* -{" "}
+                    <div
+                        style={{
+                            display: "flex",
+                        }}
+                        className="popover-event_description"
+                    >
+                        <div style={{ width: "15%", marginTop: "" }}>
+                            <CalendarOutlined />
+                        </div>
+                        <div style={{ width: "85%" }}>
+                            <div className="label">Date et heure</div>
+                            <div className="timed-event_time">
+                                <span>
+                                    {moment(ev.event.start).format(
+                                        "dddd MMM Do YY"
+                                    )}
+                                </span>
+                                <span className="timed-event_time-separator">
+                                    .
+                                </span>
+                                <span className="timed-event_time-range">
+                                    {moment(ev.event.start).format("LT")}
+                                    {/* -{" "}
                             {moment(ev.event.end).format("LT")} */}
-                        </span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </StyledPopoverEvent>
@@ -281,16 +313,26 @@ const StyledPopover = styled.div`
     }
 `;
 
+const StyledPopoverEventColor = styled.div`
+    border-radius: 4px;
+    height: 15px;
+    width: 15px;
+    margin-left: 8px;
+    margin-top: 8px;
+`;
+
 const StyledPopoverEvent = styled.div`
     display: flex;
+    width: 100%;
 
     .timed-event {
+        width: 100%;
         &_event {
             font-family: "Google Sans", Roboto, Arial, sans-serif;
             font-size: 20px;
             font-weight: 600;
             line-height: 28px;
-            color: #00ba72;
+            color: #333;
             max-height: 56px;
             overflow-wrap: break-word;
             word-wrap: break-word;
