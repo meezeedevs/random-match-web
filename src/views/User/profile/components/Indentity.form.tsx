@@ -23,13 +23,14 @@ export const IndentityForm = (props: Props) => {
     return (
         <>
             {user?.isAdmin ? (
-                <div style={{ padding: "20px 0" }}>
+                <div>
                     <Alert
                         message="Attention"
                         description="L'administrateur ne peut pas mettre à jour son prénom ou son nom"
                         type="warning"
                         showIcon
                         closable
+                        style={{ margin: "20px 0" }}
                     />
                 </div>
             ) : null}

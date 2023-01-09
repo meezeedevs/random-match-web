@@ -4,6 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useStoreActions, useStoreState } from "hooks";
 import { Link } from "react-router-dom";
+import { storage } from "utils";
 
 type Props = {
     list?: string;
@@ -17,23 +18,41 @@ interface DataType {
 export const CommunitiesList = ({ list }: Props) => {
     const [appCommunities, setAppCommunities] = useState([] as DataType[]);
 
-    const { loading, communities } = useStoreState(
+    const { loading, communities, communitiesNotMember } = useStoreState(
         (state) => state.communities
     );
-    const { getCommunities, deleteCommunity } = useStoreActions(
-        (actions) => actions.communities
-    );
+    const {
+        getCommunities,
+        deleteCommunity,
+        getCommunitiesNotMember,
+        joinCommunity,
+    } = useStoreActions((actions) => actions.communities);
 
     useEffect(() => {
-        getCommunities();
-    }, [getCommunities]);
+        if (list === "users") {
+            const user = storage.get("currentUser");
+            if (user && user.id) getCommunitiesNotMember(user.id);
+        } else getCommunities();
+    }, [getCommunitiesNotMember, getCommunities, list]);
 
     useEffect(() => {
-        if (communities) {
+        if (communitiesNotMember && list === "users") {
             const datas: any = [];
-            communities?.map((com) => {
+            communitiesNotMember?.map((com: any, i: any) => {
+                if (com !== null) {
+                    const data = {
+                        key: com?._id,
+                        ...com,
+                    };
+                    return datas.push(data);
+                } else return null;
+            });
+            setAppCommunities(datas);
+        } else if (communities) {
+            const datas: any = [];
+            communities?.map((com: any) => {
                 const data = {
-                    key: com._id,
+                    key: com?._id,
                     ...com,
                 };
                 return datas.push(data);
@@ -41,7 +60,7 @@ export const CommunitiesList = ({ list }: Props) => {
             setAppCommunities(datas);
         }
         return;
-    }, [communities]);
+    }, [communities, communitiesNotMember, list]);
 
     const columns: ColumnsType<DataType> = [
         {
@@ -61,9 +80,18 @@ export const CommunitiesList = ({ list }: Props) => {
             render: (_, record) => (
                 <Space size="middle">
                     {list === "users" ? (
-                        <Tooltip title="Option bientot disponible.">
-                            <Button type="primary" disabled>
-                                Join
+                        <Tooltip title="Faire une demande d'adhesion">
+                            <Button
+                                type="primary"
+                                onClick={() => {
+                                    const user = storage.get("currentUser");
+                                    joinCommunity({
+                                        user: user?.id,
+                                        community: record?._id,
+                                    } as any);
+                                }}
+                            >
+                                Joindre
                             </Button>
                         </Tooltip>
                     ) : (

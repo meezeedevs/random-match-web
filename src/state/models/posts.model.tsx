@@ -107,6 +107,8 @@ export const PostsModel: Posts = {
     loadingTags: false,
     post: {},
     posts: [],
+    latestPost: [],
+    videoPost: [],
     errors: {},
     tags: [],
 
@@ -119,9 +121,12 @@ export const PostsModel: Posts = {
     success: action((state, payload: any) => {
         if (payload.isTag) {
             return (state.tags = payload.data);
-        }
-        if (payload.isSinglePost) {
+        } else if (payload.isSinglePost) {
             return (state.post = payload.data);
+        } else if (payload.isLatest) {
+            return (state.latestPost = payload.data);
+        } else if (payload.isVideo) {
+            return (state.videoPost = payload.data);
         } else return (state.posts = payload.data);
         // return (state.loaderPosts = payload);
     }),
@@ -138,18 +143,42 @@ export const PostsModel: Posts = {
         try {
             const response = await client().get(`/post`);
             if (response.data) {
-                // console.log(response, "k");
-                // // message.success('Profile photo updated');
                 actions.request({ isTag: false, loader: false } as any);
-                // // actions.getProfilePhoto((await response).data.filename)
                 actions.success({ isTag: false, data: response.data } as any);
             }
         } catch (error: any) {
             actions.request({ isTag: false, loader: false } as any);
-            // actions.success({ data: null, image: true } as any)
-            // actions.failure(error?.response ? error?.response.data : null);
-
-            // console.log(error?.response.data);
+            actions.failure(error?.response ? error?.response.data : null);
+        }
+    }),
+    getLatestPosts: thunk(async (actions) => {
+        actions.request({ isTag: false, loader: false } as any);
+        actions.request({ isTag: false, loader: true } as any);
+        try {
+            const response = await client().get(`/post/latest`);
+            // console.log(response);
+            if (response.data) {
+                actions.request({ isTag: false, loader: false } as any);
+                actions.success({ isLatest: true, data: response.data } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isTag: false, loader: false } as any);
+            actions.failure(error?.response ? error?.response.data : null);
+        }
+    }),
+    getVideoPosts: thunk(async (actions) => {
+        actions.request({ isTag: false, loader: false } as any);
+        actions.request({ isTag: false, loader: true } as any);
+        try {
+            const response = await client().get(`/post/latest/video`);
+            // console.log(response);
+            if (response.data) {
+                actions.request({ isTag: false, loader: false } as any);
+                actions.success({ isVideo: true, data: response.data } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isTag: false, loader: false } as any);
+            actions.failure(error?.response ? error?.response.data : null);
         }
     }),
     getPostById: thunk(async (actions, payload: string) => {
@@ -158,25 +187,18 @@ export const PostsModel: Posts = {
         try {
             const response = await client().get(`/post/${payload}`);
             if (response.data) {
-                // console.log(response, "k");
-                // // message.success('Profile photo updated');
                 actions.request({ isTag: false, loader: false } as any);
-                // // actions.getProfilePhoto((await response).data.filename)
                 actions.success({
-                    isSinglePost: false,
+                    isSinglePost: true,
                     data: response.data,
                 } as any);
             }
         } catch (error: any) {
             actions.request({ isTag: false, loader: false } as any);
-            // actions.success({ data: null, image: true } as any)
-            // actions.failure(error?.response ? error?.response.data : null);
-
-            // console.log(error?.response.data);
+            actions.failure(error?.response ? error?.response.data : null);
         }
     }),
     setPost: action((state, payload: any) => {
-        console.log(payload, "lkj");
         return (state.post = payload);
     }),
     registerPost: thunk(async (actions, payload: PostsPayload) => {

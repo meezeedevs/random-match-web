@@ -1,6 +1,8 @@
 import { Container } from "components";
-import React from "react";
-import { Col, Row } from "antd";
+import React, { useEffect, useState } from "react";
+import { Col, Row, Spin } from "antd";
+import { useStoreActions, useStoreState } from "hooks";
+import { Link } from "react-router-dom";
 
 const latestVideoPosts = [
     {
@@ -29,6 +31,21 @@ const latestVideoPosts = [
 type Props = {};
 
 export const VideoPosts = (props: Props) => {
+    const [appPosts, setAppPosts] = useState([] as any);
+
+    const { videoPost, loadingPosts } = useStoreState((state) => state.posts);
+    const { getVideoPosts } = useStoreActions((actions) => actions.posts);
+
+    useEffect(() => {
+        getVideoPosts();
+    }, [getVideoPosts]);
+
+    useEffect(() => {
+        if (videoPost) {
+            setAppPosts(videoPost);
+        }
+        return;
+    }, [videoPost]);
     return (
         <Container>
             <div className="section-home">
@@ -36,52 +53,63 @@ export const VideoPosts = (props: Props) => {
                     <h2 className="heading-2 text-center">
                         Contenu video aussi disponible
                     </h2>
-                    <Row
-                        gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
-                        className="posts-cards"
-                        style={{}}
-                    >
-                        {latestVideoPosts.map((vid: any) => (
-                            <Col
-                                className="gutter-row"
-                                xs={{ span: 24 }}
-                                md={{ span: 12 }}
-                                lg={{ span: 8 }}
-                                key={vid.id}
-                            >
-                                <div className="custom-card shadow-none">
-                                    <div
-                                        className="css-1x060qm"
-                                        style={{ width: "100%" }}
-                                    >
-                                        <iframe
-                                            width="100%"
-                                            height="200px"
-                                            src={vid.embed}
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                            title="Embedded youtube"
-                                            style={{ borderRadius: "22px" }}
-                                        />
-                                    </div>
-                                    <div className="chakra-stack css-9fxg76">
-                                        <h4 className="chakra-heading css-11useb">
-                                            {vid.title}
-                                        </h4>
-                                        <p className="chakra-text css-jeh52q">
-                                            {vid.description}
-                                        </p>
-                                        <a
-                                            className="custom-button"
-                                            href="/publication?id=1"
+                    <Spin spinning={loadingPosts} tip="Chargement...">
+                        <Row
+                            gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+                            className="posts-cards"
+                            style={{}}
+                        >
+                            {appPosts.map((post: any) => (
+                                <Col
+                                    className="gutter-row"
+                                    xs={{ span: 24 }}
+                                    md={{ span: 12 }}
+                                    lg={{ span: 8 }}
+                                    key={post._id}
+                                >
+                                    <div className="custom-card shadow-none">
+                                        <div
+                                            className="css-1x060qm"
+                                            style={{ width: "100%" }}
                                         >
-                                            Voir plus
-                                        </a>
+                                            <iframe
+                                                width="100%"
+                                                height="200px"
+                                                src={post.video}
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                                title="Embedded youtube"
+                                                style={{ borderRadius: "22px" }}
+                                            />
+                                        </div>
+                                        <div className="chakra-stack card-content">
+                                            <h4 className="chakra-heading card-title">
+                                                {post.title}
+                                            </h4>
+                                            <p className="chakra-text card-description text-left">
+                                                {post.description}
+                                            </p>
+                                            <div
+                                                className="custom-button"
+                                                // onClick={() => {
+                                                //     setPost(post);
+                                                //     redirectTo(
+                                                //         `/publication?id=${post._id}`
+                                                //     );
+                                                // }}
+                                            >
+                                                <Link
+                                                    to={`/publication?id=${post._id}`}
+                                                >
+                                                    Voir plus
+                                                </Link>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
+                                </Col>
+                            ))}
+                        </Row>
+                    </Spin>
                 </div>
             </div>
         </Container>

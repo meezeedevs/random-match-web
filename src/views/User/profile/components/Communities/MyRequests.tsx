@@ -8,30 +8,25 @@ import { storage } from "utils";
 // type Props = {
 // };
 
-interface DataType {
-    _id?: string;
-    community: any;
-}
+export const MyRequests = () => {
+    const [appCommunities, setAppCommunities] = useState([] as any);
 
-export const MyCommunities = () => {
-    const [appCommunities, setAppCommunities] = useState([] as DataType[]);
-
-    const { loading, myCommunities } = useStoreState(
+    const { loading, userRequests } = useStoreState(
         (state) => state.communities
     );
-    const { getMyCommunities, quitCommunity } = useStoreActions(
+    const { getUserRequests, cancelUserRequest } = useStoreActions(
         (actions) => actions.communities
     );
 
     useEffect(() => {
         const user = storage.get("currentUser");
-        if (user && user.id) getMyCommunities(user.id);
-    }, [getMyCommunities]);
+        if (user && user.id) getUserRequests(user.id);
+    }, [getUserRequests]);
 
     useEffect(() => {
-        if (myCommunities) {
+        if (userRequests && userRequests.length > 0) {
             const datas: any = [];
-            myCommunities?.map((com) => {
+            userRequests?.map((com) => {
                 const data = {
                     key: com._id,
                     ...com,
@@ -41,33 +36,33 @@ export const MyCommunities = () => {
             setAppCommunities(datas);
         }
         return;
-    }, [myCommunities]);
+    }, [userRequests]);
 
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<any> = [
         {
             title: "Nom de la communaute",
             dataIndex: "name",
             key: "name",
-            render: (text, record) => <span>{record?.community?.name}</span>,
+            render: (text, record) => <span>{record.community?.name}</span>,
         },
         {
             title: "Action",
             key: "action",
             render: (_, record) => (
                 <Space size="middle">
-                    <Tooltip title="Quiter la communaute.">
+                    <Tooltip title="Annuler la demande.">
                         <Button
                             className="delete"
                             type="default"
                             onClick={() => {
                                 const user = storage.get("currentUser");
-                                quitCommunity({
+                                cancelUserRequest({
                                     id: record?._id,
                                     user: user?.id,
                                 } as any);
                             }}
                         >
-                            <LogoutOutlined /> Quitter
+                            <LogoutOutlined /> Annuler
                         </Button>
                     </Tooltip>
                 </Space>
@@ -80,16 +75,7 @@ export const MyCommunities = () => {
             {appCommunities && appCommunities.length <= 0 ? (
                 <Alert
                     message="Message"
-                    description={
-                        <span>
-                            Vous etes actuellement dans aucune communautes. Pour
-                            Joindre une communaute, Veuillez en faire la demande
-                            en passant par l'onglet{" "}
-                            <b>
-                                <i>'Les communautes'</i>
-                            </b>
-                        </span>
-                    }
+                    description={<span>Pas de d'adhesion en attente</span>}
                     type="info"
                     showIcon
                     closable

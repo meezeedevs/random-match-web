@@ -1,6 +1,10 @@
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { Container } from "components";
-import React from "react";
+import { routes } from "config";
+import { useStoreActions, useStoreState } from "hooks";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledHomeEventList = styled.div`
@@ -103,39 +107,53 @@ const StyledHomeEventList = styled.div`
     }
 `;
 
-const events = [
-    {
-        id: 1,
-        title: "Dua Tawwasul",
-        date: "22 Fév",
-        location: "17h30, Convention City Bashundhara",
-    },
+// const events = [
+//     {
+//         id: 1,
+//         title: "Dua Tawwasul",
+//         date: "22 Fév",
+//         location: "17h30, Convention City Bashundhara",
+//     },
 
-    {
-        id: 2,
-        title: "Dua Kumayl",
-        date: "23 Fév",
-        location: "17h30, Balishira Resort",
-    },
+//     {
+//         id: 2,
+//         title: "Dua Kumayl",
+//         date: "23 Fév",
+//         location: "17h30, Balishira Resort",
+//     },
 
-    {
-        id: 3,
-        title: "Salat al-Jumu'a",
-        date: "24 Fév",
-        location: "17h30, Convention City Bashundhara",
-    },
+//     {
+//         id: 3,
+//         title: "Salat al-Jumu'a",
+//         date: "24 Fév",
+//         location: "17h30, Convention City Bashundhara",
+//     },
 
-    {
-        id: 4,
-        title: "Weekly Program",
-        date: "25 Fév",
-        location: "17h30, Balishira Resort",
-    },
-];
+//     {
+//         id: 4,
+//         title: "Weekly Program",
+//         date: "25 Fév",
+//         location: "17h30, Balishira Resort",
+//     },
+// ];
 
 type Props = {};
 
 export const Events = (props: Props) => {
+    const [appEvents, setAppEvents] = useState([] as unknown as any);
+
+    const { loading, upcomingEvents } = useStoreState((state) => state.events);
+    const { getUpcomingEvents } = useStoreActions((actions) => actions.events);
+
+    useEffect(() => {
+        getUpcomingEvents();
+    }, [getUpcomingEvents]);
+
+    useEffect(() => {
+        if (upcomingEvents) setAppEvents(upcomingEvents);
+        return;
+    }, [upcomingEvents]);
+
     return (
         <Container>
             <div className="section-home">
@@ -147,19 +165,25 @@ export const Events = (props: Props) => {
                             alignItems: "center",
                         }}
                     >
-                        <h2 className="heading-2">Agenda de la Khadra</h2>
+                        <h2 className="heading-2">Événements à venir</h2>
                         <div className="actions">
-                            <Button type="primary" size="large">
-                                Afficher tout
-                            </Button>
+                            <Link to={routes.evenements}>
+                                <Button type="primary" size="large">
+                                    Afficher tout
+                                </Button>
+                            </Link>
                         </div>
                     </div>
-                    <div>
-                        {events.map((ev) => (
-                            <div className="section-home-event" key={ev.id}>
+                    <Spin spinning={loading}>
+                        {appEvents.map((ev: any) => (
+                            <div className="section-home-event" key={ev._id}>
                                 <div className="event-content">
                                     <div className="date">
-                                        <p>{ev.date}</p>
+                                        <p>
+                                            {moment(ev.dueDate).format(
+                                                "MMM Do YY"
+                                            )}
+                                        </p>
                                     </div>
                                     <div className="divider">
                                         <hr />
@@ -174,16 +198,21 @@ export const Events = (props: Props) => {
                                     </div>
                                 </div>
                                 <div className="action">
-                                    <a
-                                        className="custom-button"
-                                        href="/evenements?id=1"
+                                    <Link
+                                        to={`${routes.evenements}?goto=${ev.dueDate}`}
                                     >
-                                        Voir les details
-                                    </a>
+                                        <Button
+                                            type="primary"
+                                            size="large"
+                                            className="custom-button"
+                                        >
+                                            Voir les details
+                                        </Button>
+                                    </Link>
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </Spin>
                 </StyledHomeEventList>
             </div>
         </Container>

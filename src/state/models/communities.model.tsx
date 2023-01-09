@@ -49,6 +49,10 @@ export const CommunitiesModel: Communities = {
     communities: [],
     loadingMembers: false,
     communityMembers: [],
+    communitiesNotMember: [],
+    myCommunities: [],
+    userRequests: [],
+    communityRequests: [],
     errors: {},
 
     request: action((state, payload: any) => {
@@ -58,6 +62,13 @@ export const CommunitiesModel: Communities = {
 
     success: action((state, payload: any) => {
         if (payload.isMembers) return (state.communityMembers = payload.data);
+        if (payload.isMyCommunities)
+            return (state.myCommunities = payload.data);
+        if (payload.isNotMyCommunities)
+            return (state.communitiesNotMember = payload.data);
+        if (payload.isUserRequests) return (state.userRequests = payload.data);
+        if (payload.isCommunityRequests)
+            return (state.communityRequests = payload.data);
         else return (state.communities = payload.data);
         // return (state.loading = payload);
     }),
@@ -104,6 +115,157 @@ export const CommunitiesModel: Communities = {
             console.log(error.response.data);
         }
     }),
+
+    getMyCommunities: thunk(async (actions, payload) => {
+        actions.request({ isMembers: false, loader: false } as any);
+        actions.request({ isMembers: false, loader: true } as any);
+        try {
+            const response = await client().get(`/community/user/${payload}`);
+            if (response.data) {
+                actions.request({ isMembers: false, loader: false } as any);
+                actions.success({
+                    isMyCommunities: true,
+                    data: response.data,
+                } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isMembers: false, loader: false } as any);
+            actions.failure(error.response ? error.response.data : null);
+
+            console.log(error.response.data);
+        }
+    }),
+    getCommunitiesNotMember: thunk(async (actions, payload) => {
+        actions.request({ isMembers: false, loader: false } as any);
+        actions.request({ isMembers: false, loader: true } as any);
+        try {
+            const response = await client().get(
+                `/community/notUser/${payload}`
+            );
+            if (response.data) {
+                actions.request({ isMembers: false, loader: false } as any);
+                actions.success({
+                    isNotMyCommunities: true,
+                    data: response.data,
+                } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isMembers: true, loader: false } as any);
+            actions.failure(error.response ? error.response.data : null);
+
+            console.log(error.response.data);
+        }
+    }),
+    getUserRequests: thunk(async (actions, payload) => {
+        actions.request({ isMembers: false, loader: false } as any);
+        actions.request({ isMembers: false, loader: true } as any);
+        try {
+            const response = await client().get(`/request/user/${payload}`);
+            if (response.data) {
+                actions.request({ isMembers: false, loader: false } as any);
+                actions.success({
+                    isUserRequests: true,
+                    data: response.data,
+                } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isMembers: true, loader: false } as any);
+            actions.failure(error.response ? error.response.data : null);
+
+            console.log(error.response.data);
+        }
+    }),
+    getCommunityRequests: thunk(async (actions, payload) => {
+        actions.request({ isMembers: false, loader: false } as any);
+        actions.request({ isMembers: false, loader: true } as any);
+        try {
+            const response = await client().get(`/request/${payload}`);
+            if (response.data) {
+                actions.request({ isMembers: false, loader: false } as any);
+                actions.success({
+                    isCommunityRequests: true,
+                    data: response.data,
+                } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isMembers: true, loader: false } as any);
+            actions.failure(error.response ? error.response.data : null);
+
+            console.log(error.response.data);
+        }
+    }),
+    joinCommunity: thunk(async (actions, payload: any) => {
+        actions.request({ isMembers: false, loader: false } as any);
+        actions.request({ isMembers: false, loader: true } as any);
+        try {
+            const response = await client().post(`/request`, payload);
+
+            if (response.data) {
+                message.success("Requette envoye");
+                actions.getCommunitiesNotMember(payload.user);
+                actions.request({ isMembers: false, loader: false } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isMembers: false, loader: false } as any);
+            actions.failure(error.response ? error.response.data : null);
+
+            console.log(error.response.data);
+        }
+    }),
+    quitCommunity: thunk(async (actions, payload: any) => {
+        actions.request({ isMembers: false, loader: false } as any);
+        actions.request({ isMembers: false, loader: true } as any);
+        try {
+            const response = await client().delete(`/role/${payload.id}`);
+            if (response.data) {
+                message.success("Community quited");
+                actions.getMyCommunities(payload.user);
+                actions.request({ isMembers: false, loader: false } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isMembers: false, loader: false } as any);
+            actions.failure(error.response ? error.response.data : null);
+            // console.log(error.response.data);
+        }
+    }),
+    cancelUserRequest: thunk(async (actions, payload: any) => {
+        actions.request({ isMembers: false, loader: false } as any);
+        actions.request({ isMembers: false, loader: true } as any);
+        try {
+            const response = await client().delete(`/request/${payload.id}`);
+            if (response.data) {
+                message.success("Request canceled");
+                if (payload.user) actions.getUserRequests(payload.user);
+                else if (payload.com) actions.getCommunityRequests(payload.com);
+                actions.request({ isMembers: false, loader: false } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isMembers: false, loader: false } as any);
+            actions.failure(error.response ? error.response.data : null);
+            // console.log(error.response.data);
+        }
+    }),
+
+    validateCommunityRequest: thunk(async (actions, payload: any) => {
+        actions.request({ isMembers: false, loader: false } as any);
+        actions.request({ isMembers: false, loader: true } as any);
+        try {
+            const response = await client().post(
+                `/request/approve/${payload.id}`
+            );
+            if (response.data) {
+                message.success("Request validated");
+                actions.request({ isMembers: false, loader: false } as any);
+                actions.getCommunityRequests(payload.com);
+                actions.getCommunityMembers(payload.com);
+            }
+        } catch (error: any) {
+            actions.request({ isMembers: false, loader: false } as any);
+            actions.failure(error.response ? error.response.data : null);
+            // console.log(error.response.data);
+        }
+    }),
+
     deleteCommunity: thunk(async (actions, payload: string) => {
         actions.request({ isMembers: false, loader: false } as any);
         actions.request({ isMembers: false, loader: true } as any);
@@ -142,13 +304,14 @@ export const CommunitiesModel: Communities = {
             console.log(error.response.data);
         }
     }),
+
     deleteCommunityMember: thunk(async (actions, payload: any) => {
         actions.request({ isMembers: true, loader: false } as any);
         actions.request({ isMembers: true, loader: true } as any);
         try {
             const response = await client().delete(`/role/${payload.role}`);
             if (response.data) {
-                message.success("Community deleted");
+                message.success("Community member deleted");
                 actions.getCommunityMembers(payload.community);
                 actions.request({ isMembers: true, loader: false } as any);
             }

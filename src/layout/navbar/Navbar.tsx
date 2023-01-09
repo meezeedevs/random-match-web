@@ -81,7 +81,6 @@ export const Navbar = (props: Props) => {
     }, []);
 
     useEffect(() => {
-        console.log(path);
         setCurrent(
             path.pathname === "/islam"
                 ? "islam"
@@ -110,6 +109,7 @@ export const Navbar = (props: Props) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                width: "80vw",
             }}
         >
             <Link to={routes.home} className="logo">

@@ -36,7 +36,7 @@ export const CommunityDetailList = ({ com_id, setTitle }: Props) => {
 
     useEffect(() => {
         setTitle(appCommunityMembers[0]?.community?.name);
-    }, [appCommunityMembers]);
+    }, [setTitle, appCommunityMembers]);
 
     useEffect(() => {
         getCommunityMembers(com_id as string);
@@ -113,7 +113,6 @@ export const CommunityDetailList = ({ com_id, setTitle }: Props) => {
 
 const EditRole = (data: any) => {
     const { role, user, _id } = data.data;
-    console.log(data);
     const [edition, setEdition] = useState(false);
     const [toEdit, setToEdit] = useState(null as unknown as any);
 
@@ -125,7 +124,7 @@ const EditRole = (data: any) => {
             roleId: toEdit,
             role: val.role,
         };
-        console.log(data);
+        // console.log(data);
         updateRole(data).then(() => setEdition(false));
     };
 

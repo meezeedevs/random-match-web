@@ -19,7 +19,7 @@ export const CommunityDetailForm = ({ com_id }: Props) => {
             role: val.role,
             community: com_id,
         };
-        console.log(data);
+        // console.log(data);
         addRole(data);
     };
     return (

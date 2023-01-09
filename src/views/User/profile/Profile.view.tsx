@@ -1,15 +1,24 @@
-import { Card, Col, Divider, Row, Tabs } from "antd";
+import { Card, Col, Divider, Row, Spin, Tabs } from "antd";
 import { Container, useTitle } from "components";
-import React from "react";
+import React, { useState } from "react";
 import { CredentialsForm, IndentityForm } from "./components";
-import { AllCommunities, MyCommunities } from "./components/Communities";
+import {
+    AllCommunities,
+    MyCommunities,
+    MyRequests,
+} from "./components/Communities";
 
 type Props = {};
 
 export const ProfileView = (props: Props) => {
+    const [reload, setReload] = useState(false);
+    const [key, setKey] = useState("1");
     useTitle("Profile");
     const onChange = (key: string) => {
         console.log(key);
+        setKey(key);
+        setReload(true);
+        setTimeout(() => setReload(false), 500);
     };
     return (
         <div style={{ marginBottom: "4rem" }}>
@@ -67,16 +76,43 @@ export const ProfileView = (props: Props) => {
                         <Tabs
                             defaultActiveKey="1"
                             onChange={onChange}
+                            activeKey={key}
                             items={[
                                 {
                                     label: `Les communautes`,
                                     key: "1",
-                                    children: <AllCommunities />,
+                                    children:
+                                        reload && key === "1" ? (
+                                            <Spin spinning>
+                                                <AllCommunities />
+                                            </Spin>
+                                        ) : (
+                                            <AllCommunities />
+                                        ),
                                 },
                                 {
                                     label: `Mes communautes`,
                                     key: "2",
-                                    children: <MyCommunities />,
+                                    children:
+                                        reload && key === "2" ? (
+                                            <Spin spinning>
+                                                <MyCommunities />
+                                            </Spin>
+                                        ) : (
+                                            <MyCommunities />
+                                        ),
+                                },
+                                {
+                                    label: `Mes demandes`,
+                                    key: "3",
+                                    children:
+                                        reload && key === "3" ? (
+                                            <Spin spinning>
+                                                <MyRequests />
+                                            </Spin>
+                                        ) : (
+                                            <MyRequests />
+                                        ),
                                 },
                             ]}
                         />

@@ -1,5 +1,4 @@
 import { useTitle } from "components";
-import { AppLayout } from "layout";
 import React from "react";
 
 type Props = {};

@@ -53,6 +53,11 @@ body {
   cursor: pointer;
 }
 
+.delete.ant-btn-default:not(:disabled):hover {
+  color: orangered;
+  border-color: orangered;
+}
+
 .required::before {
   display: inline-block;
   margin-inline-end: 4px;
@@ -313,6 +318,10 @@ body {
   color: #3baa6f;
 }
 
+.custom-button a {
+  color: #3baa6f;
+}
+
 .carousel-container {
   width: 96%;
 }
@@ -440,4 +449,8 @@ body {
   color: rgba(0, 0, 0, 0.25);
   background-color: rgba(0, 0, 0, 0.04);
   box-shadow: none;
+}
+
+.post-detail-content img {
+  max-width: 60%;
 }

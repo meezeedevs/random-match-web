@@ -9,7 +9,6 @@ import { Dropdown, Layout, Space, theme } from "antd";
 import { SiderContent } from "./sider";
 import { useStoreActions } from "hooks";
 import { Link, useLocation } from "react-router-dom";
-import { Container } from "components";
 import { Navbar } from "./navbar";
 import { FooterNav } from "./footer";
 import { routes } from "config";
@@ -190,9 +189,16 @@ export const AppLayout = ({ children }: Props) => {
                             width: "100%",
                         }}
                     >
-                        <Container>
+                        {/* <Container> */}
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
                             <Navbar />
-                        </Container>
+                        </div>
+                        {/* </Container> */}
                     </Header>
                     <Content
                         style={{

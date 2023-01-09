@@ -15,6 +15,8 @@ export interface Posts {
     loadingPosts: boolean;
     loadingTags: boolean;
     posts: Array<any>;
+    latestPost: Array<any>;
+    videoPost: Array<any>;
     post: any;
     errors: any;
     tags: Array<any>;
@@ -23,6 +25,8 @@ export interface Posts {
     success: Action<Posts>;
     failure: Action<Posts>;
     getPosts: Thunk<Posts>;
+    getLatestPosts: Thunk<Posts>;
+    getVideoPosts: Thunk<Posts>;
     getPostById: Thunk<Posts, string>;
     setPost: Action<Posts>;
     registerPost: Thunk<Posts, PostsPayload>;

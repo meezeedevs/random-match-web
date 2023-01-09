@@ -15,12 +15,16 @@ import { useStoreActions, useStoreState } from "hooks";
 import { Events } from "../home/components";
 import { cultures, lang } from "config";
 
+import { useLocation } from "react-router-dom";
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 
 export const PublicEventsView = (props) => {
     const [appEvents, setAppEvents] = useState([]);
+    const [DateToRender, setDateToRender] = useState(new Date());
+    const [currentDate, setCurrentDate] = useState(new Date());
 
     const { loading, events } = useStoreState((state) => state.events);
     const { getEvents } = useStoreActions((actions) => actions.events);
@@ -29,10 +33,23 @@ export const PublicEventsView = (props) => {
         getEvents();
     }, [getEvents]);
 
+    const search = useLocation().search;
+    const goto = new URLSearchParams(search).get("goto");
+
+    useEffect(() => {
+        if (goto) {
+            setDateToRender(goto);
+            window.scrollTo({
+                top: 150,
+                behavior: "smooth",
+            });
+        }
+    }, [goto]);
+
     useEffect(() => {
         if (events);
         let datas = [];
-        events.map((ev) => {
+        events?.data?.map((ev) => {
             const data = {
                 title: ev.title,
                 start: moment(ev.dueDate).toDate(),
@@ -228,6 +245,7 @@ export const PublicEventsView = (props) => {
             </div>
         </StyledPopover>
     );
+    console.log(DateToRender);
     return (
         <div>
             <Container>
@@ -264,12 +282,18 @@ export const PublicEventsView = (props) => {
                             endAccessor="end"
                             style={{ height: "80vh" }}
                             culture={culture}
+                            date={
+                                DateToRender && DateToRender !== null
+                                    ? DateToRender
+                                    : currentDate
+                            }
                             defaultDate={defaultDate}
                             messages={messages}
                             rtl={rightToLeft}
                             components={{
                                 event: EventComponent,
                             }}
+                            onNavigate={(date) => setCurrentDate(date)}
                         />
                     </Spin>
                 </div>

@@ -12,7 +12,7 @@ import {
     Typography,
 } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import { useStoreActions, useStoreState } from "hooks";
 import { InputField } from "components";
 
@@ -134,7 +134,6 @@ export const UsersList = (props: Props) => {
 
 const EditPassword = (data: any) => {
     const record = data.data;
-    console.log(data);
     const [edition, setEdition] = useState(false);
     const [toEdit, setToEdit] = useState(null as unknown as any);
 
@@ -147,7 +146,6 @@ const EditPassword = (data: any) => {
             newPassword: val.password,
             newPassword2: val.password2,
         };
-        console.log(data);
         updateUserPassword(data).then(() => setEdition(false));
     };
 

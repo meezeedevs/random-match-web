@@ -120,7 +120,6 @@ export const AuthModel: Login = {
                 ...state.user,
                 image: payload.data,
             };
-            console.log(data);
             state.user = data;
         } else {
             if (payload.new) {
@@ -192,7 +191,6 @@ export const AuthModel: Login = {
 
         try {
             const response = await client().post("/signup", payload);
-            console.log(response);
             if (response.status === 200) {
                 actions.request(false as any);
                 message.success("Utilisateur cree avec succes");
@@ -292,9 +290,7 @@ export const AuthModel: Login = {
         actions.request(false as any);
         actions.request(true as any);
         try {
-            console.log(payload, "responseeeee");
             const response = client().post("/profileImage", payload);
-            console.log(response);
 
             if ((await response).data.success) {
                 message.success("Profile photo updated");

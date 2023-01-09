@@ -112,7 +112,6 @@ export const PostsForm = (props: Props) => {
     ];
 
     const onFinish = (values: any) => {
-        console.log("Received values of form: ", values, content);
         const data = {
             title: values.title,
             status: values.status,
@@ -123,12 +122,10 @@ export const PostsForm = (props: Props) => {
             image,
             tag,
         };
-        console.log(data, "lkjk");
         registerPost(data);
     };
 
     const onAddImage = (e: any) => {
-        console.log(e.target.files, "adk");
         // setImage(e.target.files[0]);
         const fd = new FormData();
         fd.append("image", e.target.files[0], e.target.files[0].name);
@@ -136,7 +133,6 @@ export const PostsForm = (props: Props) => {
         // setImageUrl(newImageurl);
         // uploadPhoto(fd as any);
         setImage(fd);
-        console.log(fd);
     };
 
     const onSelect = (val: any) => {
@@ -250,18 +246,7 @@ export const PostsForm = (props: Props) => {
                             label="Image"
                             
                         /> */}
-                        <Form.Item
-                            name="image"
-                            hasFeedback
-                            label="Image"
-                            required
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please upload your image!",
-                                },
-                            ]}
-                        >
+                        <Form.Item name="image" label="Image">
                             <Input
                                 placeholder="upload your image"
                                 type="file"

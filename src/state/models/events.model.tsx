@@ -47,6 +47,7 @@ const error = (error: any) => {
 export const EventsModel: Events = {
     loading: false,
     events: [],
+    upcomingEvents: [],
     errors: {},
 
     request: action((state, payload: any) => {
@@ -54,7 +55,8 @@ export const EventsModel: Events = {
     }),
 
     success: action((state, payload: any) => {
-        state.events = payload;
+        if (payload.isUpcoming) return (state.upcomingEvents = payload.data);
+        else return (state.events = payload);
         // return (state.loading = payload);
     }),
     failure: action((state, payload: any) => {
@@ -88,7 +90,29 @@ export const EventsModel: Events = {
             const response = await client().get(`/event`);
             if (response.data) {
                 actions.request(false as any);
-                actions.success(response.data as any);
+                actions.success({
+                    isUpcoming: false,
+                    data: response.data,
+                } as any);
+            }
+        } catch (error: any) {
+            actions.request(false as any);
+            actions.failure(error?.response ? error?.response.data : null);
+
+            console.log(error?.response?.data);
+        }
+    }),
+    getUpcomingEvents: thunk(async (actions) => {
+        actions.request(false as any);
+        actions.request(true as any);
+        try {
+            const response = await client().get(`/event/upComing`);
+            if (response.data) {
+                actions.request(false as any);
+                actions.success({
+                    isUpcoming: true,
+                    data: response.data,
+                } as any);
             }
         } catch (error: any) {
             actions.request(false as any);

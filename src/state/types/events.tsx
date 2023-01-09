@@ -11,6 +11,7 @@ export interface EventsPayload {
 export interface Events {
     loading: boolean;
     events: Array<any>;
+    upcomingEvents: Array<any>;
     errors: any;
 
     request: Action<Events>;
@@ -18,5 +19,6 @@ export interface Events {
     failure: Action<Events>;
     registerEvent: Thunk<Events, EventsPayload>;
     getEvents: Thunk<Events>;
+    getUpcomingEvents: Thunk<Events>;
     deleteEvent: Thunk<Events, string>;
 }

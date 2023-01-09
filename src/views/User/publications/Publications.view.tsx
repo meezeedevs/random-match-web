@@ -2,11 +2,10 @@ import { Col, Row, Spin } from "antd";
 import { Container, useTitle } from "components";
 import { useStoreActions, useStoreState } from "hooks";
 import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 
 import post_img from "assets/images/posts-img.webp";
-import { redirectTo } from "utils";
 
 type Props = {};
 
@@ -15,7 +14,7 @@ export const PublicationsView = (props: Props) => {
     const [appPosts, setAppPosts] = useState([] as any);
 
     const { posts, loadingPosts } = useStoreState((state) => state.posts);
-    const { getPosts, setPost } = useStoreActions((actions) => actions.posts);
+    const { getPosts } = useStoreActions((actions) => actions.posts);
 
     useEffect(() => {
         getPosts();
@@ -71,6 +70,7 @@ export const PublicationsView = (props: Props) => {
                                     xs={{ span: 24 }}
                                     md={{ span: 12 }}
                                     lg={{ span: 8 }}
+                                    key={post._id}
                                 >
                                     <div className="custom-card">
                                         <div className="card-img-container">
@@ -94,19 +94,18 @@ export const PublicationsView = (props: Props) => {
                                             </p>
                                             <div
                                                 className="custom-button"
-                                                onClick={() => {
-                                                    setPost(post);
-                                                    redirectTo(
-                                                        `/publication?id=${post._id}`
-                                                    );
-                                                }}
+                                                // onClick={() => {
+                                                //     setPost(post);
+                                                //     redirectTo(
+                                                //         `/publication?id=${post._id}`
+                                                //     );
+                                                // }}
                                             >
-                                                {/* <Link
-                                                    
+                                                <Link
                                                     to={`/publication?id=${post._id}`}
-                                                > */}
-                                                Voir plus
-                                                {/* </Link> */}
+                                                >
+                                                    Voir plus
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>

@@ -19,7 +19,6 @@ export const UsersSelect = ({ name, hasLabel }: Props) => {
 
     useEffect(() => {
         if (users) {
-            console.log(users);
             let datas: any = [];
             users.map((us: any) => {
                 const data = {

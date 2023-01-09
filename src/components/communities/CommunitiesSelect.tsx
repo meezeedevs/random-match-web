@@ -22,7 +22,6 @@ export const CommunitiesSelect = ({ name }: Props) => {
 
     useEffect(() => {
         if (communities) {
-            console.log(communities);
             let datas: any = [];
             communities.map((us: any) => {
                 const data = {

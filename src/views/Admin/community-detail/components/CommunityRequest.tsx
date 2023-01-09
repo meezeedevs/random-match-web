@@ -1,37 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Space, Table, Tooltip } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { LogoutOutlined } from "@ant-design/icons";
+import { CheckOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useStoreActions, useStoreState } from "hooks";
 import { storage } from "utils";
 
-// type Props = {
-// };
+type Props = {
+    com_id: string;
+};
 
-interface DataType {
-    _id?: string;
-    community: any;
-}
+export const CommunityRequests = ({ com_id }: Props) => {
+    const [appCommunities, setAppCommunities] = useState([] as any);
 
-export const MyCommunities = () => {
-    const [appCommunities, setAppCommunities] = useState([] as DataType[]);
-
-    const { loading, myCommunities } = useStoreState(
+    const { loading, communityRequests } = useStoreState(
         (state) => state.communities
     );
-    const { getMyCommunities, quitCommunity } = useStoreActions(
-        (actions) => actions.communities
-    );
+    const {
+        getCommunityRequests,
+        validateCommunityRequest,
+        cancelUserRequest,
+    } = useStoreActions((actions) => actions.communities);
 
     useEffect(() => {
-        const user = storage.get("currentUser");
-        if (user && user.id) getMyCommunities(user.id);
-    }, [getMyCommunities]);
+        if (com_id) getCommunityRequests(com_id);
+    }, [getCommunityRequests, com_id]);
 
     useEffect(() => {
-        if (myCommunities) {
+        if (communityRequests && communityRequests.length > 0) {
             const datas: any = [];
-            myCommunities?.map((com) => {
+            communityRequests?.map((com) => {
                 const data = {
                     key: com._id,
                     ...com,
@@ -39,35 +36,53 @@ export const MyCommunities = () => {
                 return datas.push(data);
             });
             setAppCommunities(datas);
-        }
+        } else setAppCommunities([]);
         return;
-    }, [myCommunities]);
+    }, [communityRequests]);
 
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<any> = [
         {
-            title: "Nom de la communaute",
+            title: "Nom de l'utilisateur",
             dataIndex: "name",
             key: "name",
-            render: (text, record) => <span>{record?.community?.name}</span>,
+            render: (text, record) => (
+                <span>
+                    {record.user?.firstName} {record.user?.lastName}
+                </span>
+            ),
         },
         {
             title: "Action",
             key: "action",
             render: (_, record) => (
                 <Space size="middle">
-                    <Tooltip title="Quiter la communaute.">
+                    <Tooltip title="Valider la demande d'adhesion.">
+                        <Button
+                            type="primary"
+                            onClick={() => {
+                                validateCommunityRequest({
+                                    id: record?._id,
+                                    com: com_id,
+                                } as any);
+                            }}
+                        >
+                            <CheckOutlined /> Valider
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Option pour bientot">
                         <Button
                             className="delete"
                             type="default"
                             onClick={() => {
                                 const user = storage.get("currentUser");
-                                quitCommunity({
+                                cancelUserRequest({
                                     id: record?._id,
                                     user: user?.id,
                                 } as any);
                             }}
+                            disabled
                         >
-                            <LogoutOutlined /> Quitter
+                            <LogoutOutlined /> Refuser
                         </Button>
                     </Tooltip>
                 </Space>
@@ -80,16 +95,7 @@ export const MyCommunities = () => {
             {appCommunities && appCommunities.length <= 0 ? (
                 <Alert
                     message="Message"
-                    description={
-                        <span>
-                            Vous etes actuellement dans aucune communautes. Pour
-                            Joindre une communaute, Veuillez en faire la demande
-                            en passant par l'onglet{" "}
-                            <b>
-                                <i>'Les communautes'</i>
-                            </b>
-                        </span>
-                    }
+                    description={<span>Pas de d'adhesion en attente</span>}
                     type="info"
                     showIcon
                     closable

@@ -18,7 +18,6 @@ export const RoleSelect = ({ name }: Props) => {
 
     useEffect(() => {
         if (roles) {
-            console.log(roles);
             let datas: any = [];
             roles.map((us: any) => {
                 const data = {
