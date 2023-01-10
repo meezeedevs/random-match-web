@@ -20,11 +20,11 @@ export const FooterNav = (props: Props) => {
                         <div className="logo">
                             <img
                                 src={logo}
-                                style={{ maxWidth: "25px" }}
+                                style={{ maxWidth: "50px" }}
                                 alt=""
                             />
                         </div>
-                        <p style={{ margin: "2rem 0" }}>
+                        <p style={{ margin: "0.5rem 0 2rem 0" }}>
                             Au service de Baye Niass pour sauver la jeunesse.
                         </p>
                         <SocialLinks />
