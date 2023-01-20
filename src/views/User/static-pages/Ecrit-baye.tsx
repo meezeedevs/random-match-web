@@ -1,17 +1,14 @@
 import { useStoreActions, useStoreState } from "hooks";
-import { Link, useLocation } from "react-router-dom";
-
-import { LeftOutlined } from "@ant-design/icons";
+import { useLocation } from "react-router-dom";
 
 import { Container, Post } from "components";
-import { routes } from "config";
 import { Posts, VideoPosts } from "../home/components";
 import { useEffect, useState } from "react";
 import { Spin } from "antd";
 
 type Props = {};
 
-export const PublicationDetailsView = (props: Props) => {
+export const MenuEcritDeBaye = (props: Props) => {
     const search = useLocation().search;
     const id = new URLSearchParams(search).get("id");
 
@@ -19,16 +16,15 @@ export const PublicationDetailsView = (props: Props) => {
 
     const { loadingPosts, post } = useStoreState((state) => state.posts);
 
-    const { getPostById, setPost } = useStoreActions(
-        (actions) => actions.posts
-    );
+    const { getPostByTag } = useStoreActions((actions) => actions.posts);
 
     useEffect(() => {
-        getPostById(id as string);
-    }, [getPostById, id]);
+        getPostByTag("63caf153efbc2f0027f2e4b9");
+    }, [getPostByTag, id]);
 
     useEffect(() => {
-        setPostDetails(post);
+        if (post && post.length > 0) setPostDetails(post[0]);
+        else setPostDetails(post);
         window.scrollTo({
             top: 0,
             behavior: "smooth",
@@ -60,31 +56,6 @@ export const PublicationDetailsView = (props: Props) => {
             <Container>
                 <Spin spinning={loadingPosts} tip="chargement...">
                     <div>
-                        <Link
-                            to={routes.publications}
-                            style={{ color: "#00ba71" }}
-                            onClick={() => setPost({} as any)}
-                        >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    // marginBottom: "2.5rem",
-                                    cursor: "pointer",
-                                    position: "sticky",
-                                    top: "6vh",
-                                    background: "#fff",
-                                    padding: "3rem 0 3rem 0",
-                                    width: "100%",
-                                    zIndex: 1,
-                                    alignItems: "center",
-                                }}
-                            >
-                                <LeftOutlined />
-                                <span style={{ marginLeft: "5px" }}>
-                                    Retour
-                                </span>
-                            </div>
-                        </Link>
                         <Post
                             details={postDetails}
                             loading={loadingPosts}

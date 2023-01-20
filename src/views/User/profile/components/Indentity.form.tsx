@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Alert, Button, Form } from "antd";
 import { InputField } from "components";
 import { useStoreActions, useStoreState } from "hooks";
@@ -10,12 +9,7 @@ export const IndentityForm = (props: Props) => {
     const { loading } = useStoreState((state) => state.auth);
     const { updateUserData } = useStoreActions((actions) => actions.auth);
 
-    const [user, setUser] = useState(null as unknown as any);
-
-    useEffect(() => {
-        const currentUser = storage.get("currentUser");
-        setUser(currentUser);
-    }, []);
+    const user = storage.get("currentUser");
 
     const onFinish = (values: any) => {
         updateUserData(values);
@@ -43,7 +37,6 @@ export const IndentityForm = (props: Props) => {
             >
                 <InputField
                     name="firstName"
-                    required={true}
                     message="Veuillez entrer votre prenom!"
                     placeholder="Entrer votre prenom"
                     type="text"
@@ -53,7 +46,6 @@ export const IndentityForm = (props: Props) => {
                 />
                 <InputField
                     name="lastName"
-                    required={true}
                     message="Veuillez entrer votre nom!"
                     placeholder="Entrer votre nom"
                     type="text"
@@ -63,12 +55,20 @@ export const IndentityForm = (props: Props) => {
                 />
                 <InputField
                     name="email"
-                    required={true}
                     message="Veuillez entrer votre email!"
                     placeholder="Entrer votre email"
                     type="email"
                     label="Email"
                     defaultValue={user?.email}
+                />
+
+                <InputField
+                    name="phone"
+                    message="Veuillez entrer votre numero de telephone!"
+                    placeholder="Entrer votre numero de telephone"
+                    type="number"
+                    label="Numero de telephone"
+                    defaultValue={user?.phone}
                 />
 
                 <Form.Item

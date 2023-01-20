@@ -228,7 +228,6 @@ export const PostsForm = (props: Props) => {
                     <Col className="gutter-row" span={12}>
                         <InputField
                             name="video"
-                            required={true}
                             message="Please input your video Link!"
                             placeholder="Enter your video link"
                             type="text"

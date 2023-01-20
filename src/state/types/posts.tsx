@@ -28,6 +28,7 @@ export interface Posts {
     getLatestPosts: Thunk<Posts>;
     getVideoPosts: Thunk<Posts>;
     getPostById: Thunk<Posts, string>;
+    getPostByTag: Thunk<Posts, string>;
     setPost: Action<Posts>;
     registerPost: Thunk<Posts, PostsPayload>;
     deletePost: Thunk<Posts, string>;

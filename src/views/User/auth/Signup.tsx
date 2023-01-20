@@ -76,6 +76,15 @@ export const SignupView = (props: Props) => {
                     />
 
                     <InputField
+                        name="phone"
+                        required={true}
+                        message="Veuillez entrer votre numero de telephone!"
+                        placeholder="Entrer votre numero de telephone"
+                        type="number"
+                        label="Numero de telephone"
+                    />
+
+                    <InputField
                         name="gender"
                         required={true}
                         message="Veuillez selectionnez votre genre"

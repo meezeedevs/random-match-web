@@ -171,7 +171,6 @@ export const PostsModel: Posts = {
         actions.request({ isTag: false, loader: true } as any);
         try {
             const response = await client().get(`/post/latest/video`);
-            // console.log(response);
             if (response.data) {
                 actions.request({ isTag: false, loader: false } as any);
                 actions.success({ isVideo: true, data: response.data } as any);
@@ -184,14 +183,34 @@ export const PostsModel: Posts = {
     getPostById: thunk(async (actions, payload: string) => {
         actions.request({ isTag: false, loader: false } as any);
         actions.request({ isTag: false, loader: true } as any);
+
+        await actions.setPost({} as any);
         try {
             const response = await client().get(`/post/${payload}`);
             if (response.data) {
-                actions.request({ isTag: false, loader: false } as any);
                 actions.success({
                     isSinglePost: true,
                     data: response.data,
                 } as any);
+                actions.request({ isTag: false, loader: false } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isTag: false, loader: false } as any);
+            actions.failure(error?.response ? error?.response.data : null);
+        }
+    }),
+    getPostByTag: thunk(async (actions, payload: string) => {
+        actions.request({ isTag: false, loader: false } as any);
+        actions.request({ isTag: false, loader: true } as any);
+        actions.setPost({} as any);
+        try {
+            const response = await client().get(`/post/tag/${payload}`);
+            if (response) {
+                actions.success({
+                    isSinglePost: true,
+                    data: response.data,
+                } as any);
+                actions.request({ isTag: false, loader: false } as any);
             }
         } catch (error: any) {
             actions.request({ isTag: false, loader: false } as any);

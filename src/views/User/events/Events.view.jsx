@@ -13,17 +13,18 @@ import moment from "moment";
 import { useStoreActions, useStoreState } from "hooks";
 
 import { Events } from "../home/components";
-import { cultures, lang } from "config";
+import { cultures, lang, routes } from "config";
 
 import { useLocation } from "react-router-dom";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { redirectTo } from "utils";
 
 const localizer = momentLocalizer(moment);
 
 export const PublicEventsView = (props) => {
     const [appEvents, setAppEvents] = useState([]);
-    const [DateToRender, setDateToRender] = useState(new Date());
+    const [DateToRender, setDateToRender] = useState(null);
     const [currentDate, setCurrentDate] = useState(new Date());
 
     const { loading, events } = useStoreState((state) => state.events);
@@ -34,6 +35,7 @@ export const PublicEventsView = (props) => {
     }, [getEvents]);
 
     const search = useLocation().search;
+    const search_params = new URLSearchParams(search);
     const goto = new URLSearchParams(search).get("goto");
 
     useEffect(() => {
@@ -245,7 +247,7 @@ export const PublicEventsView = (props) => {
             </div>
         </StyledPopover>
     );
-    console.log(DateToRender);
+    // console.log(DateToRender);
     return (
         <div>
             <Container>
@@ -285,7 +287,7 @@ export const PublicEventsView = (props) => {
                             date={
                                 DateToRender && DateToRender !== null
                                     ? DateToRender
-                                    : currentDate
+                                    : null
                             }
                             defaultDate={defaultDate}
                             messages={messages}
@@ -293,7 +295,11 @@ export const PublicEventsView = (props) => {
                             components={{
                                 event: EventComponent,
                             }}
-                            onNavigate={(date) => setCurrentDate(date)}
+                            onNavigate={(date) => {
+                                // setCurrentDate(date);
+                                setDateToRender(date);
+                                // search_params.delete("goto");
+                            }}
                         />
                     </Spin>
                 </div>

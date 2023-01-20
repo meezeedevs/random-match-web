@@ -1,6 +1,7 @@
 import { Card, Col, Divider, Row, Spin, Tabs } from "antd";
 import { Container, useTitle } from "components";
 import React, { useState } from "react";
+import { storage } from "utils";
 import { CredentialsForm, IndentityForm } from "./components";
 import {
     AllCommunities,
@@ -20,6 +21,8 @@ export const ProfileView = (props: Props) => {
         setReload(true);
         setTimeout(() => setReload(false), 500);
     };
+
+    const user = storage.get("currentUser");
     return (
         <div style={{ marginBottom: "4rem" }}>
             <Container>
@@ -32,7 +35,13 @@ export const ProfileView = (props: Props) => {
                     }}
                 >
                     <h1 style={{ marginBottom: 0 }} className="heading-2">
-                        Profile
+                        Profile{" "}
+                        {user ? (
+                            <>
+                                {" "}
+                                - {user.firstName} {user.lastName}
+                            </>
+                        ) : null}
                     </h1>
                 </div>
                 <Divider />
