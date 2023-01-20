@@ -122,9 +122,10 @@ export const PublicationsView = (props: Props) => {
                                             // loading={loading}
 
                                             size="small"
-                                            onClick={() =>
-                                                setFilterByTag(false)
-                                            }
+                                            onClick={() => {
+                                                setFilterByTag(false);
+                                                getPosts();
+                                            }}
                                             style={{
                                                 marginLeft: "10px",
                                                 fontSize: "10px",
