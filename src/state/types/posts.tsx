@@ -25,6 +25,7 @@ export interface Posts {
     success: Action<Posts>;
     failure: Action<Posts>;
     getPosts: Thunk<Posts>;
+    getPostsByTag: Thunk<Posts, string>;
     getLatestPosts: Thunk<Posts>;
     getVideoPosts: Thunk<Posts>;
     getPostById: Thunk<Posts, string>;

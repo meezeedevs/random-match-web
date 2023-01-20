@@ -1,5 +1,5 @@
-import { Col, Row, Spin } from "antd";
-import { Container, useTitle } from "components";
+import { Button, Col, Dropdown, MenuProps, Row, Spin } from "antd";
+import { Container, InputField, useTitle } from "components";
 import { useStoreActions, useStoreState } from "hooks";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -13,8 +13,35 @@ export const PublicationsView = (props: Props) => {
     useTitle("Publications");
     const [appPosts, setAppPosts] = useState([] as any);
 
-    const { posts, loadingPosts } = useStoreState((state) => state.posts);
-    const { getPosts } = useStoreActions((actions) => actions.posts);
+    const [appTags, setAppTags] = useState([] as unknown as any);
+
+    const [filterByTag, setFilterByTag] = useState([] as any);
+
+    const { loadingTags, tags, loadingPosts, posts } = useStoreState(
+        (state) => state.posts
+    );
+    const { getTags, getPosts, getPostsByTag } = useStoreActions(
+        (actions) => actions.posts
+    );
+
+    useEffect(() => {
+        getTags();
+    }, [getTags]);
+
+    useEffect(() => {
+        if (tags) {
+            let datas: any = [];
+            tags.map((tag) => {
+                const data = {
+                    value: tag._id,
+                    label: `${tag.name}`,
+                };
+                return datas.push(data);
+            });
+            setAppTags(datas);
+        }
+        return;
+    }, [tags]);
 
     useEffect(() => {
         getPosts();
@@ -34,6 +61,19 @@ export const PublicationsView = (props: Props) => {
         }
         return;
     }, [posts]);
+
+    const items: MenuProps["items"] = [
+        {
+            label: <span onClick={() => setFilterByTag(true)}>tags</span>,
+            key: "0",
+        },
+    ];
+
+    const onSelect = (val: any) => {
+        // setTag(val);
+        getPostsByTag(val);
+    };
+
     return (
         <div>
             <Container>
@@ -50,10 +90,63 @@ export const PublicationsView = (props: Props) => {
                     </h1>
                     <div className="action-filters">
                         <div>
+                            {filterByTag ? (
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        marginRight: "40px",
+                                        width: 270,
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            minWidth: "70%",
+                                            maxWidth: "400px",
+                                        }}
+                                    >
+                                        <InputField
+                                            name="tag"
+                                            required={true}
+                                            message="Please input your tag!"
+                                            placeholder="Type the tag"
+                                            select
+                                            loading={loadingTags}
+                                            options={appTags}
+                                            onSelect={onSelect}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Button
+                                            type="default"
+                                            // loading={loading}
+
+                                            size="small"
+                                            onClick={() =>
+                                                setFilterByTag(false)
+                                            }
+                                            style={{
+                                                marginLeft: "10px",
+                                                fontSize: "10px",
+                                            }}
+                                        >
+                                            cancel
+                                        </Button>
+                                    </div>
+                                </div>
+                            ) : null}
+                        </div>
+                        <div style={{ marginRight: "25px" }}>
                             <SearchOutlined />
                         </div>
                         <div>
-                            <FilterOutlined />
+                            <Dropdown
+                                menu={{ items }}
+                                trigger={["click"]}
+                                placement="bottomRight"
+                            >
+                                <FilterOutlined style={{ cursor: "pointer" }} />
+                            </Dropdown>
                         </div>
                     </div>
                 </div>

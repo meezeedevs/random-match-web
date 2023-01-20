@@ -151,6 +151,20 @@ export const PostsModel: Posts = {
             actions.failure(error?.response ? error?.response.data : null);
         }
     }),
+    getPostsByTag: thunk(async (actions, payload) => {
+        actions.request({ isTag: false, loader: false } as any);
+        actions.request({ isTag: false, loader: true } as any);
+        try {
+            const response = await client().get(`/post/tag/${payload}`);
+            if (response.data) {
+                actions.request({ isTag: false, loader: false } as any);
+                actions.success({ isTag: false, data: [response.data] } as any);
+            }
+        } catch (error: any) {
+            actions.request({ isTag: false, loader: false } as any);
+            actions.failure(error?.response ? error?.response.data : null);
+        }
+    }),
     getLatestPosts: thunk(async (actions) => {
         actions.request({ isTag: false, loader: false } as any);
         actions.request({ isTag: false, loader: true } as any);

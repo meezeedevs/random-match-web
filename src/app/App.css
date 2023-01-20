@@ -388,12 +388,21 @@ body {
 .action-filters {
   display: flex;
   justify-content: space-between;
-  width: 100px;
+  min-width: 200px;
+  width: fit-content;
+}
+
+.action-filters .ant-form-item {
+  margin-bottom: 0;
 }
 
 .action-filters svg {
   font-size: 30px;
   cursor: pointer;
+}
+
+.action-filters .ant-form-item svg {
+  font-size: 15px;
 }
 
 .ant-spin .ant-spin-dot-item {
