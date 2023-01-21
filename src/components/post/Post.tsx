@@ -58,63 +58,6 @@ export const Post = ({ details, youtubeIFrame, loading }: Props) => {
                                     </>
                                 ) : null}
                             </div>
-                            {loading ? null : (
-                                <>
-                                    {" "}
-                                    <hr />
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            width: "180px",
-                                            justifyContent: "space-between",
-                                            margin: "20px 0 0 0",
-                                        }}
-                                    >
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                padding: "2px 15px",
-                                                backgroundColor: "#F3F4F6",
-                                                borderRadius: "15px",
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            <MessageOutlined />
-                                            <span
-                                                style={{
-                                                    fontSize: "14px",
-                                                    fontWeight: 500,
-                                                    marginLeft: "5px",
-                                                }}
-                                            >
-                                                10
-                                            </span>
-                                        </div>
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                padding: "2px 15px",
-                                                backgroundColor: "#F3F4F6",
-                                                borderRadius: "15px",
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            <HeartOutlined />
-                                            <span
-                                                style={{
-                                                    fontSize: "14px",
-                                                    fontWeight: 500,
-                                                    marginLeft: "5px",
-                                                }}
-                                            >
-                                                57
-                                            </span>
-                                        </div>
-                                    </div>
-                                </>
-                            )}
                         </div>
                     </Col>
                     {details?.image ? (

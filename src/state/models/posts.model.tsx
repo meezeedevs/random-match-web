@@ -158,7 +158,7 @@ export const PostsModel: Posts = {
             const response = await client().get(`/post/tag/${payload}`);
             if (response.data) {
                 actions.request({ isTag: false, loader: false } as any);
-                actions.success({ isTag: false, data: [response.data] } as any);
+                actions.success({ isTag: false, data: response.data } as any);
             }
         } catch (error: any) {
             actions.request({ isTag: false, loader: false } as any);

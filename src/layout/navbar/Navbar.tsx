@@ -1,7 +1,7 @@
 import { Button, Dropdown, Menu, MenuProps, Space } from "antd";
 import React, { useEffect, useState } from "react";
 
-import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined, RobotOutlined } from "@ant-design/icons";
 
 import logo from "assets/images/liwoul-hamd-logo.png";
 import { routes } from "config";
@@ -145,6 +145,28 @@ export const Navbar = (props: Props) => {
                             authenticated
                                 ? {
                                       items: [
+                                          currentUser && currentUser.isAdmin
+                                              ? {
+                                                    label: (
+                                                        <Link
+                                                            to={
+                                                                routes.dashboard
+                                                            }
+                                                        >
+                                                            <RobotOutlined />{" "}
+                                                            <span
+                                                                style={{
+                                                                    marginLeft:
+                                                                        "5px",
+                                                                }}
+                                                            >
+                                                                Admin dashboard
+                                                            </span>
+                                                        </Link>
+                                                    ),
+                                                    key: "dashboard",
+                                                }
+                                              : null,
                                           {
                                               label: (
                                                   <Link to={routes.profile}>
@@ -160,6 +182,7 @@ export const Navbar = (props: Props) => {
                                               ),
                                               key: "profile",
                                           },
+
                                           {
                                               label: (
                                                   <span

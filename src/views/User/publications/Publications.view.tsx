@@ -15,7 +15,8 @@ export const PublicationsView = (props: Props) => {
 
     const [appTags, setAppTags] = useState([] as unknown as any);
 
-    const [filterByTag, setFilterByTag] = useState([] as any);
+    const [filterByTag, setFilterByTag] = useState(false as any);
+    const [tag, setTag] = useState("" as any);
 
     const { loadingTags, tags, loadingPosts, posts } = useStoreState(
         (state) => state.posts
@@ -44,8 +45,10 @@ export const PublicationsView = (props: Props) => {
     }, [tags]);
 
     useEffect(() => {
-        getPosts();
-    }, [getPosts]);
+        if (tag) {
+            getPostsByTag(tag);
+        } else getPosts();
+    }, [getPosts, tag, getPostsByTag]);
 
     useEffect(() => {
         if (posts) {
@@ -70,7 +73,7 @@ export const PublicationsView = (props: Props) => {
     ];
 
     const onSelect = (val: any) => {
-        // setTag(val);
+        setTag(val);
         getPostsByTag(val);
     };
 
@@ -156,55 +159,61 @@ export const PublicationsView = (props: Props) => {
                         <Row
                             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
                             className="posts-cards"
-                            style={{ marginBottom: "4rem" }}
+                            style={{ marginBottom: "4rem", minHeight: "68vh" }}
                         >
-                            {appPosts.map((post: any) => (
-                                <Col
-                                    className="gutter-row text-side"
-                                    xs={{ span: 24 }}
-                                    md={{ span: 12 }}
-                                    lg={{ span: 8 }}
-                                    key={post._id}
-                                >
-                                    <div className="custom-card">
-                                        <div className="card-img-container">
-                                            <img
-                                                alt="La naissance de l'islam partout dans le monde"
-                                                src={
-                                                    post.img
-                                                        ? post.img
-                                                        : post_img
-                                                }
-                                                loading="lazy"
-                                                className="chakra-image card-img"
-                                            />
-                                        </div>
-                                        <div className="chakra-stack card-content">
-                                            <h4 className="chakra-heading card-title">
-                                                {post.title}
-                                            </h4>
-                                            <p className="chakra-text card-description text-left">
-                                                {post.description}
-                                            </p>
-                                            <div
-                                                className="custom-button"
-                                                // onClick={() => {
-                                                //     setPost(post);
-                                                //     redirectTo(
-                                                //         `/publication?id=${post._id}`
-                                                //     );
-                                                // }}
-                                            >
-                                                <Link
-                                                    to={`/publication?id=${post._id}`}
+                            {appPosts && appPosts.length > 0 ? (
+                                appPosts.map((post: any) => (
+                                    <Col
+                                        className="gutter-row text-side"
+                                        xs={{ span: 24 }}
+                                        md={{ span: 12 }}
+                                        lg={{ span: 8 }}
+                                        key={post._id}
+                                    >
+                                        <div className="custom-card">
+                                            <div className="card-img-container">
+                                                <img
+                                                    alt="La naissance de l'islam partout dans le monde"
+                                                    src={
+                                                        post.img
+                                                            ? post.img
+                                                            : post_img
+                                                    }
+                                                    loading="lazy"
+                                                    className="chakra-image card-img"
+                                                />
+                                            </div>
+                                            <div className="chakra-stack card-content">
+                                                <h4 className="chakra-heading card-title">
+                                                    {post.title}
+                                                </h4>
+                                                <p className="chakra-text card-description text-left">
+                                                    {post.description}
+                                                </p>
+                                                <div
+                                                    className="custom-button"
+                                                    // onClick={() => {
+                                                    //     setPost(post);
+                                                    //     redirectTo(
+                                                    //         `/publication?id=${post._id}`
+                                                    //     );
+                                                    // }}
                                                 >
-                                                    Voir plus
-                                                </Link>
+                                                    <Link
+                                                        to={`/publication?id=${post._id}`}
+                                                    >
+                                                        Voir plus
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Col>
-                            ))}
+                                    </Col>
+                                ))
+                            ) : (
+                                <h3 className="" style={{ margin: "2rem" }}>
+                                    Pas de publications pour l'instant
+                                </h3>
+                            )}
                         </Row>
                     </Spin>
                 </div>
