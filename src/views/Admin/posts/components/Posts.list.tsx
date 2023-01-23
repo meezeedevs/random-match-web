@@ -192,6 +192,8 @@ export const PostsList = (props: Props) => {
             ),
     });
 
+    // console.log(appPosts, "kj");
+
     const columns: ColumnsType<DataType> = [
         {
             title: "Titre",
@@ -224,7 +226,7 @@ export const PostsList = (props: Props) => {
             dataIndex: "tag",
             render: (_, { tag }) => (
                 <>
-                    <Tag>{tag.name}</Tag>
+                    <Tag>{tag?.name}</Tag>
                 </>
             ),
             filters: appTags,
