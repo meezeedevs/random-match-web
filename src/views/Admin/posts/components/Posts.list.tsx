@@ -215,7 +215,7 @@ export const PostsList = (props: Props) => {
             render: (_, { status }) => (
                 <>
                     <Tag color={status === "draft" ? "volcano" : "green"}>
-                        {status.toUpperCase()}
+                        {status?.toUpperCase()}
                     </Tag>
                 </>
             ),
