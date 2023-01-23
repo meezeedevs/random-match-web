@@ -34,7 +34,8 @@ export const getRoutes = () => (
         <Route path={routes.publication} element={<PublicationDetailsView />} />
         <Route path={routes.evenements} element={<PublicEventsView />} />
         <Route path={routes.islam} element={<MenuIslam />} />
-        <Route path={routes.baye} element={<MenuBayeNiass />} />
+        <Route path={routes.tijania} element={<MenuBayeNiass />} />
+        <Route path={routes.faydaTijania} element={<MenuBayeNiass />} />
         <Route path={routes.liwaoulham} element={<MenuLiwaoulham />} />
         <Route path={routes.ecrits} element={<MenuEcritDeBaye />} />
 

@@ -13,19 +13,18 @@ import moment from "moment";
 import { useStoreActions, useStoreState } from "hooks";
 
 import { Events } from "../home/components";
-import { cultures, lang, routes } from "config";
+import { cultures, lang } from "config";
 
 import { useLocation } from "react-router-dom";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { redirectTo } from "utils";
 
 const localizer = momentLocalizer(moment);
 
 export const PublicEventsView = (props) => {
     const [appEvents, setAppEvents] = useState([]);
     const [DateToRender, setDateToRender] = useState(null);
-    const [currentDate, setCurrentDate] = useState(new Date());
+    // const [currentDate, setCurrentDate] = useState(new Date());
 
     const { loading, events } = useStoreState((state) => state.events);
     const { getEvents } = useStoreActions((actions) => actions.events);
@@ -264,7 +263,7 @@ export const PublicEventsView = (props) => {
                     </h1>
                 </div>
                 <div>
-                    <div style={{ marginTop: "2rem", marginBottom: "3rem" }}>
+                    {/* <div style={{ marginTop: "2rem", marginBottom: "3rem" }}>
                         <InputField
                             name="language"
                             message={`Veuillez selectionnez une langue!`}
@@ -275,7 +274,7 @@ export const PublicEventsView = (props) => {
                             onSelect={(val) => cultureOnClick(val)}
                             defaultValue={[culture]}
                         />
-                    </div>
+                    </div> */}
                     <Spin spinning={loading} tip="Chargement...">
                         <Calendar
                             localizer={localizer}

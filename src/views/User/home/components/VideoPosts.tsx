@@ -46,6 +46,17 @@ export const VideoPosts = (props: Props) => {
         }
         return;
     }, [videoPost]);
+
+    const convertEmbed = (post: string) => {
+        var regex: any = "embed";
+        var path = post;
+        if (path.indexOf(regex) > -1) {
+            return post;
+        } else
+            return `https://www.youtube.com/embed/${new URL(
+                post
+            ).searchParams.get("v")}?feature=oembed`;
+    };
     return (
         <Container>
             <div className="section-home">
@@ -75,7 +86,7 @@ export const VideoPosts = (props: Props) => {
                                             <iframe
                                                 width="100%"
                                                 height="200px"
-                                                src={post.video}
+                                                src={convertEmbed(post.video)}
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                 allowFullScreen
                                                 title="Embedded youtube"

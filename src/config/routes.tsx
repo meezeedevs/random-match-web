@@ -16,8 +16,9 @@ export const routes = {
     publication: "/publication",
     evenements: "/evenements",
     islam: "/islam",
-    baye: "/baye-niass",
+    tijania: "/tijania",
+    faydaTijania: "/faydaTijania",
     liwaoulham: "/liwaoulham",
-    ecrits: "/ecrits-de-baye",
+    ecrits: "/avis-du-cheick",
     profile: "/profile",
 };

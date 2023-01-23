@@ -25,20 +25,24 @@ export const Navbar = (props: Props) => {
             key: "islam",
         },
         {
-            label: <Link to={routes.baye}>BAYE NIASS</Link>,
-            key: "baye",
+            label: <Link to={routes.tijania}>Tijania</Link>,
+            key: "tijania",
+        },
+        {
+            label: <Link to={routes.faydaTijania}>FaydaTijania</Link>,
+            key: "faydaTijania",
         },
         {
             label: <Link to={routes.liwaoulham}>LIWAOULHAM</Link>,
             key: "liwaoulham",
         },
         {
-            label: <Link to={routes.publications}>Publications</Link>,
+            label: <Link to={routes.publications}>Enseignements</Link>,
             key: "publications",
         },
         {
-            label: <Link to={routes.ecrits}>Ecrits de Baye</Link>,
-            key: "ecrits",
+            label: <Link to={routes.ecrits}>Avis du Cheick</Link>,
+            key: "avis",
         },
         {
             label: <Link to={routes.evenements}>Evenements</Link>,
@@ -84,14 +88,16 @@ export const Navbar = (props: Props) => {
         setCurrent(
             path.pathname === "/islam"
                 ? "islam"
-                : path.pathname === "/baye-niass"
-                ? "baye"
+                : path.pathname === "/tijania"
+                ? "tijania"
+                : path.pathname === "/faydaTijania"
+                ? "faydaTijania"
                 : path.pathname === "/liwaoulham"
                 ? "liwaoulham"
                 : path.pathname === "/publications"
                 ? "publications"
-                : path.pathname === "/ecrits-de-baye"
-                ? "ecrits"
+                : path.pathname === "/avis"
+                ? "avis"
                 : path.pathname === "/evenements"
                 ? "evenements"
                 : ""
