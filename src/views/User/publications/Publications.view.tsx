@@ -14,8 +14,6 @@ export const PublicationsView = (props: Props) => {
     const [appPosts, setAppPosts] = useState([] as any);
 
     const [appTags, setAppTags] = useState([] as unknown as any);
-
-    const [filterByTag, setFilterByTag] = useState(false as any);
     const [tag, setTag] = useState("" as any);
 
     const { loadingTags, tags, loadingPosts, posts } = useStoreState(
@@ -31,7 +29,12 @@ export const PublicationsView = (props: Props) => {
 
     useEffect(() => {
         if (tags) {
-            let datas: any = [];
+            let datas: any = [
+                {
+                    value: 1,
+                    label: `Tous`,
+                },
+            ];
             tags.map((tag) => {
                 const data = {
                     value: tag._id,
@@ -45,7 +48,7 @@ export const PublicationsView = (props: Props) => {
     }, [tags]);
 
     useEffect(() => {
-        if (tag) {
+        if (tag && tag !== 1) {
             getPostsByTag(tag);
         } else getPosts();
     }, [getPosts, tag, getPostsByTag]);
@@ -65,16 +68,26 @@ export const PublicationsView = (props: Props) => {
         return;
     }, [posts]);
 
-    const items: MenuProps["items"] = [
-        {
-            label: <span onClick={() => setFilterByTag(true)}>tags</span>,
-            key: "0",
-        },
-    ];
-
     const onSelect = (val: any) => {
         setTag(val);
-        getPostsByTag(val);
+        console.log(val);
+        if (val === 1) return getPosts();
+        else return getPostsByTag(val);
+    };
+
+    const TagInput = () => {
+        return (
+            <InputField
+                name="tag"
+                required={true}
+                message="Please input your tag!"
+                placeholder="Type the tag"
+                select
+                loading={loadingTags}
+                options={appTags}
+                onSelect={onSelect}
+            />
+        );
     };
 
     return (
@@ -93,64 +106,24 @@ export const PublicationsView = (props: Props) => {
                     </h1>
                     <div className="action-filters">
                         <div>
-                            {filterByTag ? (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    marginRight: "40px",
+                                    width: 270,
+                                }}
+                            >
                                 <div
                                     style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        marginRight: "40px",
-                                        width: 270,
+                                        minWidth: "70%",
+                                        maxWidth: "400px",
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            minWidth: "70%",
-                                            maxWidth: "400px",
-                                        }}
-                                    >
-                                        <InputField
-                                            name="tag"
-                                            required={true}
-                                            message="Please input your tag!"
-                                            placeholder="Type the tag"
-                                            select
-                                            loading={loadingTags}
-                                            options={appTags}
-                                            onSelect={onSelect}
-                                        />
-                                    </div>
-                                    <div>
-                                        <Button
-                                            type="default"
-                                            // loading={loading}
-
-                                            size="small"
-                                            onClick={() => {
-                                                setFilterByTag(false);
-                                                getPosts();
-                                            }}
-                                            style={{
-                                                marginLeft: "10px",
-                                                fontSize: "10px",
-                                            }}
-                                        >
-                                            cancel
-                                        </Button>
-                                    </div>
+                                    {tag ? TagInput() : TagInput()}
                                 </div>
-                            ) : null}
-                        </div>
-                        <div style={{ marginRight: "25px" }}>
-                            <SearchOutlined />
-                        </div>
-                        <div>
-                            <Dropdown
-                                menu={{ items }}
-                                trigger={["click"]}
-                                placement="bottomRight"
-                            >
-                                <FilterOutlined style={{ cursor: "pointer" }} />
-                            </Dropdown>
+                                {/*  */}
+                            </div>
                         </div>
                     </div>
                 </div>
