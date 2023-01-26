@@ -33,13 +33,13 @@ export const FooterNav = (props: Props) => {
                         className="gutter-row"
                         xs={{ span: 24 }}
                         md={{ span: 24 }}
-                        lg={{ span: 6 }}
+                        lg={{ span: 4 }}
                     >
                         <div className="chakra-stack css-gsc7pt">
                             <h4
                                 style={{ fontSize: "1.25rem", fontWeight: 700 }}
                             >
-                                Careers
+                                Islam
                             </h4>
                             <ul
                                 style={{
@@ -52,7 +52,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Job openings
+                                        Naissance
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -60,7 +60,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Employee success
+                                        les piliers
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -68,7 +68,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Benefits
+                                        Les lieux & saints
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -76,7 +76,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Social Media
+                                        Enseignements
                                     </a>
                                 </li>
                             </ul>
@@ -86,13 +86,13 @@ export const FooterNav = (props: Props) => {
                         className="gutter-row"
                         xs={{ span: 24 }}
                         md={{ span: 24 }}
-                        lg={{ span: 6 }}
+                        lg={{ span: 4 }}
                     >
                         <div className="chakra-stack css-gsc7pt">
                             <h4
                                 style={{ fontSize: "1.25rem", fontWeight: 700 }}
                             >
-                                Get help
+                                Fayda Tijania
                             </h4>
                             <ul
                                 style={{
@@ -100,6 +100,83 @@ export const FooterNav = (props: Props) => {
                                     paddingLeft: 0,
                                 }}
                             >
+                                <li className="footer-link">
+                                    <a
+                                        className="chakra-link css-7h3el"
+                                        href="/#"
+                                    >
+                                        Chronologie
+                                    </a>
+                                </li>
+                                <li className="footer-link">
+                                    <a
+                                        className="chakra-link css-7h3el"
+                                        href="/#"
+                                    >
+                                        Poemes de Baye
+                                    </a>
+                                </li>
+                                <li className="footer-link">
+                                    <a
+                                        className="chakra-link css-7h3el"
+                                        href="/#"
+                                    >
+                                        Lettres de Baye
+                                    </a>
+                                </li>
+                                <li className="footer-link">
+                                    <a
+                                        className="chakra-link css-7h3el"
+                                        href="/#"
+                                    >
+                                        Agenda
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </Col>
+                    <Col
+                        className="gutter-row"
+                        xs={{ span: 24 }}
+                        md={{ span: 24 }}
+                        lg={{ span: 4 }}
+                    >
+                        <div className="chakra-stack css-gsc7pt">
+                            <h4
+                                style={{ fontSize: "1.25rem", fontWeight: 700 }}
+                            >
+                                LiwaoulHamd
+                            </h4>
+                            <ul
+                                style={{
+                                    listStyle: "none",
+                                    paddingLeft: 0,
+                                }}
+                            >
+                                <li className="footer-link">
+                                    <a
+                                        className="chakra-link css-7h3el"
+                                        href="/#"
+                                    >
+                                        Nos activites
+                                    </a>
+                                </li>
+                                <li className="footer-link">
+                                    <a
+                                        className="chakra-link css-7h3el"
+                                        href="/#"
+                                    >
+                                        Newsletter
+                                    </a>
+                                </li>
+                                <li className="footer-link">
+                                    <a
+                                        className="chakra-link css-7h3el"
+                                        href="/#"
+                                    >
+                                        Calendrier
+                                    </a>
+                                </li>
                                 <li className="footer-link">
                                     <a
                                         className="chakra-link css-7h3el"
@@ -108,28 +185,21 @@ export const FooterNav = (props: Props) => {
                                         FAQ
                                     </a>
                                 </li>
-                                <li className="footer-link">
-                                    <a
-                                        className="chakra-link css-7h3el"
-                                        href="/#"
-                                    >
-                                        Other status
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </Col>
+
                     <Col
                         className="gutter-row"
                         xs={{ span: 24 }}
                         md={{ span: 24 }}
-                        lg={{ span: 6 }}
+                        lg={{ span: 4 }}
                     >
                         <div className="chakra-stack css-gsc7pt">
                             <h4
                                 style={{ fontSize: "1.25rem", fontWeight: 700 }}
                             >
-                                Legals
+                                Legales
                             </h4>
                             <ul
                                 style={{
@@ -142,7 +212,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Mentions Legales
+                                        Mentions legales
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -150,7 +220,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Conditions Generales
+                                        Politique cookies
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -158,7 +228,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Politiques de cookies
+                                        Nous suivre
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -166,7 +236,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Social Media
+                                        Publication
                                     </a>
                                 </li>
                             </ul>
