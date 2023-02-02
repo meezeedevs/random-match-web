@@ -37,12 +37,12 @@ export const Navbar = (props: Props) => {
             key: "liwaoulham",
         },
         {
-            label: <Link to={routes.publications}>Enseignements</Link>,
-            key: "publications",
+            label: <Link to={routes.ecrits}>Enseignements</Link>,
+            key: "enseignements",
         },
         {
-            label: <Link to={routes.ecrits}>Avis du Cheick</Link>,
-            key: "avis",
+            label: <Link to={routes.publications}>Avis du Cheick</Link>,
+            key: "publications",
         },
         {
             label: <Link to={routes.evenements}>Evenements</Link>,
@@ -96,8 +96,8 @@ export const Navbar = (props: Props) => {
                 ? "liwaoulham"
                 : path.pathname === "/publications"
                 ? "publications"
-                : path.pathname === "/avis"
-                ? "avis"
+                : path.pathname === "/enseignements"
+                ? "enseignements"
                 : path.pathname === "/evenements"
                 ? "evenements"
                 : ""

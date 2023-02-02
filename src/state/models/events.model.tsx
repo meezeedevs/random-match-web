@@ -56,7 +56,7 @@ export const EventsModel: Events = {
 
     success: action((state, payload: any) => {
         if (payload.isUpcoming) return (state.upcomingEvents = payload.data);
-        else return (state.events = payload);
+        else return (state.events = payload.data);
         // return (state.loading = payload);
     }),
     failure: action((state, payload: any) => {
