@@ -68,7 +68,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Les lieux & saints
+                                        Les Lieux Saints
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -113,7 +113,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Poemes de Baye
+                                        Poèmes de Baye
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -158,7 +158,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Nos activites
+                                        Nos activités
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -212,7 +212,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Mentions legales
+                                        Mentions légales
                                     </a>
                                 </li>
                                 <li className="footer-link">
@@ -236,7 +236,7 @@ export const FooterNav = (props: Props) => {
                                         className="chakra-link css-7h3el"
                                         href="/#"
                                     >
-                                        Publication
+                                        Publications
                                     </a>
                                 </li>
                             </ul>
