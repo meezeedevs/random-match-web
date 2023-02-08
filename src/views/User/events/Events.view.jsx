@@ -48,35 +48,43 @@ export const PublicEventsView = (props) => {
 
     useEffect(() => {
         if (events);
+        console.log(events, "klj");
         let datas = [];
-        events?.data?.map((ev) => {
-            const data = {
-                title: ev.title,
-                start: moment(ev.dueDate).toDate(),
-                end: moment(ev.dueDate).toDate(),
-                allDay: false,
-                resource: {
-                    location: ev.location,
-                    description: ev.description,
-                    organiser: `${ev.organiser.firstName} ${ev.organiser.lastName}`,
-                },
-            };
-            return datas.push(data);
-        });
+        if (events.data)
+            events?.data?.map((ev) => {
+                const data = {
+                    title: ev.title,
+                    start: moment(ev.dueDate).toDate(),
+                    end: moment(ev.dueDate).toDate(),
+                    allDay: false,
+                    resource: {
+                        location: ev.location,
+                        description: ev.description,
+                        organiser: `${ev.organiser.firstName} ${ev.organiser.lastName}`,
+                    },
+                };
+                return datas.push(data);
+            });
+        else
+            events?.map((ev) => {
+                const data = {
+                    title: ev.title,
+                    start: moment(ev.dueDate).toDate(),
+                    end: moment(ev.dueDate).toDate(),
+                    allDay: false,
+                    resource: {
+                        location: ev.location,
+                        description: ev.description,
+                        organiser: `${ev.organiser.firstName} ${ev.organiser.lastName}`,
+                    },
+                };
+                return datas.push(data);
+            });
+        console.log(datas, "lkj");
         return setAppEvents(datas);
     }, [events]);
 
     const [culture] = useState("fr");
-
-    // const cultureOnClick = useCallback(
-    //     ({ target: { value } }) => {
-    //         // really better to useReducer for simultaneously setting multiple state values
-    //         setCulture(value);
-    //         setRightToLeft(value === "ar-AE");
-    //     },
-    //     [setCulture]
-
-    // );
 
     const { defaultDate, messages } = useMemo(
         () => ({
@@ -241,18 +249,6 @@ export const PublicEventsView = (props) => {
                     </h1>
                 </div>
                 <div>
-                    {/* <div style={{ marginTop: "2rem", marginBottom: "3rem" }}>
-                        <InputField
-                            name="language"
-                            message={`Veuillez selectionnez une langue!`}
-                            placeholder={`selectionnez une langue`}
-                            label="Langue"
-                            select
-                            options={selectOptions}
-                            onSelect={(val) => cultureOnClick(val)}
-                            defaultValue={[culture]}
-                        />
-                    </div> */}
                     <Spin spinning={loading} tip="Chargement...">
                         <Calendar
                             localizer={localizer}
