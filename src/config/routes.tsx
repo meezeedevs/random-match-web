@@ -18,7 +18,7 @@ export const routes = {
     islam: "/islam",
     tijania: "/tijania",
     faydaTijania: "/faydaTijania",
-    liwaoulham: "/liwaoulham",
+    liwaoulham: "/liwaoulhamd",
     ecrits: "/avis-du-cheick",
     profile: "/profile",
 };

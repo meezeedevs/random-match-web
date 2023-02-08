@@ -33,8 +33,8 @@ export const Navbar = (props: Props) => {
             key: "faydaTijania",
         },
         {
-            label: <Link to={routes.liwaoulham}>Liwaoulhamd</Link>,
-            key: "liwaoulham",
+            label: <Link to={routes.liwaoulham}>LiwaoulHamd</Link>,
+            key: "liwaoulhamd",
         },
         {
             label: <Link to={routes.ecrits}>Enseignements</Link>,
@@ -92,8 +92,8 @@ export const Navbar = (props: Props) => {
                 ? "tijania"
                 : path.pathname === "/faydaTijania"
                 ? "faydaTijania"
-                : path.pathname === "/liwaoulham"
-                ? "liwaoulham"
+                : path.pathname === "/liwaoulhamd"
+                ? "liwaoulhamd"
                 : path.pathname === "/publications"
                 ? "publications"
                 : path.pathname === "/enseignements"
