@@ -21,7 +21,7 @@ export const Navbar = (props: Props) => {
 
     const navItems: MenuProps["items"] = [
         {
-            label: <Link to={routes.islam}>ISLAM</Link>,
+            label: <Link to={routes.islam}>Islam</Link>,
             key: "islam",
         },
         {
@@ -33,7 +33,7 @@ export const Navbar = (props: Props) => {
             key: "faydaTijania",
         },
         {
-            label: <Link to={routes.liwaoulham}>LIWAOULHAM</Link>,
+            label: <Link to={routes.liwaoulham}>Liwaoulhamd</Link>,
             key: "liwaoulham",
         },
         {
