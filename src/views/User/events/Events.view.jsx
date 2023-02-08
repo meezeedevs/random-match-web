@@ -1,4 +1,4 @@
-import { Container, useTitle, InputField } from "components";
+import { Container, useTitle } from "components";
 import React, { useEffect, useState, useMemo } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ import moment from "moment";
 import { useStoreActions, useStoreState } from "hooks";
 
 import { Events } from "../home/components";
-import { cultures, lang } from "config";
+// import { lang } from "config";
 
 import { useLocation } from "react-router-dom";
 
@@ -34,7 +34,6 @@ export const PublicEventsView = (props) => {
     }, [getEvents]);
 
     const search = useLocation().search;
-    const search_params = new URLSearchParams(search);
     const goto = new URLSearchParams(search).get("goto");
 
     useEffect(() => {
@@ -67,9 +66,7 @@ export const PublicEventsView = (props) => {
         return setAppEvents(datas);
     }, [events]);
 
-    const [culture, setCulture] = useState("fr");
-    const [rightToLeft, setRightToLeft] = useState(false);
-    const [selectOptions, setSelectOptions] = useState([]);
+    const [culture] = useState("fr");
 
     // const cultureOnClick = useCallback(
     //     ({ target: { value } }) => {
@@ -81,31 +78,12 @@ export const PublicEventsView = (props) => {
 
     // );
 
-    const cultureOnClick = (val) => {
-        // console.log(val);
-        setCulture(val);
-        setRightToLeft(val === "ar-AE");
-    };
-
     const { defaultDate, messages } = useMemo(
         () => ({
             defaultDate: new Date(),
-            messages: lang[culture],
         }),
-        [culture]
+        []
     );
-
-    useEffect(() => {
-        const datas = [];
-        cultures.map((c) => {
-            const data = {
-                value: c,
-                label: c,
-            };
-            return datas.push(data);
-        });
-        setSelectOptions(datas);
-    }, []);
 
     useTitle("Évènements");
 
@@ -290,7 +268,6 @@ export const PublicEventsView = (props) => {
                             }
                             defaultDate={defaultDate}
                             messages={messages}
-                            rtl={rightToLeft}
                             components={{
                                 event: EventComponent,
                             }}

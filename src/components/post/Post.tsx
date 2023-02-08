@@ -1,7 +1,4 @@
 import { Col, Row } from "antd";
-import React from "react";
-
-import { HeartOutlined, MessageOutlined } from "@ant-design/icons";
 import { useTitle } from "components/document-head";
 import parse from "html-react-parser";
 import post_img from "assets/images/posts-img.webp";

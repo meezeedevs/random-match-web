@@ -1,9 +1,8 @@
-import { Button, Col, Dropdown, MenuProps, Row, Spin } from "antd";
+import { Col, Row, Spin } from "antd";
 import { Container, InputField, useTitle } from "components";
 import { useStoreActions, useStoreState } from "hooks";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 
 import post_img from "assets/images/posts-img.webp";
 
