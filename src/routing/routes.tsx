@@ -21,6 +21,7 @@ import {
 } from "views";
 // import { UserEditView } from "views/admin/dashboard";
 import { routes, PrivateRoutes } from "config";
+import { MaintenanceMessage } from "components";
 
 export const getRoutes = () => (
     <Fragment>
@@ -35,9 +36,78 @@ export const getRoutes = () => (
         <Route path={routes.evenements} element={<PublicEventsView />} />
         <Route path={routes.islam} element={<MenuIslam />} />
         <Route path={routes.tijania} element={<MenuBayeNiass />} />
-        <Route path={routes.faydaTijania} element={<MenuBayeNiass />} />
+        <Route path={routes.histoire} element={<MenuBayeNiass />} />
         <Route path={routes.liwaoulham} element={<MenuLiwaoulham />} />
         <Route path={routes.ecrits} element={<MenuEcritDeBaye />} />
+        <Route
+            path={routes.figures}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+        <Route
+            path={routes.tariqas}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+        <Route
+            path={routes.objectif}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+        <Route
+            path={routes.moukhadams}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+        <Route
+            path={routes.histoire}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.definitions}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.moukhadamsBaye}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.parcours}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.activites}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.publicationsCheikh}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.sections}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.contributions}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.poemes}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+
+        <Route
+            path={routes.institut}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
+        <Route
+            path={routes.ecole}
+            element={<MaintenanceMessage text={"Comming soon"} />}
+        />
 
         <Route path={routes.profile} element={<ProfileView />} />
 

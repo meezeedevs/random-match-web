@@ -21,32 +21,150 @@ export const Navbar = (props: Props) => {
 
     const navItems: MenuProps["items"] = [
         {
-            label: <Link to={routes.islam}>Islam</Link>,
+            label: "Islam",
             key: "islam",
+            children: [
+                {
+                    label: <Link to={routes.islam}>Islam Soufi</Link>,
+                    key: "islam-soufi",
+                },
+                {
+                    label: <Link to={routes.figures}>Figures marquants</Link>,
+                    key: "figures-marquants",
+                },
+            ],
         },
         {
-            label: <Link to={routes.tijania}>Tijania</Link>,
+            label: "Tijania",
             key: "tijania",
+            children: [
+                {
+                    label: <Link to={routes.tariqas}>Les Tariqas</Link>,
+                    key: "tariqas",
+                },
+                {
+                    label: (
+                        <Link to={routes.tijania}>
+                            Tariqas Cheikh Ahmad-Tijani
+                        </Link>
+                    ),
+                    key: "tijania",
+                },
+                {
+                    label: (
+                        <Link to={routes.objectif}>Objectifs de la voie</Link>
+                    ),
+                    key: "objectif",
+                },
+                {
+                    label: (
+                        <Link to={routes.moukhadams}>
+                            Quelques grands Moukhadams
+                        </Link>
+                    ),
+                    key: "Moukhadams",
+                },
+            ],
         },
         {
-            label: <Link to={routes.faydaTijania}>FaydaTijania</Link>,
+            label: "FaydaTijania",
             key: "faydaTijania",
+            children: [
+                {
+                    label: (
+                        <Link to={routes.histoire}>Histoire et Biographie</Link>
+                    ),
+                    key: "histoire",
+                },
+                {
+                    label: (
+                        <Link to={routes.definitions}>
+                            Définitions des conceptes
+                        </Link>
+                    ),
+                    key: "definitions",
+                },
+                {
+                    label: (
+                        <Link to={routes.moukhadamsBaye}>
+                            Quelques grands Moukhadams de Baye
+                        </Link>
+                    ),
+                    key: "moukhadams-baye",
+                },
+            ],
         },
         {
-            label: <Link to={routes.liwaoulham}>LiwaoulHamd</Link>,
+            label: "LiwaoulHamd",
             key: "liwaoulhamd",
+            children: [
+                {
+                    label: (
+                        <Link to={routes.parcours}>
+                            Parcours du Cheikh Aziz
+                        </Link>
+                    ),
+                    key: "parcours",
+                },
+                {
+                    label: <Link to={routes.evenements}>Evénements</Link>,
+                    key: "evenements",
+                },
+                {
+                    label: <Link to={routes.activites}>Nos activités</Link>,
+                    key: "activites",
+                },
+                {
+                    label: (
+                        <Link to={routes.publicationsCheikh}>
+                            Publications du Cheikh
+                        </Link>
+                    ),
+                    key: "publications-cheikh",
+                },
+                {
+                    label: (
+                        <Link to={routes.sections}>
+                            Les différentes sections ou Kossi
+                        </Link>
+                    ),
+                    key: "sections",
+                },
+            ],
         },
         {
-            label: <Link to={routes.ecrits}>Enseignements</Link>,
+            label: "Avis du Cheikh",
+            key: "avis",
+            children: [
+                {
+                    label: <Link to={routes.publications}>Publications</Link>,
+                    key: "publications",
+                },
+                {
+                    label: <Link to={routes.contributions}>Contributions</Link>,
+                    key: "contributions",
+                },
+            ],
+        },
+        {
+            label: "Enseignements",
             key: "enseignements",
-        },
-        {
-            label: <Link to={routes.publications}>Avis du Cheick</Link>,
-            key: "publications",
-        },
-        {
-            label: <Link to={routes.evenements}>Evenements</Link>,
-            key: "evenements",
+            children: [
+                {
+                    label: (
+                        <Link to={routes.poemes}>Poèmes et Ecrits de Baye</Link>
+                    ),
+                    key: "poemes",
+                },
+                {
+                    label: <Link to={routes.institut}>L'institut</Link>,
+                    key: "institut",
+                },
+                {
+                    label: <Link to={routes.ecole}>Ecole coranique</Link>,
+                    key: "ecole",
+                },
+            ],
         },
     ];
 
@@ -88,10 +206,10 @@ export const Navbar = (props: Props) => {
         setCurrent(
             path.pathname === "/islam"
                 ? "islam"
-                : path.pathname === "/tijania"
+                : path.pathname === "/tariqas-cheikh-ahmad-tijani"
                 ? "tijania"
-                : path.pathname === "/faydaTijania"
-                ? "faydaTijania"
+                : path.pathname === "/histoire"
+                ? "histoire"
                 : path.pathname === "/liwaoulhamd"
                 ? "liwaoulhamd"
                 : path.pathname === "/publications"
@@ -105,7 +223,7 @@ export const Navbar = (props: Props) => {
     }, [path]);
 
     const onClick: MenuProps["onClick"] = (e) => {
-        console.log("click ", e);
+        // console.log("click ", e);
         setCurrent(e.key);
     };
 
