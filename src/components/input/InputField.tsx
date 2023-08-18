@@ -134,7 +134,7 @@ export const InputField = (props: InputFieldProps) => {
                     onChange={props.selectOnChange}
                     onSearch={props.selectOnSearch}
                     filterOption={(input, option) =>
-                        (option?.label ?? "")
+                        (option?.label ?? '')
                             .toLowerCase()
                             .includes(input.toLowerCase())
                     }

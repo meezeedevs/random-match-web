@@ -1,4 +1,3 @@
-import { Container } from "components/container";
 import React from "react";
 
 type Props = {
@@ -8,11 +7,9 @@ type Props = {
 export const MaintenanceMessage = ({ text }: Props) => {
     return (
         <div style={{ height: "62vh" }}>
-            <Container>
-                <h1 className="heading-1" style={{ marginTop: "4rem" }}>
+                <h1>
                     {text}
                 </h1>
-            </Container>
         </div>
     );
 };

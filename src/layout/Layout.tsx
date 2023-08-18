@@ -8,10 +8,7 @@ import {
 import { Dropdown, Layout, Space, theme } from "antd";
 import { SiderContent } from "./sider";
 import { useStoreActions } from "hooks";
-import { Link, useLocation } from "react-router-dom";
-import { Navbar } from "./navbar";
-import { FooterNav } from "./footer";
-import { routes } from "config";
+import { useLocation } from "react-router-dom";
 import { storage } from "utils";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -34,6 +31,7 @@ export const AppLayout = ({ children }: Props) => {
 
     useEffect(() => {
         if (
+            location.pathname === "/" ||
             location.pathname === "/auth/login" ||
             location.pathname === "/auth/signup" ||
             location.pathname === "/auth/forgot-password" ||
@@ -42,12 +40,13 @@ export const AppLayout = ({ children }: Props) => {
             setAuthPage(true);
         else {
             setAuthPage(false);
-            var regex: any = "admin";
-            var path = location.pathname;
-            if (path.indexOf(regex) > -1) setAdminLayout(true);
-            else {
-                setAdminLayout(false);
-            }
+            setAdminLayout(true)
+            // var regex: any = "admin";
+            // var path = location.pathname;
+            // if (path.indexOf(regex) > -1) setAdminLayout(true);
+            // else {
+            //     setAdminLayout(false);
+            // }
         }
         return;
     }, [location]);
@@ -65,7 +64,7 @@ export const AppLayout = ({ children }: Props) => {
                 <div> {children}</div>
             ) : adminLayout ? (
                 <Layout style={{ height: "100vh" }}>
-                    <Sider trigger={null} collapsible collapsed={collapsed}>
+                    <Sider trigger={null} width={250} collapsible collapsed={collapsed}>
                         <SiderContent collapsed={collapsed} />
                     </Sider>
                     <Layout className="site-layout">
@@ -91,21 +90,6 @@ export const AppLayout = ({ children }: Props) => {
                             <Dropdown
                                 menu={{
                                     items: [
-                                        {
-                                            label: (
-                                                <Link to={routes.profile}>
-                                                    <UserOutlined />{" "}
-                                                    <span
-                                                        style={{
-                                                            marginLeft: "5px",
-                                                        }}
-                                                    >
-                                                        Profile
-                                                    </span>
-                                                </Link>
-                                            ),
-                                            key: "profile",
-                                        },
                                         {
                                             label: (
                                                 <span
@@ -173,48 +157,13 @@ export const AppLayout = ({ children }: Props) => {
                         >
                             {children}
                         </Content>
+                        <Footer>
+
+                        </Footer>
                     </Layout>
                 </Layout>
-            ) : (
-                <Layout className="site-layout">
-                    <Header
-                        style={{
-                            background: colorBgContainer,
-                            boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
-                            borderBottom: "2px solid #edf2f7",
-
-                            position: "sticky",
-                            top: 0,
-                            zIndex: 5,
-                            width: "100%",
-                        }}
-                    >
-                        {/* <Container> */}
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                            }}
-                        >
-                            <Navbar />
-                        </div>
-                        {/* </Container> */}
-                    </Header>
-                    <Content
-                        style={{
-                            // margin: "24px 16px",
-                            // padding: 24,
-                            // minHeight: 280,
-                            background: colorBgContainer,
-                        }}
-                    >
-                        {children}
-                    </Content>
-                    <Footer className="nav-footer">
-                        <FooterNav />
-                    </Footer>
-                </Layout>
-            )}
+            ) : null
+            }
         </>
     );
 };

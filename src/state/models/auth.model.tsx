@@ -11,8 +11,8 @@ const success = () => {
 };
 
 const error = (error: any) => {
-    if (error.email) {
-        switch (error.email) {
+    if (error?.email) {
+        switch (error?.email) {
             case "EMAIL_TYPE":
                 message.error("Email invalid");
                 break;
@@ -26,8 +26,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.password) {
-        switch (error.password) {
+    } else if (error?.password) {
+        switch (error?.password) {
             case "PASSWORD_WRONG":
                 message.error("Wrong password");
                 break;
@@ -44,8 +44,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.oldPassword) {
-        switch (error.oldPassword) {
+    } else if (error?.oldPassword) {
+        switch (error?.oldPassword) {
             case "OLDPASSWORD_WRONG":
                 message.error("Wrong old password");
                 break;
@@ -56,8 +56,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.newPassword) {
-        switch (error.newPassword) {
+    } else if (error?.newPassword) {
+        switch (error?.newPassword) {
             case "NEWPASSWORD_MIN6_MAX30":
                 message.error(
                     "Your new password must have characters between 6 and 30"
@@ -75,8 +75,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.newPassword2) {
-        switch (error.newPassword) {
+    } else if (error?.newPassword2) {
+        switch (error?.newPassword) {
             case "NEWPASSWORD2_EMPTY":
                 message.error("Confirm password is empty");
                 break;
@@ -84,8 +84,8 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error.message) {
-        switch (error.message) {
+    } else if (error?.message) {
+        switch (error?.message) {
             case "NOT_OWNER":
                 message.error(
                     "It seems you're trying to recover the account wrongly, please follow the guidelines!!!"
@@ -115,28 +115,28 @@ export const AuthModel: Login = {
     }),
 
     success: action((state, payload: any) => {
-        if (payload.image) {
+        if (payload?.image) {
             const data = {
                 ...state.user,
-                image: payload.data,
+                image: payload?.data,
             };
             state.user = data;
         } else {
-            if (payload.new) {
+            if (payload?.new) {
                 success();
             }
-            state.token = payload.token;
-            state.user = payload.user;
+            state.token = payload?.token;
+            state.user = payload?.user;
             // return (state.loading = payload);
         }
     }),
     failure: action((state, payload: any) => {
-        if (payload.image) {
+        if (payload?.image) {
             const data = {
                 ...state.user,
             };
             state.user = data;
-            return (state.errors = payload.data);
+            return (state.errors = payload?.data);
         } else if (payload !== null) {
             error(payload);
         } else message.error("Something went wrong, try again later");
@@ -170,7 +170,7 @@ export const AuthModel: Login = {
                 } as any);
                 message.success(`Welcome ${decoded.lastName}`);
                 if (decoded.isAdmin) {
-                    redirectTo(routes.dashboard);
+                    // redirectTo(routes.dashboard);
                 } else redirectTo(routes.home);
 
                 // window.location.href = "/admin/dashboard";
@@ -181,8 +181,8 @@ export const AuthModel: Login = {
             // redirectTo(routes.board);
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
-            // console.log(error.response.data);
+            actions.failure(error?.response ? error?.response.data : null);
+            // console.log(error?.response.data);
         }
     }),
     signup: thunk(async (actions, payload: any) => {
@@ -190,7 +190,7 @@ export const AuthModel: Login = {
         actions.request(true as any);
 
         try {
-            const response = await client().post("/signup", payload);
+            const response = await client().post("/register", payload);
             if (response.status === 200) {
                 actions.request(false as any);
                 message.success("Utilisateur cree avec succes");
@@ -198,8 +198,8 @@ export const AuthModel: Login = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
-            // console.log(error.response.data);
+            actions.failure(error?.response ? error?.response.data : null);
+            // console.log(error?.response.data);
         }
     }),
     logout: action((state) => {
@@ -228,8 +228,8 @@ export const AuthModel: Login = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
-            // console.log(error.response.data);
+            actions.failure(error?.response ? error?.response.data : null);
+            // console.log(error?.response.data);
         }
     }),
 
@@ -245,8 +245,8 @@ export const AuthModel: Login = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
-            // console.log(error.response.data);
+            actions.failure(error?.response ? error?.response.data : null);
+            // console.log(error?.response.data);
         }
     }),
     updateUserCredentials: thunk(async (actions, payload: any) => {
@@ -262,8 +262,8 @@ export const AuthModel: Login = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
-            // console.log(error.response.data);
+            actions.failure(error?.response ? error?.response.data : null);
+            // console.log(error?.response.data);
         }
     }),
     updateUserHandle: thunk(async (actions, payload: any) => {
@@ -281,8 +281,8 @@ export const AuthModel: Login = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
-            // console.log(error.response.data);
+            actions.failure(error?.response ? error?.response.data : null);
+            // console.log(error?.response.data);
         }
     }),
 
@@ -300,11 +300,11 @@ export const AuthModel: Login = {
         } catch (error: any) {
             actions.request(false as any);
             actions.failure(
-                error.response
-                    ? ({ data: error.response.data, image: "" } as any)
+                error?.response
+                    ? ({ data: error?.response.data, image: "" } as any)
                     : null
             );
-            // console.log(error.response.data);
+            // console.log(error?.response.data);
         }
     }),
 
@@ -325,9 +325,9 @@ export const AuthModel: Login = {
         } catch (error: any) {
             actions.request(false as any);
             // actions.success({ data: null, image: true } as any)
-            // actions.failure(error.response ? error.response.data : null);
+            // actions.failure(error?.response ? error?.response.data : null);
 
-            // console.log(error.response.data);
+            // console.log(error?.response.data);
         }
     }),
 
@@ -336,8 +336,8 @@ export const AuthModel: Login = {
 
         try {
             const response = await client().post(
-                `/reset/${payload.token}`,
-                payload.data
+                `/reset/${payload?.token}`,
+                payload?.data
             );
             if (response.data.success) {
                 message.success("Account recovered, Welcome back!");
@@ -346,8 +346,8 @@ export const AuthModel: Login = {
             }
         } catch (error: any) {
             actions.request(false as any);
-            actions.failure(error.response ? error.response.data : null);
-            console.log(error.response);
+            actions.failure(error?.response ? error?.response.data : null);
+            console.log(error?.response);
         }
     }),
 };

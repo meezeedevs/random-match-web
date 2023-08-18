@@ -1,11 +1,6 @@
 import React from "react";
 import {
     UserOutlined,
-    UsergroupAddOutlined,
-    CopyOutlined,
-    CalendarOutlined,
-    AudioOutlined,
-    DashboardOutlined,
 } from "@ant-design/icons";
 
 import { Menu } from "antd";
@@ -13,7 +8,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { routes } from "config";
 
-import logo from "assets/images/liwoul-hamd-logo.png";
+// import logo from "assets/images/liwoul-hamd-logo.png";
 
 type Props = {
     collapsed: boolean;
@@ -32,30 +27,31 @@ export const SiderContent = ({ collapsed }: Props) => {
             <div
                 style={{
                     width: "100%",
-                    height: "80px",
+                    height: "100px",
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
+                    alignItems: "flex-start",
+                    marginTop: '30px'
                 }}
             >
                 <Link to={routes.home}>
                     <h1
                         style={{
-                            background: "white",
-                            color: "#000",
-                            margin: "10px auto",
+                            color: "white",
+                            // margin: "10px",
                             display: "flex",
                             alignItems: "center",
-                            padding: "5px",
-                            borderRadius: "5px",
+                            // padding: "30px",
+                            textAlign: 'center',
+                            fontSize: '20px',
+                            fontWeight: 800
                         }}
                     >
-                        <img src={logo} style={{ maxWidth: "25px" }} alt="" />
                         {collapsed ? (
-                            ""
+                            "ASMSA"
                         ) : (
                             <span style={{ marginLeft: "10px" }}>
-                                LiwaoulHamd
+                                Automated random Matcher
                             </span>
                         )}
                     </h1>
@@ -69,34 +65,14 @@ export const SiderContent = ({ collapsed }: Props) => {
                 items={[
                     {
                         key: "1",
-                        icon: <DashboardOutlined />,
-                        label: <Link to={routes.dashboard}>Dashboard</Link>,
-                    },
-                    {
-                        key: "2",
                         icon: <UserOutlined />,
-                        label: <Link to={routes.users}>Utilisateurs</Link>,
+                        label: <Link to={routes.members}>members</Link>,
                     },
-                    {
-                        key: "3",
-                        icon: <UsergroupAddOutlined />,
-                        label: <Link to={routes.communities}>Communautes</Link>,
-                    },
-                    {
-                        key: "4",
-                        icon: <CopyOutlined />,
-                        label: <Link to={routes.posts}>Publications</Link>,
-                    },
-                    {
-                        key: "5",
-                        icon: <CalendarOutlined />,
-                        label: <Link to={routes.events}>Evenements</Link>,
-                    },
-                    {
-                        key: "6",
-                        icon: <AudioOutlined />,
-                        label: <Link to={routes.poems}>Poemes</Link>,
-                    },
+                    // {
+                    //     key: "2",
+                    //     icon: <CopyOutlined />,
+                    //     label: <Link to={routes.messages}>Messages</Link>,
+                    // }
                 ]}
             />
         </StyledContainer>
