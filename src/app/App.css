@@ -409,13 +409,13 @@ body {
   font-size: 15px;
 }
 
-.ant-spin .ant-spin-dot-item {
+/* .ant-spin .ant-spin-dot-item {
   background-color: #00ba71;
 }
 
 .ant-spin {
   color: #00ba71;
-}
+} */
 
 .rbc-event,
 .rbc-day-slot .rbc-background-event {

@@ -2,6 +2,6 @@ import { useEffect } from "react";
 
 export const useTitle = (title: string) => {
     useEffect(() => {
-        document.title = `${title} | Automated SMS App`;
+        document.title = `${title} | random matcher`;
     }, [title]);
 };

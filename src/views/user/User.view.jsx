@@ -1,5 +1,6 @@
-import React from "react";
-import { Alert } from "antd";
+import React, { useState, useEffect } from "react";
+import { useStoreActions, useStoreState } from "hooks";
+import { Alert, Spin } from "antd";
 
 import "./userView.css";
 
@@ -59,13 +60,15 @@ class RandomPicker extends React.PureComponent {
 
         return (
             <div className="RandomPicker">
-                <p style={{marginBottom: '10vh', maxWidth: '500px'}}>
+                <p style={{ marginBottom: "10vh", maxWidth: "500px" }}>
                     <Alert
-                        message="Menya neza"
-                        description={`Umuntu arekuriwe gutora rimwe, uramutse uhejeje gutora ntibisubira gukunda ko utora kandi. \n\n
-                        Gutora umuntu ni tombora ntarutonde bikurikiza kandi bikorwa n'imashini nyabwonko. \n Mugutora fyonda kur "start" 
-                        hanyuma bikazungura mumwanya w'isegonda, ushatse urashobora gufyonda kuri "stop" kugira uhagarare aho bigeze 
-                        mukuzunguruka canke ukarindira bikihagarika. \n Tombora nziza, Murakoze!`}
+                        message="Information"
+                        description={`Une personne n'a le droit de voter qu'une seule fois, une fois terminé, 
+                        il n'est plus possible de voter à nouveau. Le processus de vote est aléatoire, 
+                        ne suit pas d'ordre particulier et est effectué par une machine. Pour voter, 
+                        appuyez sur 'start' et le compteur tournera pendant une seconde. 
+                        Si vous le désirez, vous pouvez appuyer sur 'stop' pour arrêter le compteur là où il est, 
+                        ou attendre qu'il s'arrête de lui-même.`}
                         type="info"
                         showIcon
                         closable
@@ -80,19 +83,27 @@ class RandomPicker extends React.PureComponent {
                     reset={this.reset}
                     choice={currentChoice}
                 />
-                <p style={{fontSize:'12px', color: 'white', position: "fixed", bottom: '5vh'}}>Designed with 
-                  <span 
+                <p
                     style={{
-                      fontSize: '15px',
-                      color: 'red',
-                      '--darkreader-inline-color': '#ff1a1a',
-                      margin:'5px' 
-                    }} 
-                    data-darkreader-inline-color=""
-                  >
-                      ♥
-                  </span> 
-                  by Meezee
+                        fontSize: "12px",
+                        color: "white",
+                        position: "fixed",
+                        bottom: "5vh",
+                    }}
+                >
+                    Designed with
+                    <span
+                        style={{
+                            fontSize: "15px",
+                            color: "red",
+                            "--darkreader-inline-color": "#ff1a1a",
+                            margin: "5px",
+                        }}
+                        data-darkreader-inline-color=""
+                    >
+                        ♥
+                    </span>
+                    by Meezee
                 </p>
             </div>
         );
@@ -118,11 +129,10 @@ class RandomPickerControls extends React.PureComponent {
         return (
             <div className="RandomPicker__controls">
                 <button
-                    disabled={choice?true:false}
-                    className={
-                      `RandomPicker__button ${
+                    disabled={choice ? true : false}
+                    className={`RandomPicker__button ${
                         isRunning && "RandomPicker__button--stop"
-                    } ${choice && !isRunning ?'disabled':""}`}
+                    } ${choice && !isRunning ? "disabled" : ""}`}
                     onClick={isRunning ? stop : start}
                 >
                     {isRunning ? "stop" : "start"}
@@ -160,9 +170,26 @@ const namesList = [
 ];
 
 export const UserView = () => {
+    const [appUnmatched, setAppUnmatched] = useState([]);
+
+    const { loadingUnmatched, unmatched } = useStoreState((state) => state.users);
+    const { getUnmatched} = useStoreActions(
+        (actions) => actions.users
+    );
+
+    useEffect(() => {
+        getUnmatched();
+    }, [getUnmatched]);
+
+    useEffect(() => {
+        setAppUnmatched(unmatched);
+    }, [unmatched]);
+
     return (
         <div className="picker-wrapper">
-            <RandomPicker items={namesList} />
+            <Spin spinning={loadingUnmatched} tip="Loading...">
+             <RandomPicker items={appUnmatched} />
+            </Spin>
         </div>
     );
 };
