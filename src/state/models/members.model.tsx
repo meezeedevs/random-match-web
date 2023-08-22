@@ -24,65 +24,7 @@ const error = (error: any) => {
                 message.error("Something went wrong, try again later");
                 break;
         }
-    } else if (error?.password) {
-        switch (error?.password) {
-            case "PASSWORD_WRONG":
-                message.error("Wrong password");
-                break;
-            case "PASSWORD_MIN6_MAX30":
-                message.error("Password must have characters between 6 and 30");
-                break;
-            case "PASSWORD_EMPTY":
-                message.error("You're trying to login with an empty password");
-                break;
-            case "Members_OR_PASSWORD_WRONG":
-                message.error("Members or password wrong!");
-                break;
-            default:
-                message.error("Something went wrong, try again later");
-                break;
-        }
-    } else if (error?.oldPassword) {
-        switch (error?.oldPassword) {
-            case "OLDPASSWORD_WRONG":
-                message.error("Wrong old password");
-                break;
-            case "OLDPASSWORD_EMPTY":
-                message.error("Old password not provided");
-                break;
-            default:
-                message.error("Something went wrong, try again later");
-                break;
-        }
-    } else if (error?.newPassword) {
-        switch (error?.newPassword) {
-            case "NEWPASSWORD_MIN6_MAX30":
-                message.error(
-                    "Your new password must have characters between 6 and 30"
-                );
-                break;
-            case "NEWPASSWORD_EMPTY":
-                message.error(
-                    "You're trying to update with an empty new password "
-                );
-                break;
-            case "NEWPASSWORD_DIFFERENT":
-                message.error("new password and confirm password don't match");
-                break;
-            default:
-                message.error("Something went wrong, try again later");
-                break;
-        }
-    } else if (error?.newPassword2) {
-        switch (error?.newPassword) {
-            case "NEWPASSWORD2_EMPTY":
-                message.error("Confirm password is empty");
-                break;
-            default:
-                message.error("Something went wrong, try again later");
-                break;
-        }
-    } else if (error?.message) {
+    }  else if (error?.message) {
         switch (error?.message) {
             case "NOT_OWNER":
                 message.error(
@@ -160,6 +102,7 @@ export const MembersModel: Members = {
             actions.failure(
                 error ? (error?.response ? error?.response.data : null) : null
             );
+            console.log(error.response.data)
         }
     }),
 
@@ -168,9 +111,9 @@ export const MembersModel: Members = {
         actions.request({ isRole: false, loading: true } as any);
         console.log(payload)
         try {
-            const response = await client().delete(`/members/${payload}`);
+            const response = await client().delete(`/user/${payload}`);
             if (response.data) {
-                message.success("Members deleted");
+                message.success("Member deleted");
                 actions.getMembers();
                 actions.request({ isRole: false, loading: false } as any);
             }

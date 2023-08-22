@@ -3,12 +3,25 @@ import { Users } from "state/types";
 import { client } from "config";
 
 import { message } from "antd";
+import { storage } from "utils";
 
 // const success = () => {
 //     message.success("Signed in successfully");
 // };
 
 const error = (error: any) => {
+    if (error?.message) {
+        switch (error?.message) {
+            case "USER_HAS_PICKED":
+                message.error(
+                    "Impossible de choisir une seconde fois!!!"
+                );
+                break;
+            default:
+                message.error("Something went wrong, try again later");
+                break;
+        }
+    }
 }
 
 export const UserModel: Users = {
@@ -35,7 +48,7 @@ export const UserModel: Users = {
         actions.request({ isRole: false, loading: false } as any);
         actions.request({ isRole: false, loading: true } as any);
         try {
-            const response = await client().get(`/getUnmatched`);
+            const response = await client().get(`/unmatched`);
             if (response.data) {
                 // console.log(response, "k");
                 // // message.success('Profile photo updated');
@@ -57,12 +70,14 @@ export const UserModel: Users = {
         actions.request({ isRole: false, loading: true } as any);
 
         try {
-            const response = await client().post("/message", payload);
+            const response = await client().post(`/match/${payload}`);
 
             if (response.data) {
-                await actions.getUnmatched();
-                message.success("Message sent");
+                message.success("hurrraayyy...you matched successfully");
                 actions.request({ isRole: false, loading: false } as any);
+                await actions.getUnmatched();
+                console.log(response.data)
+                storage.save("currentUser", response.data);
             }
         } catch (error: any) {
             actions.request({ isRole: false, loading: false } as any);

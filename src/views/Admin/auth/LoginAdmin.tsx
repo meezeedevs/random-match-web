@@ -24,7 +24,7 @@ export const LoginAdmin = (props: Props) => {
     const { loading } = useStoreState((state) => state.auth);
     const { login } = useStoreActions((actions) => actions.auth);
 
-    useTitle("Login(admin)");
+    useTitle("Login");
 
     const onFinish = (values: any) => {
         login(values);
@@ -52,11 +52,11 @@ export const LoginAdmin = (props: Props) => {
                     noValidate
                 >
                     <InputField
-                        name="email"
+                        name="userName"
                         required={true}
-                        message="Veuillez entrer votre email!"
-                        placeholder="Entrer votre email"
-                        type="email"
+                        message="Veuillez entrer votre username!"
+                        placeholder="Entrer votre username"
+                        type="username"
                     />
 
                     <InputField
@@ -81,7 +81,7 @@ export const LoginAdmin = (props: Props) => {
                         {/* <Link to={routes.forgotPassword}>Forgot Password</Link> */}
                     </div>
                 </Form>
-                <div
+                {/* <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
                     <div>
@@ -97,19 +97,6 @@ export const LoginAdmin = (props: Props) => {
                         </Link>
                     </div>
                     <div style={{ textAlign: "right" }}>
-                        {/* <div style={{ marginBottom: "1rem" }}>
-                            <Link
-                                to={routes.forgot}
-                                style={{
-                                    color: "#00ba71",
-                                    textDecoration: "underline",
-                                    fontWeight: "bold",
-                                }}
-                                
-                            >
-                                <Text style={{}}>Mot de passe oublier?</Text>
-                            </Link>
-                        </div> */}
                         <div>
                             <Link
                                 to={routes.signup}
@@ -125,7 +112,7 @@ export const LoginAdmin = (props: Props) => {
                             </Link>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </Card>
         </StyledAuthPage>
     );

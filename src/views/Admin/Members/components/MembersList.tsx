@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table } from "antd";
+import { Space, Table, Tag, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useStoreActions, useStoreState } from "hooks";
 import { MembersPayload } from "state/types";
+
+const { Paragraph } = Typography;
 // import { InputField } from "components";
 
 // const { Paragraph } = Typography;
@@ -40,19 +42,43 @@ export const MembersList = (props: Props) => {
     const columns: ColumnsType<MembersPayload> = [
         {
             title: "Usename",
-            dataIndex: "usename",
-            key: "usename",
-            render: (text, record) => <a href="/">{record.username}</a>,
+            dataIndex: "userName",
+            key: "userName",
+            render: (text, record) => <a href="/">{record.userName}</a>,
         },
         {
-            title: "Picked by",
+            title: "Initial password",
+            dataIndex: "initialPassword",
+            key: "initialPassword",
+            render: (text) =>
+                text ? <Paragraph style={{marginBottom: 0}} copyable>{text}</Paragraph> : "-",
+        },
+        {
+            title: "Chosen by",
             dataIndex: "picked_by",
             key: "picked_by",
-            render: (text) => (
+            render: (text, record) => (
                 <div>
-                    <span></span> {text}
+                    <span>{record?.pickedBy?.userName ? record?.pickedBy?.userName : "-"}</span>
                 </div>
             ),
+        },
+
+        {
+            title: "Has chosen?",
+            dataIndex: "picked",
+            key: "picked",
+            render: (text, record) => 
+                
+                    record?.pick && Object.keys(record?.pick).length > 0 ? 
+                    <Tag color="green">
+                    <span>Yes</span>
+                </Tag>
+                : <Tag color="red">
+                <span>Not yet</span>
+            </Tag>
+                
+            ,
         },
 
         {
@@ -60,7 +86,7 @@ export const MembersList = (props: Props) => {
             key: "action",
             render: (_, record) => (
                 <Space size="middle">
-                    {record?.isMatched ? (
+                    {record?.isMatched || (record?.pick && Object.keys(record?.pick).length > 0) ? (
                         <span className="disabled">
                             <DeleteOutlined />{" "}
                         </span>

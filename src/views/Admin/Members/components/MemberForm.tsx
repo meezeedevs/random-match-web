@@ -24,7 +24,7 @@ export const MemberForm = (props: Props) => {
                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                     <Col className="gutter-row" span={24}>
                         <InputField
-                            name="name"
+                            name="userName"
                             required={true}
                             message="Please input full name"
                             placeholder="Enter full name"

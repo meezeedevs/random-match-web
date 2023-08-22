@@ -50,7 +50,7 @@ body {
 
 .disabled{
   cursor: not-allowed;
-  color: lightgrey;
+  color: #e4e4e4;
 }
 
 .delete:hover {

@@ -99,7 +99,7 @@ const error = (error: any) => {
         notification.error({
             message: "Ooopss!!",
             description:
-                "Something went wrong, try again later and if it persist contact the IT team",
+                "Something went wrong, try again later or contact the IT team",
             duration: 0,
         });
 };
@@ -115,20 +115,8 @@ export const AuthModel: Login = {
     }),
 
     success: action((state, payload: any) => {
-        if (payload?.image) {
-            const data = {
-                ...state.user,
-                image: payload?.data,
-            };
-            state.user = data;
-        } else {
-            if (payload?.new) {
-                success();
-            }
             state.token = payload?.token;
             state.user = payload?.user;
-            // return (state.loading = payload);
-        }
     }),
     failure: action((state, payload: any) => {
         if (payload?.image) {
@@ -163,15 +151,15 @@ export const AuthModel: Login = {
             message.loading("Checking creadentials...", 1).then(() => {
                 actions.request(false as any);
                 message.success("Creadentials validated!", 1.2);
+               
+                message.success(`Welcome ${decoded.userName}`);
+                if (decoded.isAdmin) {
+                    redirectTo(routes.members);
+                } else redirectTo(routes.home);
                 actions.success({
                     user: decoded,
                     token: token,
-                    new: true,
                 } as any);
-                message.success(`Welcome ${decoded.lastName}`);
-                if (decoded.isAdmin) {
-                    // redirectTo(routes.dashboard);
-                } else redirectTo(routes.home);
 
                 // window.location.href = "/admin/dashboard";
                 // if (decoded.isInactive) {

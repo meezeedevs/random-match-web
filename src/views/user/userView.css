@@ -106,7 +106,7 @@ html {
     }
   }
 
-  .disabled{
+  .button-disabled{
     background-color: #b5b5b5 !important;
     cursor: not-allowed;
   }

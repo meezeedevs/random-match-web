@@ -2,9 +2,11 @@ import { Action, Thunk } from "easy-peasy";
 
 export interface MembersPayload {
     _id: any;
-    username: string;
+    userName: string;
+    password: string;
     isMatched: number;
-    picked_by: string
+    pickedBy?: any;
+    pick?: any
 }
 
 export interface Members {
