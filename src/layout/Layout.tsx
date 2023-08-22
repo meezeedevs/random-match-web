@@ -64,8 +64,8 @@ export const AppLayout = ({ children }: Props) => {
                 <div> {children}</div>
             ) : adminLayout ? (
                 <Layout style={{ height: "100vh" }}>
-                    <Sider trigger={null} width={250} collapsible collapsed={collapsed}>
-                        <SiderContent collapsed={collapsed} />
+                    <Sider trigger={null} width={250} collapsible collapsed={true}>
+                        <SiderContent collapsed={true} />
                     </Sider>
                     <Layout className="site-layout">
                         <Header
