@@ -13,10 +13,6 @@ import "antd/dist/reset.css";
 
 import "./App.css";
 
-import { inject } from '@vercel/analytics';
- 
-inject();
-
 // easy peasy having an issue with react v18's type script here is a workaround as to solve the issue
 const StoreProviderOverride = StoreProvider as any;
 
